@@ -151,7 +151,7 @@
             </a>
         </li><!-- End Dashboard Nav -->
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             @if($title == 'Laporan')
             <a class="nav-link " href="/laporan">
             @elseif($sub_title == 'Laporan')
@@ -162,7 +162,64 @@
             <i class="bi bi-file-earmark"></i>
                 <span>Laporan</span>
             </a>
-        </li><!-- End Dashboard Nav -->
+        </li><!-- End Dashboard Nav --> --}}
+
+        <li class="nav-item">
+            @if($title == 'Data')
+                <a class="nav-link" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+            @else
+                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+             @endif
+              <i class="bi bi-file-earmark"></i><span>Laporan</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse @if($title == 'Data') show @endif" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="/laporan" @if($sub_title == 'Laporan') class="active" @endif>
+                      <i class="bi bi-circle"></i><span>Laporan IPK Terdaftar</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/laporan-ipk-1" @if($sub_title == 'Laporan IPK-III-1') class="active" @endif>
+                      <i class="bi bi-circle"></i><span>Laporan IPK-III-1</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/laporan-ipk-2" @if($sub_title == 'Laporan IPK-III-2') class="active" @endif>
+                      <i class="bi bi-circle"></i><span>Laporan IPK-III-2</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/laporan-ipk-3" @if($sub_title == 'Laporan IPK-III-3') class="active" @endif>
+                      <i class="bi bi-circle"></i><span>Laporan IPK-III-3</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/laporan-ipk-4" @if($sub_title == 'Laporan IPK-III-4') class="active" @endif>
+                      <i class="bi bi-circle"></i><span>Laporan IPK-III-4</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/laporan-ipk-5" @if($sub_title == 'Laporan IPK-III-5') class="active" @endif>
+                      <i class="bi bi-circle"></i><span>Laporan IPK-III-5</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/laporan-ipk-6" @if($sub_title == 'Laporan IPK-III-6') class="active" @endif>
+                      <i class="bi bi-circle"></i><span>Laporan IPK-III-6</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/laporan-ipk-7" @if($sub_title == 'Laporan IPK-III-7') class="active" @endif>
+                      <i class="bi bi-circle"></i><span>Laporan IPK-III-7</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/laporan-ipk-8" @if($sub_title == 'Laporan IPK-III-8') class="active" @endif>
+                      <i class="bi bi-circle"></i><span>Laporan IPK-III-8</span>
+                    </a>
+                </li>
+            </ul>
+          </li><!-- End Components Nav -->
         @endif
 
         @if(auth::user()->level == 5)

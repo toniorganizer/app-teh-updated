@@ -10,9 +10,11 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PekerjaController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\BursaKerjaController;
+use App\Http\Controllers\DataPencariKerjaController;
 use App\Http\Controllers\KepentinganController;
 use Illuminate\Http\Request as IlluminateRequest;
 use App\Http\Controllers\PemberiInformasiController;
+use App\Models\DataPencariKerja;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
@@ -88,6 +90,13 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/search-semester', 'searchSemester')->name('search-semester');
             });
         Route::resource('/pemerintah', KepentinganController::class);
+    });
+
+    Route::group(['middleware' => ['CekUser:1,3']], function () {
+        Route::controller(DataPencariKerjaController::class)->group(function () {
+            Route::get('laporan-ipk-1', 'index');
+            Route::get('export-ipk-1', 'downlaodTemplate1');
+        });
     });
 
     Route::resource('/pekerja', PekerjaController::class);
