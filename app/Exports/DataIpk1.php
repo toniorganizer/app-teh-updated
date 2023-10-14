@@ -48,7 +48,7 @@ class DataIpk1 implements WithDrawings, WithStyles, WithTitle, FromView, WithCol
                 // Mengatur jenis huruf (font) untuk sel B2 sampai B5
                 'font' => ['name' => 'Tahoma', 'size' => 9, 'normal' => true],
             ],
-            'A8:U18' => [
+            'A8:T16' => [
                 'font' => ['name' => 'Tahoma', 'size' => 8, 'normal' => true],
                 'borders' => [
                     'allBorders' => [
@@ -72,29 +72,29 @@ class DataIpk1 implements WithDrawings, WithStyles, WithTitle, FromView, WithCol
             'Q8:U11' => [
                 'font' => ['bold' => true],
             ],
-            'A14:U14' => [
-                'font' => ['bold' => true],
-                'fill' => [
-                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                    'startColor' => ['rgb' => 'C5D9F1'], // Mengatur latar belakang menjadi kuning
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ],
-            ],
-            'A17:U17' => [
-                'font' => ['bold' => true],
-                'fill' => [
-                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                    'startColor' => ['rgb' => 'C5D9F1'], // Mengatur latar belakang menjadi kuning
-                ],
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ],
-            ],
-            'A8:U11' => [
+            // 'A14:U14' => [
+            //     'font' => ['bold' => true],
+            //     'fill' => [
+            //         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+            //         'startColor' => ['rgb' => 'C5D9F1'], // Mengatur latar belakang menjadi kuning
+            //     ],
+            //     'alignment' => [
+            //         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            //         'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            //     ],
+            // ],
+            // 'A17:U17' => [
+            //     'font' => ['bold' => true],
+            //     'fill' => [
+            //         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+            //         'startColor' => ['rgb' => 'C5D9F1'], // Mengatur latar belakang menjadi kuning
+            //     ],
+            //     'alignment' => [
+            //         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            //         'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            //     ],
+            // ],
+            'A8:T11' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'C5D9F1'], // Mengatur latar belakang menjadi kuning

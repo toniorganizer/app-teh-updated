@@ -18,9 +18,7 @@
                     {{ Storage::url('public/user/default/').Auth::user()->foto_user}}
                     @else
                     {{ Storage::url('public/user/').Auth::user()->foto_user}}
-                    @endif
-                    
-                    " alt="Profile" class="rounded-circle" />
+                    @endif" alt="Profile" class="rounded-circle" />
                     <span class="d-none d-md-block dropdown-toggle ps-2">{{Auth::user()->name}}</span> </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">

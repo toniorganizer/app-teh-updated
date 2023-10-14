@@ -10,8 +10,10 @@ class DataPencariKerja extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id_disnaker',
+        'tgl_1',
+        'tgl_2',
         'pencari_kerja',
-        'kelompok_umur',
         '15_L',
         '15_P',
         '20_L',
@@ -22,8 +24,8 @@ class DataPencariKerja extends Model
         '45_P',
         '55_L',
         '55_P',
+        'lowongan',
         'lowongan_L',
-        'lowongan_P',
-        'jml'
+        'lowongan_P'
     ];
 }

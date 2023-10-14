@@ -96,6 +96,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::controller(DataPencariKerjaController::class)->group(function () {
             Route::get('laporan-ipk-1', 'index');
             Route::get('export-ipk-1', 'downlaodTemplate1');
+            Route::post('import', 'importDataIPK1');
         });
     });
 

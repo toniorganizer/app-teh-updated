@@ -66,6 +66,7 @@ class KepentinganController extends Controller
      */
     public function show($id)
     {
+        // dd(Auth::user()->foto_user);
         $data = PemangkuKepentingan::join('users','users.email','=','pemangku_kepentingans.email_lembaga')->where('email_lembaga', $id)->first();
         return view('Dashboard.pemangku-kepentingan.profile-pemangku', [
             'sub_title' => 'Profile',
@@ -99,12 +100,13 @@ class KepentinganController extends Controller
         ]);
 
         $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+        // dd($data->foto_lembaga);
 
         if($request->hasFile('foto')){
 
             $foto = $request->file('foto');
             $foto->storeAs('public/user', $foto->hashName());
-            Storage::delete('public/user/'. $data->foto);
+            Storage::delete('public/user/'. $data->foto_lembaga);
 
             // dd($data);
 

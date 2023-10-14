@@ -34,26 +34,24 @@
 
                 <p>Silahkan buat terlebih dahulu rentang tanggal untuk laporan yang akan dibuat, kemudian pilih download untuk melakukan download template.</p>
 
-                <form id="search-form" action="/export-ipk-1">
+                <form id="search-form" action="/import" method="post" enctype="multipart/form-data">
+                    @csrf
                 <div class="row">
-                    <div class="col">
+                    <div class="col-md-4">
                         <input name="tgl1" type="date" class="form-control">
                     </div>
-                    <div class="col">
+                    <div class="col-md-4">
                         <input name="tgl2" type="date" class="form-control">
                     </div>
+                    <div class="col-md-3">
+                        <input type="file" name="file">
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-success mt-0"><i class="bi bi-cloud-arrow-up"></i></button>
+                    </div>
                 </div>
+                </form>
                 
-                @foreach($data as $d)
-                <div class="activity-item d-flex">
-                  <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                  {{-- <div class="activity-content">
-                    Pasar kerja <span class="fw-bold text-dark">bidang {{$d->bidang}} </span> berjumlah sebanyak <span class="fw-bold text-dark">{{$d->jumlah}} informasi lowongan</span>
-                  </div> --}}
-                </div><!-- End activity item-->
-                @endforeach
-              </div>
-
             </div>
           </div><!-- End Recent Activity -->
             </div>
@@ -61,16 +59,32 @@
                 <!-- Website Traffic -->
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mb-0">Download/Import</h5>
+                        <h5 class="card-title mb-0">Template</h5>
                         <div class="row">
                             <div class="col-lg-3">
                             <button type="submit" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></button>
                             </div>
                         </form>
+                        <a href="{{Storage::url('public/file/test2.xlsx')}}">Donload template</a>
                         <div class="col-lg-2">
-                            <button type="submit" class="btn btn-success mt-0"><i class="bi bi-cloud-arrow-up"></i></button>
+                            <form action="/import" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="col">
+                                    <input name="tgl1" type="date" class="form-control">
+                                </div>
+                                <div class="col">
+                                    <input name="tgl2" type="date" class="form-control">
+                                </div>
+                                <input type="file" name="file">
+                                <button type="submit" class="btn btn-success mt-0"><i class="bi bi-cloud-arrow-up"></i></button>
+                            </form>
                             </div>
                         </div>
+                        <h5 class="card-title mb-0">Download Hasil</h5>
+                        <div class="row">
+                            <div class="col-lg-3">
+                            <button type="submit" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></button>
+                            </div>
                     </div><!-- End Website Traffic -->
                 </div>
             </div>  
