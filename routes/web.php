@@ -56,6 +56,7 @@ Route::group(['middleware' => 'check', 'controller' => AdminController::class], 
     Route::post('/update-deskripsi-lowongan', 'update_deskripsi_lowongan');
     Route::get('/pekerjaan-data', 'pekerjaanData');
     Route::get('/tenaga-kerja-data', 'tenagaKerjaData');
+    Route::get('/pemangku-kepentingan-data', 'pemangkuKepentinganData');
 });
 
 // auth
@@ -83,6 +84,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/user-data', 'userData');
                 Route::post('/addTenagaKerja', 'tambahTenagaKerja');
                 Route::post('/register_user', 'registerUser');
+                Route::post('/register_lembaga', 'registerLembaga');
                 Route::get('/deleteTenagaKerja/{id}', 'hapusTenagaKerja');
                 Route::get('/uji-laporan', 'testLaporan')->name('uji-laporan');
                 Route::get('/cetak-laporan-semester', 'cetakLaporan')->name('cetak-laporan-semester');

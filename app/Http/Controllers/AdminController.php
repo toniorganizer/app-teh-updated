@@ -108,6 +108,15 @@ class AdminController extends Controller
         ]);
     }
 
+    public function pemangkuKepentinganData(){
+        $data = PemangkuKepentingan::get();
+        return view('Dashboard.admin.pemangku_kepentingan_data', [
+            'sub_title' => 'Data Pemangku Kepentingan',
+            'title' => 'Data',
+            'data' => $data
+        ]);
+    }
+
     // Yang diuji coba
     public function pekerjaanData(){
         $data = InformasiLowongan::get();
@@ -221,6 +230,58 @@ class AdminController extends Controller
     }
 
 
+    public function registerLembaga(Request $request){
+        $this->validate($request, [
+            'username' => 'required|min:5|unique:users',
+            'nama_lembaga' => 'required|min:5',
+            'email' => 'required|min:5|unique:users|email',
+            'password' => 'required|same:ulangi_password|min:6',
+            'ulangi_password' => 'required|same:password'
+        ],
+            [
+                'username.required' => 'Username tidak boleh kosong',
+                'username.min' => 'Username minimal berisi 5 karakter',
+                'username.unique' => 'Username yang anda masukan sudah terdaftar',
+                'nama_lembaga.required' => 'Nama lembaga tidak boleh kosong',
+                'nama_lembaga.min' => 'Nama lembaga minimal berisi 5 karakter',
+                'email.required' => 'Email lembaga tidak boleh kosong',
+                'email.unique' => 'Email lembaga yang anda masukan sudah terdaftar',
+                'email_lembaga.min' => 'Email lembaga minimal berisi 5 karakter',
+                'password.required' => 'Password tidak boleh kosong',
+                'password.min' => 'Password minimal berisi 6 karakter',
+                'password.same' => 'Password harus sama dengan konfirmasi password',
+                'ulangi_password.same' => 'Konfirmasi password harus sama dengan password',
+            ]
+        );
+
+        PemangkuKepentingan::create([
+            'nama_lembaga' => $request->nama_lembaga,
+            'bidang_lembaga' => '-',
+            'status_lembaga' => $request->status_lembaga,
+            'email_lembaga' =>  $request->email,
+            'website_lembaga' => '-',
+            'instagram_lembaga' => '-',
+            'facebook_lembaga' => '-',
+            'telepon_lembaga' => '-',
+            'alamat_lembaga' => '-',
+            'foto_lembaga' => 'default.jpg',
+        ]);
+
+        User::create([
+            'username' => $request->username,
+            'name' => $request->nama_lembaga,
+            'email' => $request->email,
+            'level' => 3,
+            'status_tracer' => 0,
+            'password' => Hash::make($request->password),
+            'foto_user' => 'default.jpg',
+        ]);
+
+        return redirect('/pemangku-kepentingan-data')->with('success', 'Data Berhasil Disimpan!');
+
+    }
+
+
     public function registerUser(Request $request){
         $this->validate($request, [
             'username' => 'required|min:5|unique:users',
@@ -275,6 +336,7 @@ class AdminController extends Controller
             PemangkuKepentingan::create([
                 'nama_lembaga' => $request->nama_user,
                 'bidang_lembaga' => '-',
+                'status_lembaga' => 0,
                 'email_lembaga' =>  $request->email,
                 'website_lembaga' => '-',
                 'instagram_lembaga' => '-',

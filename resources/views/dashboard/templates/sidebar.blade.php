@@ -38,6 +38,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/pemangku-kepentingan-data" @if($sub_title == 'Data Pemangku Kepentingan') class="active" @endif>
+                      <i class="bi bi-circle"></i><span>Data Pemangku Kepentingan</span>
+                    </a>
+                </li>
+                <li>
                     <a href="/pekerjaan-data" @if($sub_title == 'Data Pekerjaan') class="active" @endif>
                       <i class="bi bi-circle"></i><span>Data Pekerjaan</span>
                     </a>
