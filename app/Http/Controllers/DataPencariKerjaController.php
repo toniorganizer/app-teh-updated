@@ -37,12 +37,44 @@ class DataPencariKerjaController extends Controller
      }
 
      public function importDataIPK1(Request $request){
-        // dd($request->file('file'));  
-        $bulan1 = $request->input('tgl1');
-        $bulan2 = $request->input('tgl2');      
 
-        Excel::import(new DataPencariKerjaImport($bulan1, $bulan2), $request->file('file'));
+        // $data = DataPencariKerja::where('id_disnaker', Auth::user()->email)->first();
+
+        // if($data == null){
+            $bulan1 = $request->input('tgl1');
+            $bulan2 = $request->input('tgl2');      
+    
+            Excel::import(new DataPencariKerjaImport($bulan1, $bulan2), $request->file('file'));
+            
+            return redirect('/laporan-ipk-1')->with('success', 'Import data berhasil dilakukan!');
         
-        return redirect('/laporan-ipk-1')->with('success', 'All good!');
+     }
+
+     public function editLaporanI($id){
+        $data = DataPencariKerja::where('nmr', $id)->where('id_disnaker', Auth::user()->email)->first();
+        
+        return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_a', [
+            'sub_title' => 'Laporan IPK-III-1',
+            'title' => 'Data Laporan IPK-III-1',
+            'data' => $data
+        ]);
+
+     }
+
+     public function updateLaporanI(Request $request, $id){
+        // dd($request->{'15_L'});
+        DataPencariKerja::where('nmr', $id)->where('id_disnaker', Auth::user()->email)->update([
+            '15_L' => $request->{'15_L'},
+            '15_P' => $request->{'15_P'},
+            '20_L' => $request->{'20_L'},
+            '20_P' => $request->{'20_P'},
+            '30_L' => $request->{'30_L'},
+            '30_P' => $request->{'30_P'},
+            '45_L' => $request->{'45_L'},
+            '45_P' => $request->{'45_P'},
+            '55_L' => $request->{'55_L'},
+            '55_P' => $request->{'55_P'},
+        ]);
+        return redirect('/laporan-ipk-1')->with('success', 'Update data berhasil dilakukan');
      }
 }

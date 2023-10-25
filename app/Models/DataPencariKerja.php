@@ -11,6 +11,7 @@ class DataPencariKerja extends Model
 
     protected $fillable = [
         'id_disnaker',
+        'nmr',
         'tgl_1',
         'tgl_2',
         'pencari_kerja',

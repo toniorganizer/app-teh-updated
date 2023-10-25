@@ -99,6 +99,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('laporan-ipk-1', 'index');
             Route::get('export-ipk-1', 'downlaodTemplate1');
             Route::post('import', 'importDataIPK1');
+            Route::get('/edit-laporan-i/{id}', 'editLaporanI');
+            Route::post('/update-laporan-i/{id}', 'updateLaporanI');
         });
     });
 
