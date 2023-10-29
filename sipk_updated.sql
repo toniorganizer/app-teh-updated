@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2023 at 07:19 AM
+-- Generation Time: Oct 29, 2023 at 03:54 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sipk`
+-- Database: `sipk_updated`
 --
 
 -- --------------------------------------------------------
@@ -78,6 +78,63 @@ INSERT INTO `bursa_kerjas` (`id_bkk`, `nama_sekolah`, `email_sekolah`, `website_
 (1, 'SMKN 1 Koto Besar', 'smkn1kobes@gmail.com', '-', '-', '-', '-', '-', 'default.jpg', '2023-08-23 23:08:57', '2023-08-23 23:08:57'),
 (2, 'SMKN 1 Sungai Rumbai', 'smkn1sungairumba@gmail.com', '-', '-', 'smkn1sungairumbaiofficial', '-', '-', '5kuOi23xLE5duE9OGtSEBsLrkArUtc3kMxzGMavT.jpg', '2023-08-25 01:23:19', '2023-08-25 02:21:06'),
 (3, 'SMKN 1 Koto Baru', 'smkn1kobar@gmail.com', '-', '-', '-', '-', '-', 'default.jpg', '2023-10-06 06:24:45', '2023-10-06 06:24:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_pencari_kerjas`
+--
+
+CREATE TABLE `data_pencari_kerjas` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_disnaker` varchar(254) NOT NULL,
+  `nmr` varchar(11) NOT NULL,
+  `tgl_1` varchar(254) NOT NULL,
+  `tgl_2` varchar(254) NOT NULL,
+  `pencari_kerja` varchar(255) NOT NULL,
+  `15_L` varchar(24) NOT NULL,
+  `15_P` varchar(24) NOT NULL,
+  `20_L` varchar(24) NOT NULL,
+  `20_P` varchar(24) NOT NULL,
+  `30_L` varchar(24) NOT NULL,
+  `30_P` varchar(24) NOT NULL,
+  `45_L` varchar(24) NOT NULL,
+  `45_P` varchar(24) NOT NULL,
+  `55_L` varchar(24) NOT NULL,
+  `55_P` varchar(24) NOT NULL,
+  `L` varchar(34) NOT NULL,
+  `P` varchar(34) NOT NULL,
+  `jml` varchar(34) NOT NULL,
+  `lowongan` varchar(254) NOT NULL,
+  `lowongan_L` varchar(24) NOT NULL,
+  `lowongan_P` varchar(24) NOT NULL,
+  `jml_lowongan` varchar(34) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `data_pencari_kerjas`
+--
+
+INSERT INTO `data_pencari_kerjas` (`id`, `id_disnaker`, `nmr`, `tgl_1`, `tgl_2`, `pencari_kerja`, `15_L`, `15_P`, `20_L`, `20_P`, `30_L`, `30_P`, `45_L`, `45_P`, `55_L`, `55_P`, `L`, `P`, `jml`, `lowongan`, `lowongan_L`, `lowongan_P`, `jml_lowongan`, `created_at`, `updated_at`) VALUES
+(161, 'disnaker@gmail.com', '1', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari kerja yang belum ditempatkan pada tahun sebelumnya', '8', '31', '32', '12', '12', '312', '12', '312', '31', '321', '', '', '', 'Lowongan yang belum dipenuhi tahun sebelumnya', '234', '23', '', '2023-10-13 08:15:22', '2023-10-29 05:31:03'),
+(162, 'disnaker@gmail.com', '2', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari kerja yang terdaftar pada tahun ini', '4', '31', '312', '312', '312', '312', '3122', '312', '1', '312', '', '', '', 'Lowongan yang terdaftar tahun ini', '342', '23', '', '2023-10-13 08:15:22', '2023-10-13 08:15:22'),
+(163, 'disnaker@gmail.com', '3', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari Kerja yang ditempatkan pada tahun ini', '12', '23', '312', '123', '31', '13', '23', '12', '32', '123', '', '', '', 'Lowongan yang dipenuhi tahun ini', '23', '23', '', '2023-10-13 08:15:22', '2023-10-13 08:15:22'),
+(164, 'disnaker@gmail.com', '4', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari Kerja yang dihapuskan dalam tahun ini', '23', '123', '23', '12', '32', '32', '43', '123', '32', '123', '', '', '', 'Lowongan yang dihapuskan tahun ini', '234', '35', '', '2023-10-13 08:15:22', '2023-10-25 06:54:03'),
+(165, 'disnaker@gmail.com', '5', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari Kerja yang belum ditempatkan pada akhir tahun ini (A-B)', '232', '123', '23', '12', '32', '32', '43', '123', '32', '123', '', '', '', 'Lowongan yang belum dipenuhi akhir tahun ini', '234', '34', '', '2023-10-13 08:15:22', '2023-10-13 08:15:22'),
+(200, 'disnaker_sijunjung@gmail.com', '1', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari kerja yang belum ditempatkan pada tahun sebelumnya', '12', '3', '12', '23', '2', '12', '23', '12', '12', '3', '', '', '', 'Lowongan yang belum dipenuhi tahun sebelumnya', '1', '2', '', '2023-10-24 19:38:18', '2023-10-24 19:38:18'),
+(201, 'disnaker_sijunjung@gmail.com', '2', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari kerja yang terdaftar pada tahun ini', '2', '2', '32', '32', '2', '3', '12', '32', '12', '2', '', '', '', 'Lowongan yang terdaftar tahun ini', '3', '3', '', '2023-10-24 19:38:18', '2023-10-24 19:38:18'),
+(202, 'disnaker_sijunjung@gmail.com', '3', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari Kerja yang ditempatkan pada tahun ini', '3', '12', '3', '12', '12', '3', '2', '1', '3', '2', '', '', '', 'Lowongan yang dipenuhi tahun ini', '3', '4', '', '2023-10-24 19:38:18', '2023-10-24 19:38:18'),
+(203, 'disnaker_sijunjung@gmail.com', '4', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari Kerja yang dihapuskan dalam tahun ini', '4', '3', '23', '2', '2', '3', '32', '2', '3', '32', '', '', '', 'Lowongan yang dihapuskan tahun ini', '4', '4', '', '2023-10-24 19:38:18', '2023-10-24 19:38:18'),
+(204, 'disnaker_sijunjung@gmail.com', '5', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari Kerja yang belum ditempatkan pada akhir tahun ini (A-B)', '53', '4', '2', '1', '23', '3', '4', '3', '2', '1', '', '', '', 'Lowongan yang belum dipenuhi akhir tahun ini', '4', '4', '', '2023-10-24 19:38:18', '2023-10-24 19:38:18'),
+(323, 'disnaker_dharmas@gmail.com', '1', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari kerja yang belum ditempatkan pada tahun sebelumnya', '3', '0', '4', '0', '0', '0', '0', '0', '0', '0', '=SUM(C12+E12+G12+I12+K12)', '=SUM(D12+F12+H12+J12+L12)', '=SUM(M12:N12)', 'Lowongan yang belum dipenuhi tahun sebelumnya', '0', '3', '=SUM(R12:S12)', '2023-10-29 07:48:04', '2023-10-29 07:48:04'),
+(324, 'disnaker_dharmas@gmail.com', '2', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari kerja yang terdaftar pada tahun ini', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '=SUM(C13+E13+G13+I13+K13)', '=SUM(D13+F13+H13+J13+L13)', '=SUM(M13:N13)', 'Lowongan yang terdaftar tahun ini', '2', '0', '=SUM(R13:S13)', '2023-10-29 07:48:04', '2023-10-29 07:48:04'),
+(325, 'disnaker_dharmas@gmail.com', 'A.', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Jumlah (1+2)', '=SUM(C12:C13)', '=SUM(D12:D13)', '=SUM(E12:E13)', '=SUM(F12:F13)', '=SUM(G12:G13)', '=SUM(H12:H13)', '=SUM(I12:I13)', '=SUM(J12:J13)', '=SUM(K12:K13)', '=SUM(L12:L13)', '=SUM(C14,E14,G14,I14,K14)', '=SUM(D14,F14,H14,J14,L14)', '=SUM(M14:N14)', '0', '=SUM(R12:R13)', '=SUM(S12:S13)', '=SUM(R14:S14)', '2023-10-29 07:48:04', '2023-10-29 07:48:04'),
+(326, 'disnaker_dharmas@gmail.com', '3', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari Kerja yang ditempatkan pada tahun ini', '0', '0', '4', '5', '0', '0', '0', '0', '0', '0', '=SUM(C15,E15,G15,I15,K15)', '=SUM(D15+F15+H15+J15+L15)', '=SUM(M15:N15)', 'Lowongan yang dipenuhi tahun ini', '3', '0', '=SUM(R15:S15)', '2023-10-29 07:48:04', '2023-10-29 07:48:04'),
+(327, 'disnaker_dharmas@gmail.com', '4', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari Kerja yang dihapuskan dalam tahun ini', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '=SUM(C16,E16,G16,I16,K16)', '=SUM(D16+F16+H16+J16+L16)', '=SUM(M16:N16)', 'Lowongan yang dihapuskan tahun ini', '0', '3', '=SUM(R16:S16)', '2023-10-29 07:48:04', '2023-10-29 07:48:04'),
+(328, 'disnaker_dharmas@gmail.com', 'B.', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Jumah (3+4)', '=SUM(C15:C16)', '=SUM(D15:D16)', '=SUM(E15:E16)', '=SUM(F15:F16)', '=SUM(G15:G16)', '=SUM(H15:H16)', '=SUM(I15:I16)', '=SUM(J15:J16)', '=SUM(K15:K16)', '=SUM(L15:L16)', '=SUM(C17+E17+G17+I17+K17)', '=SUM(D17+F17+H17+J17+L17)', '=SUM(M17:N17)', '0', '=SUM(R15:R16)', '=SUM(S15:S16)', '=SUM(R17:S17)', '2023-10-29 07:48:04', '2023-10-29 07:48:04'),
+(329, 'disnaker_dharmas@gmail.com', '5', '1 OKTOBER 2023', '31 OKTOBER 2023', 'Pencari Kerja yang belum ditempatkan pada akhir tahun ini (A-B)', '=C14-C17', '=D14-D17', '=E14-E17', '=F14-F17', '=G14-G17', '=H14-H17', '=I14-I17', '=J14-J17', '=K14-K17', '=L14-L17', '=SUM(C18+E18+G18+I18+K18)', '=SUM(D18+F18+H18+J18+L18)', '=SUM(M18:N18)', 'Lowongan yang belum dipenuhi akhir tahun ini', '=R14-R17', '=S14-S17', '=SUM(R18:S18)', '2023-10-29 07:48:04', '2023-10-29 07:48:04');
 
 -- --------------------------------------------------------
 
@@ -227,7 +284,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (14, '2023_09_11_143207_tambah_softdeletes', 7),
 (15, '2023_09_11_145134_tambah_ipk_softdeletes', 8),
 (16, '2023_09_20_031748_create_laporans_table', 9),
-(17, '2023_09_20_061056_create_laporans_table', 10);
+(17, '2023_09_20_061056_create_laporans_table', 10),
+(18, '2023_10_11_133619_create_data_pencari_kerjas_table', 11);
 
 -- --------------------------------------------------------
 
@@ -251,6 +309,7 @@ CREATE TABLE `pemangku_kepentingans` (
   `id_pemangku_kepentingan` bigint(20) UNSIGNED NOT NULL,
   `nama_lembaga` varchar(255) NOT NULL,
   `bidang_lembaga` varchar(255) NOT NULL,
+  `status_lembaga` int(11) NOT NULL,
   `email_lembaga` varchar(255) NOT NULL,
   `website_lembaga` varchar(255) NOT NULL,
   `instagram_lembaga` varchar(255) NOT NULL,
@@ -266,9 +325,11 @@ CREATE TABLE `pemangku_kepentingans` (
 -- Dumping data for table `pemangku_kepentingans`
 --
 
-INSERT INTO `pemangku_kepentingans` (`id_pemangku_kepentingan`, `nama_lembaga`, `bidang_lembaga`, `email_lembaga`, `website_lembaga`, `instagram_lembaga`, `facebook_lembaga`, `telepon_lembaga`, `alamat_lembaga`, `foto_lembaga`, `created_at`, `updated_at`) VALUES
-(1, 'Dinas Tenaga Kerja Sumbar', 'Tenaga kerja dan transmigrasi', 'disnaker@gmail.com', 'https://nakertrans.sumbarprov.go.id/', '-', '-', '075127417', 'Jl. Ujung Gurun No.7, Ujung Gurun, Kec. Padang Bar., Kota Padang, Sumatera Barat 25114', 'n4ljLrkxmqo3hyc4XcyNNcYcWa7AJRhqwIXFCcH1.png', '2023-08-26 07:12:09', '2023-10-04 05:25:41'),
-(2, 'Dinas Pendidikan Sumbar', 'Pendidikan', 'disdiksumbar@gmail.com', '-', '-', '-', '-', '-', 'default.jpg', '2023-10-04 18:58:52', '2023-10-09 22:15:04');
+INSERT INTO `pemangku_kepentingans` (`id_pemangku_kepentingan`, `nama_lembaga`, `bidang_lembaga`, `status_lembaga`, `email_lembaga`, `website_lembaga`, `instagram_lembaga`, `facebook_lembaga`, `telepon_lembaga`, `alamat_lembaga`, `foto_lembaga`, `created_at`, `updated_at`) VALUES
+(1, 'Dinas Tenaga Kerja Sumbar', 'Tenaga kerja dan transmigrasi', 0, 'disnaker@gmail.com', 'https://nakertrans.sumbarprov.go.id/', '-', '-', '075127417', 'Jl. Ujung Gurun No.7, Ujung Gurun, Kec. Padang Bar., Kota Padang, Sumatera Barat 25114', 'nUXDJEXFeslNnXt7QYnPhY1AwfkAS6O8gp8O0yBn.png', '2023-08-26 07:12:09', '2023-10-11 23:53:16'),
+(2, 'Dinas Pendidikan Sumbar', 'Pendidikan', 0, 'disdiksumbar@gmail.com', '-', '-', '-', '-', '-', 'default.jpg', '2023-10-04 18:58:52', '2023-10-09 22:15:04'),
+(3, 'Dinas Tenaga Kerja Dharmasraya', '-', 1, 'disnaker_dharmas@gmail.com', '-', '-', '-', '-', '-', 'default.jpg', '2023-10-21 07:18:44', '2023-10-21 07:18:44'),
+(4, 'Dinas Tenaga Kerja Sijunjung', '-', 1, 'disnaker_sijunjung@gmail.com', '-', '-', '-', '-', '-', 'default.jpg', '2023-10-24 06:20:29', '2023-10-24 06:20:29');
 
 -- --------------------------------------------------------
 
@@ -421,12 +482,14 @@ INSERT INTO `users` (`id_user`, `name`, `email`, `username`, `email_verified_at`
 (9, 'Percetakan Abdi', 'abdipercetakan@gmail.com', 'abdi_percetakan', NULL, '$2y$10$8km0sgNfuyp.1FC99AOZlex7JrNTRBhLsicYw8yoEKaj/P7Q3W6T2', '4', 0, '9n6qjsKuMX8Uz7bI5RwGcab2taIgSxlw3tpO9I2v.jpg', NULL, '2023-08-17 16:18:12', '2023-08-22 07:30:57'),
 (10, 'SMKN 1 Koto Besar', 'smkn1kobes@gmail.com', 'smkn1kobes', NULL, '$2y$10$gwEf4yysreb8vrjwMqgyi.C1JO6tnRPWHupLvJ12rHcDcyO96eQaG', '5', 0, 'default.jpg', NULL, '2023-08-23 23:08:57', '2023-08-23 23:08:57'),
 (11, 'SMKN 1 Sungai Rumbai', 'smkn1sungairumba@gmail.com', 'smkn1sungairumbai', NULL, '$2y$10$Ff2AP3AH9Tcgd1Hyfq75GufxnorFLOkpzF4tkXZ.Xidp7azjpphli', '5', 0, '5kuOi23xLE5duE9OGtSEBsLrkArUtc3kMxzGMavT.jpg', NULL, '2023-08-25 01:23:20', '2023-08-25 02:21:06'),
-(13, 'Dinas Tenaga Kerja Sumbar', 'disnaker@gmail.com', 'disnakertrans', NULL, '$2y$10$4W8eGHsRNpyaeQn6Wn821OhmdL4hYNRGuWaetLzsMG0FdfDrTL2Ay', '3', 0, 'n4ljLrkxmqo3hyc4XcyNNcYcWa7AJRhqwIXFCcH1.png', NULL, '2023-08-26 07:12:09', '2023-10-04 05:25:41'),
+(13, 'Dinas Tenaga Kerja Sumbar', 'disnaker@gmail.com', 'disnakertrans', NULL, '$2y$10$4W8eGHsRNpyaeQn6Wn821OhmdL4hYNRGuWaetLzsMG0FdfDrTL2Ay', '3', 0, 'nUXDJEXFeslNnXt7QYnPhY1AwfkAS6O8gp8O0yBn.png', NULL, '2023-08-26 07:12:09', '2023-10-11 23:53:16'),
 (15, 'Febri restu', 'febri@gmail.com', 'febri08', NULL, '$2y$10$JqI1n8bW7BgljQQzz7IrHO7e8msqfQ5e5UsGXjtWmsHXRGY3xvkzC', '2', 0, 'default.jpg', NULL, '2023-09-19 16:05:13', '2023-09-19 16:05:13'),
 (16, 'Hermansyah', 'herman@gmail.com', 'herman_23', NULL, '$2y$10$zB93toPdMcejcIYOk7bIe.GFHd5x.PhEnDzRVH2EcPj/upx49Koea', '2', 1, 'SHWokBzPgEYzULJ56jw8J7DyRnPKtpJaCu3R4aBp.jpg', NULL, '2023-10-03 06:16:28', '2023-10-07 05:08:40'),
 (17, 'Dinas Pendidikan Sumbar', 'disdiksumbar@gmail.com', 'disdiksmbr', NULL, '$2y$10$DjSUYG0c0eWJheOdBYaXA.yo6T20A3cW4hucvXC2vHWs8evpPsovW', '3', 0, 'default.jpg', NULL, '2023-10-04 18:58:52', '2023-10-09 22:15:04'),
 (18, 'PT. DSL', 'dsl@gmail.com', 'dsl_sejahtera', NULL, '$2y$10$WOyrEurRsK1ycc8OLW4nMuNdpHcKCd39/.2mn7ftovZ84dN5IvqAi', '4', 0, 'KsQiUn34KqY5QKuMvmUDX9cKlaRM7PqMgspgJbPA.jpg', NULL, '2023-10-06 06:00:59', '2023-10-06 06:12:25'),
-(19, 'SMKN 1 Koto Baru', 'smkn1kobar@gmail.com', 'smkn1kobar', NULL, '$2y$10$YWyBpBvuCRQVSwaF.iHoIuIVKlkGkgpgwOkuJwifBkCeoXp6fXpq2', '5', 0, 'default.jpg', NULL, '2023-10-06 06:24:46', '2023-10-06 06:24:46');
+(19, 'SMKN 1 Koto Baru', 'smkn1kobar@gmail.com', 'smkn1kobar', NULL, '$2y$10$YWyBpBvuCRQVSwaF.iHoIuIVKlkGkgpgwOkuJwifBkCeoXp6fXpq2', '5', 0, 'default.jpg', NULL, '2023-10-06 06:24:46', '2023-10-06 06:24:46'),
+(20, 'Dinas Tenaga Kerja Dharmasraya', 'disnaker_dharmas@gmail.com', 'disnaker_dharmas', NULL, '$2y$10$9z/BHT1IgxLWnMgs6Cy.iusF2siupwWUImv8wR423pMVlikY16qNu', '3', 0, 'default.jpg', NULL, '2023-10-21 07:19:14', '2023-10-21 07:19:14'),
+(21, 'Dinas Tenaga Kerja Sijunjung', 'disnaker_sijunjung@gmail.com', 'disnaker_sijun', NULL, '$2y$10$jkqtp0Us5TTgeXR8rYw0NeYIJSuisCxtyTG.43xQ93kI5sBHMQgru', '3', 0, 'default.jpg', NULL, '2023-10-24 06:20:30', '2023-10-24 06:20:30');
 
 --
 -- Indexes for dumped tables
@@ -443,6 +506,12 @@ ALTER TABLE `alumnis`
 --
 ALTER TABLE `bursa_kerjas`
   ADD PRIMARY KEY (`id_bkk`);
+
+--
+-- Indexes for table `data_pencari_kerjas`
+--
+ALTER TABLE `data_pencari_kerjas`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -540,6 +609,12 @@ ALTER TABLE `bursa_kerjas`
   MODIFY `id_bkk` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `data_pencari_kerjas`
+--
+ALTER TABLE `data_pencari_kerjas`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=330;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -567,13 +642,13 @@ ALTER TABLE `laporans`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `pemangku_kepentingans`
 --
 ALTER TABLE `pemangku_kepentingans`
-  MODIFY `id_pemangku_kepentingan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pemangku_kepentingan` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pemberi_informasis`
@@ -603,7 +678,7 @@ ALTER TABLE `sumbers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
