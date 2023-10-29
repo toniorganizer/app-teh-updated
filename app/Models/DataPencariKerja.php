@@ -25,8 +25,12 @@ class DataPencariKerja extends Model
         '45_P',
         '55_L',
         '55_P',
+        'L',
+        'P',
+        'jml',
         'lowongan',
         'lowongan_L',
-        'lowongan_P'
+        'lowongan_P',
+        'jml_lowongan'
     ];
 }

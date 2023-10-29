@@ -54,9 +54,13 @@ class DataPencariKerjaImport implements ToModel, WithHeadingRow
                 '45_P' => $row['u9'],
                 '55_L' => $row['u10'],
                 '55_P' => $row['u11'],
+                'L' => $row['u12'],
+                'P' => $row['u13'],      
+                'jml' => $row['u14'],
                 'lowongan' => $row['lowongan1'],
                 'lowongan_L' => $row['l2'],
-                'lowongan_P' => $row['l3']
+                'lowongan_P' => $row['l3'],
+                'jml_lowongan' => $row['l4']
             ]);
         
     }

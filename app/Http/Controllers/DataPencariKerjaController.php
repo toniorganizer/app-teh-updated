@@ -4,21 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Exports\DataIpk1;
 use Illuminate\Http\Request;
+use App\Exports\CetakLaporanI;
 use App\Imports\DataIPK1Import;
 use App\Models\DataPencariKerja;
+use App\Models\PemangkuKepentingan;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\DataIPK1 as ImportsDataIPK1;
 use App\Imports\DataPencariKerjaImport;
-use App\Models\PemangkuKepentingan;
+use App\Imports\DataIPK1 as ImportsDataIPK1;
 
 class DataPencariKerjaController extends Controller
 {
     public function index(){
         $data = DataPencariKerja::get();
         $kab = PemangkuKepentingan::where('status_lembaga', 1)->get();
-        $datalaporan = DataPencariKerja::where('id_disnaker', Auth::user()->email)->get();
+        $excludedNumbers = ['A.', 'B.', 5];
+        $datalaporan = DataPencariKerja::where('id_disnaker', Auth::user()->email)->whereNotIn('nmr', $excludedNumbers)->get();
+        // dd($datalaporan);
         return view('Dashboard.admin.data_laporan_I', [
             'sub_title' => 'Laporan IPK-III-1',
             'title' => 'Data',
@@ -74,7 +77,15 @@ class DataPencariKerjaController extends Controller
             '45_P' => $request->{'45_P'},
             '55_L' => $request->{'55_L'},
             '55_P' => $request->{'55_P'},
+            'lowongan_L' => $request->lowongan_L,
+            'lowongan_P' => $request->lowongan_P
         ]);
         return redirect('/laporan-ipk-1')->with('success', 'Update data berhasil dilakukan');
+     }
+
+     public function CetakLaporanI($id){
+
+        return Excel::download(new CetakLaporanI($id), 'Laporan.xlsx');
+
      }
 }

@@ -106,16 +106,16 @@
                         <h5 class="card-title mb-0">Template</h5>
                         <div class="row">
                             <div class="col-lg-3">
-                            <a href="{{Storage::url('public/file/Template-IPK-III-1.xlsx')}}" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
+                            <a href="{{Storage::url('public/file/Template.xlsx')}}" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
                             </div>
                         </div>
                         <h5 class="card-title mb-0">Download Hasil</h5>
                         <div class="row">
                             <div class="col-lg-3">
-                            <button type="submit" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></button>
+                            <a href="/cetak-laporan-i/{{Auth::user()->email}}" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
                             </div>
                         </div><!-- End Website Traffic -->
-                        @if(Auth::user()->email == 'disnaker@sumbar')
+                        @if(Auth::user()->email == 'disnaker@gmail.com')
                         <h5 class="card-title mb-0">Laporan Kab/Kota</h5>
                         <div class="activity">
                             @foreach($kab as $data)

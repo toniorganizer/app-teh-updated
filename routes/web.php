@@ -101,6 +101,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('import', 'importDataIPK1');
             Route::get('/edit-laporan-i/{id}', 'editLaporanI');
             Route::post('/update-laporan-i/{id}', 'updateLaporanI');
+            Route::get('/cetak-laporan-i/{id}','CetakLaporanI');
         });
     });
 
