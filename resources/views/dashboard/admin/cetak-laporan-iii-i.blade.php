@@ -18,7 +18,7 @@
         <tr>
                 <td>{{$laporan->nmr}}</td>
                 <td>{{ $laporan->pencari_kerja }}</td>
-                <td>{{ $laporan->{'15_L'} }}</td>
+                <td>{{ += $laporan->{'15_L'} }}</td>
                 <td>{{ $laporan->{'15_P'} }}</td>
                 <td>{{ $laporan->{'20_L'} }}</td>
                 <td>{{ $laporan->{'20_P'} }}</td>

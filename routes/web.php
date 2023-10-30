@@ -102,6 +102,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/edit-laporan-i/{id}', 'editLaporanI');
             Route::post('/update-laporan-i/{id}', 'updateLaporanI');
             Route::get('/cetak-laporan-i/{id}','CetakLaporanI');
+            Route::get('/detail-laporan-kab/{id}', 'DetailLaporanKab');
         });
     });
 

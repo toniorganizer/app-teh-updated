@@ -38,6 +38,7 @@
                 <div class="row">
                     <h6>Pencari kerja</h6>
                     <div class="col-md-6">
+                      <input type="hidden" value="{{$data->id_disnaker}}" name="id_disnaker" id="">
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Laki-laki Umur 15-20</label>
                             <div class="col-sm-7">
