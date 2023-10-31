@@ -155,9 +155,11 @@
             <div class="card-body">
               <h5 class="card-title">Laporan-IPK-III-1</h5>
               <div class="activity">
+                <p style="text-align: justify">  @if($aturan->status_lembaga == 1)<span class="fw-bold text-dark">Edit data dapat dilakukan dengan menekan tombol pada kolom action. Tombol hapus, digunakan untuk menghapus keseluruhan data yang sudah di import, hal ini bisa dilakukan jika ingin melakukan import ulang.</span>@endif</p>
+
                 <p style="text-align: justify">Pelaksanaan pembuatan laporan dapat dilakukan dengan download template terlebih dahulu, kemudian isi template berdasarkan data laporan yang ada. Pastikan setiap kolom terisi dengan benar sebelum melakukan import data.</p>
 
-                <p>Silahkan buat terlebih dahulu rentang tanggal terhadap laporan yang telah dibuat, kemudian pilih file laporan berdasarkan template yang sudah terisi data, selanjutnya pilih import. @if($aturan->status_lembaga == 1)<span class="fw-bold text-dark">Edit data dapat dilakukan dengan menekan tombol pada kolom action.</span>@endif</p>
+                <p style="text-align: justify">Silahkan buat terlebih dahulu rentang tanggal terhadap laporan yang telah dibuat, kemudian pilih file laporan berdasarkan template yang sudah terisi data, selanjutnya pilih import. </p>
 
                 <form id="search-form" action="/import" method="post" enctype="multipart/form-data">
                     @csrf
@@ -186,11 +188,16 @@
                 <!-- Website Traffic -->
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mb-0">Template</h5>
+                        <h5 class="card-title mb-0">Template  @if($aturan->status_lembaga == 1) & Delete @endif</h5>
                         <div class="row">
                             <div class="col-lg-3">
                             <a href="{{Storage::url('public/file/Template.xlsx')}}" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
                             </div>
+                            @if($aturan->status_lembaga == 1)
+                            <div class="col-lg-3">
+                                <a href="/delete-laporan-i/{{Auth::user()->email}}" class="btn btn-danger mt-0" onclick="return confirm('Anda yakin ingin menghapus data laporan IPK-III-I ?')"><i class="bi bi-trash3"></i></a>
+                            </div>
+                            @endif
                         </div>
                         <h5 class="card-title mb-0">Download Hasil</h5>
                         <div class="row">

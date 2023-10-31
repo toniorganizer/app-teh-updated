@@ -100,6 +100,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('export-ipk-1', 'downlaodTemplate1');
             Route::post('import', 'importDataIPK1');
             Route::get('/edit-laporan-i/{id}', 'editLaporanI');
+            Route::get('/delete-laporan-i/{id}', 'deleteLaporanI');
             Route::post('/update-laporan-i/{id}', 'updateLaporanI');
             Route::get('/cetak-laporan-i/{id}','CetakLaporanI');
             Route::get('/detail-laporan-kab/{id}', 'DetailLaporanKab');

@@ -211,8 +211,13 @@ class DataPencariKerjaController extends Controller
         }
      }
 
-     public function CetakLaporanI($id){
+     public function deleteLaporanI($id){
+        DataPencariKerja::where('id_disnaker', $id)->delete();
+        return redirect('/laporan-ipk-1')->with('success', 'Hapus data berhasil dilakukan');
+     }
 
+     public function CetakLaporanI($id){
+// dd($id);
         return Excel::download(new CetakLaporanI($id), 'Laporan.xlsx');
 
      }
