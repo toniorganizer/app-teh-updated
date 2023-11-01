@@ -756,7 +756,7 @@ class AdminController extends Controller
             'jumlah_informasi_male_female' => $jumlahInformasiMaleFemale,
             'jumlah_informasi' => $jumlahInformasi,
             'sub_title' => 'Laporan',
-            'title' => 'Data'
+            'title' => 'DataIPK'
         ]);
     }
 

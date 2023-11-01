@@ -30,39 +30,31 @@ class LoginController extends Controller
 
     public function login_action(Request $request)
     {
-        $request->validate(
-            [
-                'username' => 'required',
-                'password' => 'required',
-            ],
-            [
-                'username.required' => 'Username tidak boleh kosong',
-                'password.required' => 'Password tidak boleh kosong',
-            ]
-        );
-
-        $credentials = $request->only('username', 'password');
-
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ], [
+            'username.required' => 'Username tidak boleh kosong',
+            'password.required' => 'Password tidak boleh kosong',
+        ]);
+        
+        $username = $request->input('username');
+        $password = $request->input('password');
+        
+        $user = User::where('username', $username)->first();
+        
+        if (!$user) {
+            return back()->with('not-registered', 'Akun belum terdaftar, Silahkan lakukan pendaftaran');
+        }
+        
+        $credentials = compact('username', 'password');
+        
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            $user = Auth::user();
-            // if ($user->level == 1) {
-            //     return redirect()->intended('dashboard-admin');
-            // } else {
-            //     return redirect()->intended('dashboard-pekerja');
-            // }
-            if ($user) {
-                return redirect()->intended('/home');
-            }
-            return redirect()->intended('/login');
-        }else{
-            return back()->with('not-registered', 'Akun belum terdaftar, Silahkan lakukan penaftaran');
+            return redirect()->intended('/home');
         }
+        
         return back()->with('error', 'Username atau password salah');
-
-        // return back()->withErrors([
-        //     'username' => 'Username atau password yang dimasukan tidak cocok dengan data yang ada',
-        // ])->onlyInput('username');
     }
 
     public function logout(Request $request)

@@ -76,7 +76,7 @@ Route::controller(LoginController::class)->group(function () {
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::group(['middleware' => ['CekUser:1,3']], function () {
+    Route::group(['middleware' => ['CekUser:1,3,5']], function () {
         Route::resource('/user', AdminController::class);
             Route::controller(AdminController::class)->group(function () {
                 Route::get('/dashboard', 'index');

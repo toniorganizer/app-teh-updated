@@ -170,14 +170,14 @@
         </li><!-- End Dashboard Nav --> --}}
 
         <li class="nav-item">
-            @if($title == 'Data')
+            @if($title == 'DataIPK')
                 <a class="nav-link" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
             @else
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
              @endif
               <i class="bi bi-file-earmark"></i><span>Laporan</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="components-nav" class="nav-content collapse @if($title == 'Data') show @endif" data-bs-parent="#sidebar-nav">
+            <ul id="components-nav" class="nav-content collapse @if($title == 'DataIPK') show @endif" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="/laporan" @if($sub_title == 'Laporan') class="active" @endif>
                       <i class="bi bi-circle"></i><span>Laporan IPK Terdaftar</span>
@@ -250,6 +250,18 @@
             @endif
                 <i class="bi bi-envelope-paper-heart"></i>
                 <span>Data Tracer</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            @if($title == 'Data Rekomendasi')
+            <a class="nav-link " href="/pemerintah">
+            @elseif($sub_title == 'Data Rekomendasi')
+            <a class="nav-link " href="/pemerintah">
+            @else
+            <a class="nav-link collapsed" href="/pemerintah">
+            @endif
+                <i class="bi bi-cloud-fog2"></i>
+                <span>Trend</span>
             </a>
         </li><!-- End Dashboard Nav -->
         @endif
