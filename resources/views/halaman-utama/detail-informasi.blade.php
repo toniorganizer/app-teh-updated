@@ -26,29 +26,32 @@
 
         <div class="col-lg-8">
 
-            <div class="post-author d-flex align-items-center">
+            <div class="post-author align-items-center">
                 <img src="{{ Storage::url('public/informasi-lowongan/').$data->foto}}" class="rounded-circle flex-shrink-0" alt="">
                 <div>
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-md-8">
                             <h4>{{$data->judul_lowongan}}</h4>
                             <h5>{{$data->perusahaan}}</h5>
                         </div>
-                        <div class="btn col-lg-4">
-                            <a href="/login" class="btn btn-primary">Lamar sekarang</a>
+                        <div class="col-md-4">
+                          <div class="btn">
+                            <a href="/login" class="btn btn-primary">Lamar Lowongan</a>
+                          </div>
                         </div>
                     </div>
-                  <div class="meta-top-center">
+                  {{-- <div class="meta-top-center">
                     <ul>
                         <li class="d-flex align-items-center"><i class="bi bi-geo-alt"></i> <a href="#">{{$data->lokasi}}</a></li>
                     </ul>
-                  </div>
+                  </div> --}}
 
                   <div class="meta-top">
                     <ul>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"> {{date('d/m/Y', strtotime($data->created_at))}}</a></li>
-                      <li class="d-flex align-items-center"><i class="bi bi-clock-history"></i> 
-                        {{-- <a href="#">12 Comments</a> --}}
+                      <li class="d-flex align-items-center"><i class="bi bi-geo-alt"></i> <a href="#">{{$data->lokasi}}</a></li>
+                      <li class="d-flex align-items-center">
+                        <i class="bi bi-clock-history"></i>  
+                        <a href="#">{{date('d/m/Y', strtotime($data->created_at))}}</a>
                       </li>
                     </ul>
                   </div><!-- End meta top -->
@@ -137,7 +140,17 @@
                   <div class="judul">
                     <p>Tanggal Expired :</p>
                     <div class="sub-judul">
-                      <p>{{date('h/m/Y', strtotime($data->created_at))}}</p>
+                      <p>{{date('h/m/Y', strtotime($data->tgl_tutup))}}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="post-item mt-3">
+                  <i class="bi bi-clock"></i>
+                  <div class="judul">
+                    <p>Update Informasi :</p>
+                    <div class="sub-judul">
+                      <p>{{date('h/m/Y', strtotime($data->updated_at))}}</p>
                     </div>
                   </div>
                 </div>
