@@ -2,8 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\JenisPendidikan;
-use Illuminate\Support\Collection;
+use App\Models\DataJenisPendidikan;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -11,7 +10,6 @@ use Carbon\Carbon;
 
 class FirstSheetImportJP implements ToModel, WithHeadingRow
 {
-
     private $data1;
     private $data2;
 
@@ -39,22 +37,22 @@ class FirstSheetImportJP implements ToModel, WithHeadingRow
         $tgl1 = $tanggalMulai->isoFormat('D MMMM Y');
         $tgl2 = $tanggalAkhir->isoFormat('D MMMM Y');
 
-            return new JenisPendidikan([
+            return new DataJenisPendidikan([
                 'id_disnaker' => Auth::user()->email,
-                'nmr' => $row[0],
+                'nmr' => $row['nmr'],
                 'tgl_1' => strtoupper($tgl1),
                 'tgl_2' => strtoupper($tgl2),
-                'judul' => $row[1],
-                'sisa_l' => $row[2],
-                'sisa_p' => $row[3],
-                'terdaftar_l' => $row[4],
-                'terdaftar_p' => $row[5],
-                'penempatan_l' => $row[6],
-                'penempatan_p' => $row[7],
-                'hapus_l' => $row[8],
-                'hapus_p' => $row[9],
-                'akhir_l' => $row[10],
-                'akhir_p' => $row[11],
+                'judul' => $row['judul'],
+                'sisa_l' => $row['sisa_l'],
+                'sisa_p' => $row['sisa_p'],
+                'terdaftar_l' => $row['dftr_l'],
+                'terdaftar_p' => $row['dftr_p'],
+                'penempatan_l' => $row['tmpt_l'],
+                'penempatan_p' => $row['tmpt_p'],
+                'hapus_l' => $row['hps_l'],
+                'hapus_p' => $row['hps_p'],
+                'akhir_l' => $row['akhr_l'],
+                'akhir_p' => $row['akhr_p'],
             ]);
         
     }

@@ -3,18 +3,19 @@
 namespace App\Imports;
 
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
-use Maatwebsite\Excel\Concerns\WithConditionalSheets;
 
 class JenisPendidikanImport implements WithMultipleSheets
 {
 
-    use WithConditionalSheets;
 
-    public function conditionalSheets(): array
+    private $data1;
+    private $data2;
+
+    public function sheets(): array
     {
         return [
-            'Worksheet 1' => new FirstSheetImportJP(),
-            'Worksheet 2' => new SecondSheetImportJP(),
+            'Sheet1' => new FirstSheetImportJP($this->data1, $this->data2),
+            'Sheet2' => new SecondSheetImportJP($this->data1, $this->data2),
         ];
     }
 

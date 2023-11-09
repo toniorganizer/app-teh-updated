@@ -88,7 +88,7 @@ class DataPencariKerjaController extends Controller
         // dd($jumlahL15);
         return view('Dashboard.admin.data_laporan_I', [
             'sub_title' => 'Laporan IPK-III-1',
-            'title' => 'Data',
+            'title' => 'DataIPK',
             'datalaporan' => $datalaporan,
             'kab' => $kab,
             'data' => $data,
