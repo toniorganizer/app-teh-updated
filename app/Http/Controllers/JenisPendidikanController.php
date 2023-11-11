@@ -18,8 +18,8 @@ class JenisPendidikanController extends Controller
         $kab = PemangkuKepentingan::where('status_lembaga', 1)->get();
         $aturan = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         // dd($aturan);
-        $excludedNumbers = ['A.', 'B.', 5];
-        $datalaporan = DataJenisPendidikan::where('id_disnaker', Auth::user()->email)->whereNotIn('nmr', $excludedNumbers)->get();
+        $excludedNumbers = ['Sub Total', 'BH & TIDAK TAMAT SD', 'SD', 'SLTP UMUM','SLTP KEJURUAN', 'SETINGKAT SLTP','PENDIDIKAN MENENGAH ATAS','SMK - TEKNOLOGI DAN REKAYASA','SMK - TEKNOLOGI INFORMASI DAN KOMUNIKASI','SMK - KESEHATAN','SMK - SENI, KERAJINAN DAN PARIWISATA','SMK - AGRIBISNIS DAN AGROTEKNOLOGI','SMK - BISNIS DAN MANAJEMEN','SETINGKAT SMU LAINNYA','DIPLOMA I / AKTA I / DIPLOMA II / AKTA II','DIPLOMA III / AKTA III/ AKADEMI/S.MUDA','SARJANA ( S1 )','SARJANA ( S2 )', '0'];
+        $datalaporan = DataJenisPendidikan::where('id_disnaker', Auth::user()->email)->whereNotIn('judul', $excludedNumbers)->paginate(20);
 
         return view('Dashboard.admin.data_laporan_II', [
             'data' => $data,
@@ -47,4 +47,9 @@ class JenisPendidikanController extends Controller
             return redirect('/laporan-ipk-2')->with('success', 'Import data berhasil dilakukan!');
         
      }
+
+     public function deleteLaporanII($id){
+        DataJenisPendidikan::where('id_disnaker', $id)->delete();
+        return redirect('/laporan-ipk-2')->with('success', 'Hapus data berhasil dilakukan');
+     } 
 }
