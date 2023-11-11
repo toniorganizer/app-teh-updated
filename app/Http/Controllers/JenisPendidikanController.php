@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CetakLaporanII;
+use App\Exports\CetakLaporanIIPusat;
 use Illuminate\Http\Request;
 use App\Models\DataJenisPendidikan;
 use App\Models\PemangkuKepentingan;
@@ -52,4 +54,10 @@ class JenisPendidikanController extends Controller
         DataJenisPendidikan::where('id_disnaker', $id)->delete();
         return redirect('/laporan-ipk-2')->with('success', 'Hapus data berhasil dilakukan');
      } 
+
+     public function CetakLaporanII($id){
+        // dd($id);
+        return Excel::download(new CetakLaporanIIPusat($id), 'Laporan-IPK-2.xlsx');
+
+        }
 }

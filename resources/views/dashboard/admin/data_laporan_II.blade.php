@@ -141,7 +141,7 @@
                         <h5 class="card-title mb-0">Download Hasil</h5>
                         <div class="row">
                             <div class="col-lg-3">
-                            <a href="/cetak-laporan-i/{{Auth::user()->email}}" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
+                            <a href="/cetak-laporan-ii/{{Auth::user()->email}}" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
                             </div>
                         </div><!-- End Website Traffic -->
                         @if(Auth::user()->email == 'disnaker@gmail.com')
