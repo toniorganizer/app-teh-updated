@@ -2,19 +2,20 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
+use App\Models\Laporan;
 
 use App\Models\DataPencariKerja;
-use App\Models\Laporan;
-use App\Models\PemangkuKepentingan;
 use Illuminate\Support\Facades\DB;
+use App\Models\DataJenisPendidikan;
+use App\Models\PemangkuKepentingan;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithDrawings;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 
@@ -50,7 +51,7 @@ class CetakLaporanIIC implements WithDrawings, WithStyles, WithTitle, FromView, 
                 // Mengatur jenis huruf (font) untuk sel B2 sampai B5
                 'font' => ['name' => 'Tahoma', 'size' => 9, 'normal' => true],
             ],
-            'A8:L74' => [
+            'A8:L65' => [
                 'font' => ['name' => 'Tahoma', 'size' => 8, 'normal' => true],
                 'borders' => [
                     'allBorders' => [
@@ -58,38 +59,37 @@ class CetakLaporanIIC implements WithDrawings, WithStyles, WithTitle, FromView, 
                         'color' => ['rgb' => '000000'], // Mengatur warna garis (hitam dalam format RGB)
                     ]],
             ],
-            
             'A8:L10' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'D9E1F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'A11:L11' => [
+            'A12:L12' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'C20:L20' => [
+            'A12:L12' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'C61:L61' => [
+            'C41:L41' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'A62:L62' => [
+            'A42:L42' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'C74:L74' => [
+            'C56:L56' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
@@ -137,8 +137,12 @@ class CetakLaporanIIC implements WithDrawings, WithStyles, WithTitle, FromView, 
     {
         $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataPencariKerja::where('id_disnaker', $this->id)->first();
-        $data = DataPencariKerja::where('id_disnaker', $this->id)->get();
+        $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->first();
+        $start = 4200;
+        $end = 5208;
+        $data = DB::table('data_jenis_pendidikans')
+        ->whereBetween('nmr', [$start, $end])->orWhere('nmr', 03)->orWhere('nmr', [0,1,2,0110])
+        ->get();
         
         return view('Dashboard.admin.cetak-laporan-iii-ii')->with([
             'data' => $data,
@@ -151,6 +155,6 @@ class CetakLaporanIIC implements WithDrawings, WithStyles, WithTitle, FromView, 
     public function title(): string
     {
         // Judul yang ingin Anda atur untuk lembar Excel
-        return 'Sheet 3';
+        return 'Sheet3';
     }
 }

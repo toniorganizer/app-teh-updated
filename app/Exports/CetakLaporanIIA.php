@@ -2,19 +2,20 @@
 
 namespace App\Exports;
 
-use App\Models\DataPencariKerja;
 use App\Models\Laporan;
-use App\Models\PemangkuKepentingan;
+use App\Models\DataPencariKerja;
 use Illuminate\Support\Facades\DB;
+use App\Models\DataJenisPendidikan;
+use App\Models\PemangkuKepentingan;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithDrawings;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class CetakLaporanIIA implements WithDrawings, WithStyles, WithTitle, FromView, WithColumnWidths
 {
@@ -47,7 +48,7 @@ class CetakLaporanIIA implements WithDrawings, WithStyles, WithTitle, FromView, 
                 // Mengatur jenis huruf (font) untuk sel B2 sampai B5
                 'font' => ['name' => 'Tahoma', 'size' => 9, 'normal' => true],
             ],
-            'A8:L74' => [
+            'A8:L64' => [
                 'font' => ['name' => 'Tahoma', 'size' => 8, 'normal' => true],
                 'borders' => [
                     'allBorders' => [
@@ -68,30 +69,67 @@ class CetakLaporanIIA implements WithDrawings, WithStyles, WithTitle, FromView, 
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
+            'C15:L15' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
             'C20:L20' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'C61:L61' => [
+            'C25:L25' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'A62:L62' => [
+            'C28:L28' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'C74:L74' => [
+            'C32:L32' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
+            'C37:L37' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'C59:L59' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'C64:L64' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'A38:L38' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'A21:L21' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            
             'A8:L11' => [
                 'font' => ['bold' => true],
                 'alignment' => [
@@ -99,7 +137,7 @@ class CetakLaporanIIA implements WithDrawings, WithStyles, WithTitle, FromView, 
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
-            'B12:B74' => [
+            'B12:B64' => [
                 'alignment' => [
                     'wrapText' => true,
                 ]
@@ -134,8 +172,12 @@ class CetakLaporanIIA implements WithDrawings, WithStyles, WithTitle, FromView, 
     {
         $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataPencariKerja::where('id_disnaker', $this->id)->first();
-        $data = DataPencariKerja::where('id_disnaker', $this->id)->get();
+        $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->first();
+        $start = 1000;
+        $end = 3203;
+        $data = DB::table('data_jenis_pendidikans')
+        ->whereBetween('nmr', [$start, $end])->orWhere('nmr', 01)->orWhere('nmr', 3801)->orWhere('nmr', 3802)
+        ->get();
         
         return view('Dashboard.admin.cetak-laporan-iii-ii')->with([
             'data' => $data,
@@ -148,6 +190,6 @@ class CetakLaporanIIA implements WithDrawings, WithStyles, WithTitle, FromView, 
     public function title(): string
     {
         // Judul yang ingin Anda atur untuk lembar Excel
-        return 'Sheet 1';
+        return 'Sheet1';
     }
 }

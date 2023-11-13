@@ -156,6 +156,6 @@ class CetakLaporanIIE implements WithDrawings, WithStyles, WithTitle, FromView, 
     public function title(): string
     {
         // Judul yang ingin Anda atur untuk lembar Excel
-        return 'Sheet 5';
+        return 'Sheet5';
     }
 }

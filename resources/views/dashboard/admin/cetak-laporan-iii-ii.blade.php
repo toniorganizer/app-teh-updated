@@ -22,17 +22,17 @@
 @foreach($data as $item)
 <tr>
     <td>{{$item->nmr}}</td>
-    <td>{{$item->nmr}}</td>
-    <td>{{$item->nmr}}</td>
-    <td>{{$item->nmr}}</td>
-    <td>{{$item->nmr}}</td>
-    <td>{{$item->nmr}}</td>
-    <td>{{$item->nmr}}</td>
-    <td>{{$item->nmr}}</td>
-    <td>{{$item->nmr}}</td>
-    <td>{{$item->nmr}}</td>
-    <td>{{$item->nmr}}</td>
-    <td>{{$item->nmr}}</td>
+    <td>{{$item->judul}}</td>
+    <td>{{$item->sisa_l}}</td>
+    <td>{{$item->sisa_p}}</td>
+    <td>{{$item->terdaftar_l}}</td>
+    <td>{{$item->terdaftar_p}}</td>
+    <td>{{$item->penempatan_l}}</td>
+    <td>{{$item->penempatan_p}}</td>
+    <td>{{$item->hapus_l}}</td>
+    <td>{{$item->hapus_p}}</td>
+    <td>{{$item->akhir_l}}</td>
+    <td>{{$item->akhir_p}}</td>
 </tr>
 @endforeach
 </table>

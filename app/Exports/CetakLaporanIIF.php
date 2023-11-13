@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\DataJenisPendidikan;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 use App\Models\DataPencariKerja;
@@ -50,7 +51,7 @@ class CetakLaporanIIF implements WithDrawings, WithStyles, WithTitle, FromView, 
                 // Mengatur jenis huruf (font) untuk sel B2 sampai B5
                 'font' => ['name' => 'Tahoma', 'size' => 9, 'normal' => true],
             ],
-            'A8:L74' => [
+            'A8:L69' => [
                 'font' => ['name' => 'Tahoma', 'size' => 8, 'normal' => true],
                 'borders' => [
                     'allBorders' => [
@@ -65,31 +66,19 @@ class CetakLaporanIIF implements WithDrawings, WithStyles, WithTitle, FromView, 
                     'startColor' => ['rgb' => 'D9E1F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'A11:L11' => [
+            'C32:L32' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'C20:L20' => [
+            'C46:L46' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'C61:L61' => [
-                'fill' => [
-                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
-                ],
-            ],
-            'A62:L62' => [
-                'fill' => [
-                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
-                ],
-            ],
-            'C74:L74' => [
+            'C53:L53' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
@@ -137,8 +126,12 @@ class CetakLaporanIIF implements WithDrawings, WithStyles, WithTitle, FromView, 
     {
         $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataPencariKerja::where('id_disnaker', $this->id)->first();
-        $data = DataPencariKerja::where('id_disnaker', $this->id)->get();
+        $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->first();
+        $start = 6200;
+        $end = 6515;
+        $data = DB::table('data_jenis_pendidikans')
+        ->whereBetween('nmr', [$start, $end])->orWhere('nmr', 06)
+        ->get();
         
         return view('Dashboard.admin.cetak-laporan-iii-ii')->with([
             'data' => $data,
@@ -151,6 +144,6 @@ class CetakLaporanIIF implements WithDrawings, WithStyles, WithTitle, FromView, 
     public function title(): string
     {
         // Judul yang ingin Anda atur untuk lembar Excel
-        return 'Sheet 6';
+        return 'Sheet6';
     }
 }
