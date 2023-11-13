@@ -27,17 +27,18 @@
             <div class="col-xl-12">
 
                 <div class="card">
-                  <div class="card-body pt-3 overflow-scroll">
+                  <div class="card-body pt-3">
                     <!-- Bordered Tabs -->
                     <div class="tab-content pt-2">
-      
-                      <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                      {{-- <div class="tab-pane fade show active profile-overview"> --}}
                         <h5 class="card-title">Table Laporan-IPK-III-2</h5>
+                        <div class="activity overflow-scroll">
                         <table class="table table-bordered center">
-                            <tr><th rowspan="2">No</th><th rowspan="2">Jenis Pendidikan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th><th colspan="2">Sisa Akhir Smtr ini</th><th rowspan="2">Action</th></tr> 
+                            <tr><th rowspan="2">No</th><th rowspan="2">Jenis Pendidikan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th><th rowspan="2">Action</th></tr> 
                             
-                            <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
+                            <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
                             <?php $no = ($dataLaporan->currentPage() - 1) * $dataLaporan->perPage() + 1; ?>
+                            @if($aturan->status_lembaga == 1)
                             @foreach ($dataLaporan as $laporan)
                             <tr>
                               <td>{{$no++}}</td>
@@ -50,11 +51,27 @@
                                 <td>{{$laporan->penempatan_p}}</td>
                                 <td>{{$laporan->hapus_l}}</td>
                                 <td>{{$laporan->hapus_p}}</td>
-                                <td></td>
-                                <td></td>
                                 <td><a href="/edit-laporan-ii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
                             </tr>
                             @endforeach
+                            @else
+                            @foreach($lapor as $number => $data)
+                                @foreach($data as $lap)
+                                    <tr>
+                                        <td>{{$no++}}</td>
+                                        <td>{{ $lap->judul }}</td>
+                                        <td>{{ $lap->sisa_l }}</td>
+                                        <td>{{ $lap->sisa_p }}</td>
+                                        <td>{{ $lap->terdaftar_l }}</td>
+                                        <td>{{ $lap->terdaftar_p }}</td>
+                                        <td>{{ $lap->penempatan_l }}</td>
+                                        <td>{{ $lap->penempatan_p }}</td>
+                                        <td>{{ $lap->hapus_l }}</td>
+                                        <td>{{ $lap->hapus_p }}</td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
+                            @endif
                             
                             </table>
                             <div class="blog-pagination"> 

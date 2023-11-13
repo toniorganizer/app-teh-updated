@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\CetakLaporanII;
-use App\Exports\CetakLaporanIIPusat;
 use Illuminate\Http\Request;
+use App\Exports\CetakLaporanII;
+use Illuminate\Support\Facades\DB;
 use App\Models\DataJenisPendidikan;
 use App\Models\PemangkuKepentingan;
+use App\Exports\CetakLaporanIIPusat;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -20,8 +21,23 @@ class JenisPendidikanController extends Controller
         $kab = PemangkuKepentingan::where('status_lembaga', 1)->get();
         $aturan = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         // dd($aturan);
-        $excludedNumbers = ['Sub Total', 'BH & TIDAK TAMAT SD', 'SD', 'SLTP UMUM','SLTP KEJURUAN', 'SETINGKAT SLTP','PENDIDIKAN MENENGAH ATAS','SMK - TEKNOLOGI DAN REKAYASA','SMK - TEKNOLOGI INFORMASI DAN KOMUNIKASI','SMK - KESEHATAN','SMK - SENI, KERAJINAN DAN PARIWISATA','SMK - AGRIBISNIS DAN AGROTEKNOLOGI','SMK - BISNIS DAN MANAJEMEN','SETINGKAT SMU LAINNYA','DIPLOMA I / AKTA I / DIPLOMA II / AKTA II','DIPLOMA III / AKTA III/ AKADEMI/S.MUDA','SARJANA ( S1 )','SARJANA ( S2 )', '0'];
+        $excludedNumbers = ['Sub Total', 'BH & TIDAK TAMAT SD', 'SD', 'SLTP UMUM','SLTP KEJURUAN', 'SETINGKAT SLTP','PENDIDIKAN MENENGAH ATAS','SMK - TEKNOLOGI DAN REKAYASA','SMK - TEKNOLOGI INFORMASI DAN KOMUNIKASI','SMK - KESEHATAN','SMK - SENI, KERAJINAN DAN PARIWISATA','SMK - AGRIBISNIS DAN AGROTEKNOLOGI','SMK - BISNIS DAN MANAJEMEN','SETINGKAT SMU LAINNYA','DIPLOMA I / AKTA I / DIPLOMA II / AKTA II','DIPLOMA III / AKTA III/ AKADEMI/S.MUDA','SARJANA ( S1 )','SARJANA ( S2 )', 'SETINGKAT SLTP', '0'];
         $datalaporan = DataJenisPendidikan::where('id_disnaker', Auth::user()->email)->whereNotIn('judul', $excludedNumbers)->paginate(20);
+
+
+        $numbers = [1101, 1102, 1103, 1199, 2101, 2102, 2104, 2103, 2199, 3801];
+        foreach($numbers as $number){
+            $lap = DB::table('data_jenis_pendidikans')
+            ->where('nmr', $number)
+            ->whereNotIn('judul', $excludedNumbers)
+            ->select('judul', DB::raw('SUM(sisa_l) as sisa_l'), DB::raw('SUM(sisa_p) as sisa_p'), DB::raw('SUM(terdaftar_l) as terdaftar_l'), DB::raw('SUM(terdaftar_p) as terdaftar_p'), DB::raw('SUM(penempatan_l) as penempatan_l'),DB::raw('SUM(penempatan_p) as penempatan_p'), DB::raw('SUM(hapus_l) as hapus_l'),DB::raw('SUM(hapus_p) as hapus_p'))
+            ->groupBy('judul')
+            ->get();
+
+            $lapor[$number] = $lap;
+        }
+
+        // dd($lapor);
 
         return view('Dashboard.admin.data_laporan_II', [
             'data' => $data,
@@ -30,6 +46,7 @@ class JenisPendidikanController extends Controller
             'dataLaporan' => $datalaporan,
             'sub_title' => 'Laporan IPK-III-2',
             'title' => 'DataIPK',
+            'lapor' => $lapor
         ]);
     }
 
@@ -97,7 +114,7 @@ class JenisPendidikanController extends Controller
         ]);
 
         if(Auth::user()->email == 'disnaker@gmail.com'){
-            return redirect('/detail-laporan-kab/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+            return redirect('/detail-laporan-kab-ii/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
         }else{
             return redirect('/laporan-ipk-2')->with('success', 'Update data berhasil dilakukan');
         }

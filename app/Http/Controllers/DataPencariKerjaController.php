@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Exports\CetakLaporanI;
 use App\Imports\DataIPK1Import;
 use App\Models\DataPencariKerja;
+use Illuminate\Support\Facades\DB;
 use App\Models\PemangkuKepentingan;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -20,12 +21,21 @@ class DataPencariKerjaController extends Controller
         $data = DataPencariKerja::get();
         $kab = PemangkuKepentingan::where('status_lembaga', 1)->get();
         $aturan = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
-        // dd($aturan);
         $excludedNumbers = ['A.', 'B.', 5];
         $datalaporan = DataPencariKerja::where('id_disnaker', Auth::user()->email)->whereNotIn('nmr', $excludedNumbers)->get();
 
-        // data laporan disnakerprov
-        // $jumlahData = DataPencariKerja::where('nmr', 1)->wherNotIn('nmr', $excludedNumbers)->get();
+        $users = ['1', '2', '3'];
+        foreach($users as $user){
+            $lap = DB::table('data_pencari_kerjas')
+            ->where('nmr', $user)
+            ->select('pencari_kerja', DB::raw('SUM(15_L) as 15_L'), DB::raw('SUM(15_P) as 15_P'), DB::raw('SUM(20_L) as 20_L'), DB::raw('SUM(20_P) as 20_P'))
+            ->groupBy('pencari_kerja')
+            ->get();
+
+            $lapor[$user] = $lap;
+        }
+
+        // dd($lapor);
 
         // menghitung jumlah untuk disnakerprov
         $jumlahL151 = DataPencariKerja::where('nmr', 1)->whereNotIn('nmr', $excludedNumbers)->sum('15_L');
@@ -90,6 +100,7 @@ class DataPencariKerjaController extends Controller
             'sub_title' => 'Laporan IPK-III-1',
             'title' => 'DataIPK',
             'datalaporan' => $datalaporan,
+            'lapor' => $lapor,
             'kab' => $kab,
             'data' => $data,
             'aturan' => $aturan,
