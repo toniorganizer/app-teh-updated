@@ -114,11 +114,11 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('laporan-ipk-2', 'index');
             Route::get('export-ipk-2', 'downlaodTemplate1');
             Route::post('importIPKII', 'importDataIPK2');
-            // Route::get('/edit-laporan-i/{id}', 'editLaporanI');
+            Route::get('/edit-laporan-ii/{id}', 'editLaporanII');
             Route::get('/delete-laporan-ii/{id}', 'deleteLaporanII');
-            // Route::post('/update-laporan-i/{id}', 'updateLaporanI');
+            Route::post('/update-laporan-ii/{id}', 'updateLaporanII');
             Route::get('/cetak-laporan-ii/{id}','CetakLaporanII');
-            // Route::get('/detail-laporan-kab/{id}', 'DetailLaporanKab');
+            Route::get('/detail-laporan-kab-ii/{id}', 'DetailLaporanKabII');
         });
     });
 

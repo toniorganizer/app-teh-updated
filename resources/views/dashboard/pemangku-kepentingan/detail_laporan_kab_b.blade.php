@@ -1,0 +1,156 @@
+@extends('dashboard/main')
+
+@section('container')
+@include('dashboard/templates/header')
+@include('dashboard/templates/sidebar')
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Laporan IPK-III-1</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Laporan IPK-III-1</li>
+            </ol>
+            @if (session('success'))
+            <div class="alert alert-primary">
+                {{ session('success') }}
+            </div>
+            @endif
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+
+            <div class="col-lg-12">
+                <!-- Recent Activity -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Table Laporan-IPK-III-2 | {{$nama->nama_lembaga}}</h5>
+              <div class="activity overflow-scroll">
+                <table class="table table-bordered center">
+                    <tr><th rowspan="2">No</th><th rowspan="2">Jenis Pendidikan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th><th colspan="2">Sisa Akhir Smtr ini</th><th rowspan="2">Action</th></tr> 
+                    
+                    <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
+                    <?php $no = ($dataLaporan->currentPage() - 1) * $dataLaporan->perPage() + 1; ?>
+                    @foreach ($dataLaporan as $laporan)
+                    <tr>
+                      <td>{{$no++}}</td>
+                        <td>{{$laporan->judul}}</td>
+                        <td>{{$laporan->sisa_l}}</td>
+                        <td>{{$laporan->sisa_p}}</td>
+                        <td>{{$laporan->terdaftar_l}}</td>
+                        <td>{{$laporan->terdaftar_p}}</td>
+                        <td>{{$laporan->penempatan_l}}</td>
+                        <td>{{$laporan->penempatan_p}}</td>
+                        <td>{{$laporan->hapus_l}}</td>
+                        <td>{{$laporan->hapus_p}}</td>
+                        <td></td>
+                        <td></td>
+                        <td><form action="/edit-laporan-ii/{{$laporan->nmr}}">
+                            <input type="hidden" name="id_disnaker" value="{{$laporan->id_disnaker}}">
+                            <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                        </form></td>
+                    </tr>
+                    @endforeach
+                    
+                    </table>
+                    <div class="blog-pagination"> 
+                        <nav aria-label="Page navigation">
+                          <ul class="pagination">
+                              <li class="page-item{{ ($dataLaporan->currentPage() == 1) ? ' disabled' : '' }}">
+                                  <a class="page-link" href="{{ $dataLaporan->previousPageUrl() }}" aria-label="Previous">
+                                      <span aria-hidden="true">&laquo;</span>
+                                  </a>
+                              </li>
+                              @for ($i = 1; $i <= $dataLaporan->lastPage(); $i++)
+                                  <li class="page-item{{ ($dataLaporan->currentPage() == $i) ? ' active' : '' }}">
+                                      <a class="page-link" href="{{ $dataLaporan->url($i) }}">{{ $i }}</a>
+                                  </li>
+                              @endfor
+                              <li class="page-item{{ ($dataLaporan->currentPage() == $dataLaporan->lastPage()) ? ' disabled' : '' }}">
+                                  <a class="page-link" href="{{ $dataLaporan->nextPageUrl() }}" aria-label="Next">
+                                      <span aria-hidden="true">&raquo;</span>
+                                  </a>
+                              </li>
+                          </ul>
+                      </nav>
+                      </div>
+                
+            </div>
+          </div><!-- End Recent Activity -->
+        </div>
+        </div> 
+
+        <div class="col-lg-8">
+                <!-- Recent Activity -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Laporan-IPK-III-2</h5>
+              <div class="activity">
+                <p style="text-align: justify">Pelaksanaan pembuatan laporan dapat dilakukan dengan download template terlebih dahulu, kemudian isi template berdasarkan data laporan yang ada. Pastikan setiap kolom terisi dengan benar sebelum melakukan import data.</p>
+
+                <p>Silahkan buat terlebih dahulu rentang tanggal terhadap laporan yang telah dibuat, kemudian pilih file laporan berdasarkan template yang sudah terisi data, selanjutnya pilih import. <span class="fw-bold text-dark">Edit data dapat dilakukan dengan menekan tombol pada kolom action.</span></p>
+
+                <form id="search-form" action="/import" method="post" enctype="multipart/form-data">
+                    @csrf
+                <div class="row">
+                    <div class="col-md-6">
+                        <input name="tgl1" type="date" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <input name="tgl2" type="date" class="form-control">
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <input type="file" class="form-control-file" name="file">
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <button type="submit" class="btn btn-success mt-0"><i class="bi bi-cloud-arrow-up"></i> Import</button>
+                    </div>
+                </div>
+                </form>
+                
+            </div>
+          </div><!-- End Recent Activity -->
+        </div>
+        </div>
+
+            <div class="col-lg-4">
+                <!-- Website Traffic -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">Template</h5>
+                        <div class="row">
+                            <div class="col-lg-3">
+                            <a href="{{Storage::url('public/file/Template.xlsx')}}" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
+                            </div>
+                        </div>
+                        <h5 class="card-title mb-0">Download Hasil</h5>
+                        <div class="row">
+                            <div class="col-lg-3">
+                            <a href="/cetak-laporan-i/{{Auth::user()->email}}" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
+                            </div>
+                        </div><!-- End Website Traffic -->
+                        @if(Auth::user()->email == 'disnaker@gmail.com')
+                        <h5 class="card-title mb-0">Laporan Kab/Kota</h5>
+                        <div class="activity">
+                            @foreach($kab as $data)
+                            <div class="activity-item d-flex">
+                              <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                              <div class="activity-content"><a href="/detail-laporan-kab/{{$data->email_lembaga}}" class="fw-bold text-dark">{{$data->nama_lembaga}}</a>
+                              </div>
+                            </div><!-- End activity item-->
+                            @endforeach
+                          </div>
+                          @endif
+                    </div>
+                </div>  
+            </div>        
+
+    </section>
+
+</main>
+@include('dashboard/templates/footer')
+@endsection

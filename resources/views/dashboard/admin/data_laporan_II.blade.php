@@ -52,7 +52,7 @@
                                 <td>{{$laporan->hapus_p}}</td>
                                 <td></td>
                                 <td></td>
-                                <td><a href="/edit-laporan-i/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                <td><a href="/edit-laporan-ii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
                             </tr>
                             @endforeach
                             
@@ -150,7 +150,7 @@
                             @foreach($kab as $data)
                             <div class="activity-item d-flex">
                               <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                              <div class="activity-content"><a href="/detail-laporan-kab/{{$data->email_lembaga}}" class="fw-bold text-dark">{{$data->nama_lembaga}}</a>
+                              <div class="activity-content"><a href="/detail-laporan-kab-ii/{{$data->email_lembaga}}" class="fw-bold text-dark">{{$data->nama_lembaga}}</a>
                               </div>
                             </div><!-- End activity item-->
                             @endforeach

@@ -181,7 +181,7 @@ class DataPencariKerjaController extends Controller
         //  dd($data);
         return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_a', [
             'sub_title' => 'Laporan IPK-III-1',
-            'title' => 'Data Laporan IPK-III-1',
+            'title' => 'DataIPK',
             'data' => $data
         ]);
 
