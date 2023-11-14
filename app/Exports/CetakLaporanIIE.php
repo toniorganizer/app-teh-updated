@@ -59,6 +59,39 @@ class CetakLaporanIIE implements WithDrawings, WithStyles, WithTitle, FromView, 
                         'color' => ['rgb' => '000000'], // Mengatur warna garis (hitam dalam format RGB)
                     ]],
             ],
+            'A21:B21' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
+            'C21:L21' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A62:B63' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
+            'C62:L63' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A20' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A61' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A74' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
             
             'A8:L10' => [
                 'fill' => [
@@ -113,6 +146,12 @@ class CetakLaporanIIE implements WithDrawings, WithStyles, WithTitle, FromView, 
                     'wrapText' => true,
                 ]
             ], 
+            'A8:A74' => [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ],
         ];
     }
 
@@ -142,7 +181,27 @@ class CetakLaporanIIE implements WithDrawings, WithStyles, WithTitle, FromView, 
         $start = 5529;
         $end = 6199;
         $data = DB::table('data_jenis_pendidikans')
-        ->whereBetween('nmr', [$start, $end])->orWhere('nmr', 05)
+        ->where('id_disnaker', $this->id)
+        ->where(function ($query) use ($start, $end) {
+            $query->whereBetween('nmr', [$start, $end])
+                    ->orWhere('nmr', 05);
+        })
+        ->get();
+
+        $results = DB::table('data_jenis_pendidikans')
+        ->select('judul', 'nmr', 'akhir_l', 'akhir_p')
+        ->whereBetween('nmr', [$start, $end])
+        ->orWhere('nmr', 05)
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN sisa_l ELSE SUM(sisa_l) END AS sisa_l')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN sisa_p ELSE SUM(sisa_p) END AS sisa_p')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN terdaftar_l ELSE SUM(terdaftar_l) END AS terdaftar_l')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN terdaftar_p ELSE SUM(terdaftar_p) END AS terdaftar_p')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN penempatan_l ELSE SUM(penempatan_l) END AS penempatan_l')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN penempatan_p ELSE SUM(penempatan_p) END AS penempatan_p')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_l ELSE SUM(hapus_l) END AS hapus_l')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_p ELSE SUM(hapus_p) END AS hapus_p')
+        ->groupBy('judul', 'nmr', 'akhir_l', 'akhir_p')
+        ->oldest('id')
         ->get();
         
         return view('Dashboard.admin.cetak-laporan-iii-ii')->with([
@@ -150,6 +209,7 @@ class CetakLaporanIIE implements WithDrawings, WithStyles, WithTitle, FromView, 
             'title' => $title,
             'semester' => $semester,
             'disnaker' => $disnaker,
+            'laporan' => $results
         ]);
     }
 

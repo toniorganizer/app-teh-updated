@@ -59,6 +59,30 @@ class CetakLaporanII9 implements WithDrawings, WithStyles, WithTitle, FromView, 
                         'color' => ['rgb' => '000000'], // Mengatur warna garis (hitam dalam format RGB)
                     ]],
             ],
+            'A31:B31' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
+            'C31:L31' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A30' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A69' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A70:B70' => [
+                'font' => [
+                    'color' => ['rgb' => 'F2F2F2'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
             
             'A8:L10' => [
                 'fill' => [
@@ -108,6 +132,12 @@ class CetakLaporanII9 implements WithDrawings, WithStyles, WithTitle, FromView, 
                     'wrapText' => true,
                 ]
             ], 
+            'A8:A70' => [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ],
         ];
     }
 
@@ -137,7 +167,35 @@ class CetakLaporanII9 implements WithDrawings, WithStyles, WithTitle, FromView, 
         $start = 7507;
         $end = 7699;
         $data = DB::table('data_jenis_pendidikans')
-        ->whereBetween('nmr', [$start, $end])->orWhere('nmr', '09')
+        ->where('id_disnaker', $this->id)
+        ->where(function ($query) use ($start, $end) {
+            $query->whereBetween('nmr', [$start, $end])
+                    ->orWhere('nmr', '09');
+        })
+        ->get();
+
+        $results = DB::table('data_jenis_pendidikans')
+        ->select('judul', 'nmr', 'akhir_l', 'akhir_p')
+        ->whereBetween('nmr', [$start, $end])
+        ->orWhere('nmr', '09')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN sisa_l ELSE SUM(sisa_l) END AS sisa_l')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN sisa_p ELSE SUM(sisa_p) END AS sisa_p')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN terdaftar_l ELSE SUM(terdaftar_l) END AS terdaftar_l')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN terdaftar_p ELSE SUM(terdaftar_p) END AS terdaftar_p')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN penempatan_l ELSE SUM(penempatan_l) END AS penempatan_l')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN penempatan_p ELSE SUM(penempatan_p) END AS penempatan_p')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_l ELSE SUM(hapus_l) END AS hapus_l')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_p ELSE SUM(hapus_p) END AS hapus_p')
+        ->selectRaw('CASE WHEN judul = "0" THEN sisa_l ELSE SUM(sisa_l) END AS sisa_l')
+        ->selectRaw('CASE WHEN judul = "0" THEN sisa_p ELSE SUM(sisa_p) END AS sisa_p')
+        ->selectRaw('CASE WHEN judul = "0" THEN terdaftar_l ELSE SUM(terdaftar_l) END AS terdaftar_l')
+        ->selectRaw('CASE WHEN judul = "0" THEN terdaftar_p ELSE SUM(terdaftar_p) END AS terdaftar_p')
+        ->selectRaw('CASE WHEN judul = "0" THEN penempatan_l ELSE SUM(penempatan_l) END AS penempatan_l')
+        ->selectRaw('CASE WHEN judul = "0" THEN penempatan_p ELSE SUM(penempatan_p) END AS penempatan_p')
+        ->selectRaw('CASE WHEN judul = "0" THEN hapus_l ELSE SUM(hapus_l) END AS hapus_l')
+        ->selectRaw('CASE WHEN judul = "0" THEN hapus_p ELSE SUM(hapus_p) END AS hapus_p')
+        ->groupBy('judul', 'nmr', 'akhir_l', 'akhir_p')
+        ->oldest('id')
         ->get();
         
         return view('Dashboard.admin.cetak-laporan-iii-ii')->with([
@@ -145,6 +203,7 @@ class CetakLaporanII9 implements WithDrawings, WithStyles, WithTitle, FromView, 
             'title' => $title,
             'semester' => $semester,
             'disnaker' => $disnaker,
+            'laporan' => $results
         ]);
     }
 

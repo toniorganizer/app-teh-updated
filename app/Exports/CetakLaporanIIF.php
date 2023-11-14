@@ -59,6 +59,48 @@ class CetakLaporanIIF implements WithDrawings, WithStyles, WithTitle, FromView, 
                         'color' => ['rgb' => '000000'], // Mengatur warna garis (hitam dalam format RGB)
                     ]],
             ],
+            'A33:B33' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
+            'C33:L33' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A47:B47' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
+            'C47:L47' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A54:B54' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
+            'C54:L54' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A32' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A46' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A53' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
             
             'A8:L10' => [
                 'fill' => [
@@ -107,6 +149,12 @@ class CetakLaporanIIF implements WithDrawings, WithStyles, WithTitle, FromView, 
                     'wrapText' => true,
                 ]
             ], 
+            'A8:A69' => [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ],
         ];
     }
 
@@ -136,7 +184,27 @@ class CetakLaporanIIF implements WithDrawings, WithStyles, WithTitle, FromView, 
         $start = 6200;
         $end = 6515;
         $data = DB::table('data_jenis_pendidikans')
-        ->whereBetween('nmr', [$start, $end])->orWhere('nmr', 06)
+        ->where('id_disnaker', $this->id)
+        ->where(function ($query) use ($start, $end) {
+            $query->whereBetween('nmr', [$start, $end])
+                    ->orWhere('nmr', 06);
+        })
+        ->get();
+
+        $results = DB::table('data_jenis_pendidikans')
+        ->select('judul', 'nmr', 'akhir_l', 'akhir_p')
+        ->whereBetween('nmr', [$start, $end])
+        ->orWhere('nmr', 06)
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN sisa_l ELSE SUM(sisa_l) END AS sisa_l')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN sisa_p ELSE SUM(sisa_p) END AS sisa_p')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN terdaftar_l ELSE SUM(terdaftar_l) END AS terdaftar_l')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN terdaftar_p ELSE SUM(terdaftar_p) END AS terdaftar_p')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN penempatan_l ELSE SUM(penempatan_l) END AS penempatan_l')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN penempatan_p ELSE SUM(penempatan_p) END AS penempatan_p')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_l ELSE SUM(hapus_l) END AS hapus_l')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_p ELSE SUM(hapus_p) END AS hapus_p')
+        ->groupBy('judul', 'nmr', 'akhir_l', 'akhir_p')
+        ->oldest('id')
         ->get();
         
         return view('Dashboard.admin.cetak-laporan-iii-ii')->with([
@@ -144,6 +212,7 @@ class CetakLaporanIIF implements WithDrawings, WithStyles, WithTitle, FromView, 
             'title' => $title,
             'semester' => $semester,
             'disnaker' => $disnaker,
+            'laporan' => $results
         ]);
     }
 
