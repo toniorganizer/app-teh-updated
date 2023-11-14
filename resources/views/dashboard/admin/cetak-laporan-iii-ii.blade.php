@@ -20,6 +20,26 @@
 <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
 <tr><th></th><th>(1)</th><th>(2)</th><th>(3)</th><th>(4)</th><th>(5)</th><th>(6)</th><th>(7)</th><th>(8)</th><th>(9)</th><th>(11)</th><th>(12)</th></tr> 
 
+@if($disnaker->email_lembaga == 'disnaker@gmail.com')
+@if(isset($laporan) && $laporan->count() > 0)
+@foreach($laporan as $lap)
+    <tr>
+        <td>{{$lap->nmr}}</td>
+        <td>{{ $lap->judul }}</td>
+        <td>{{ $lap->sisa_l }}</td>
+        <td>{{ $lap->sisa_p }}</td>
+        <td>{{ $lap->terdaftar_l }}</td>
+        <td>{{ $lap->terdaftar_p }}</td>
+        <td>{{ $lap->penempatan_l }}</td>
+        <td>{{ $lap->penempatan_p }}</td>
+        <td>{{ $lap->hapus_l }}</td>
+        <td>{{ $lap->hapus_p }}</td>
+        <td>{{$lap->akhir_l}}</td>
+        <td>{{$lap->akhir_p}}</td>
+    </tr>
+@endforeach
+@endif
+@else
 @foreach($data as $item)
 <tr>
     <td>{{$item->nmr}}</td>
@@ -36,6 +56,7 @@
     <td>{{$item->akhir_p}}</td>
 </tr>
 @endforeach
+@endif
 </table>
 </body>
 </html>
