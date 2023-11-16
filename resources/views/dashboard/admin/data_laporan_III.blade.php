@@ -7,11 +7,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Laporan IPK-III-1</h1>
+        <h1>Laporan IPK-III-3</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Laporan IPK-III-2</li>
+                <li class="breadcrumb-item active">Laporan IPK-III-3</li>
             </ol>
             @if (session('success'))
             <div class="alert alert-primary">
@@ -31,41 +31,41 @@
                     <!-- Bordered Tabs -->
                     <div class="tab-content pt-2">
                       {{-- <div class="tab-pane fade show active profile-overview"> --}}
-                        <h5 class="card-title">Table Laporan-IPK-III-2</h5>
+                        <h5 class="card-title">Table Laporan-IPK-III-3</h5>
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
-                                <tr><th rowspan="2">No</th><th rowspan="2">Jenis Pendidikan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>@if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif</tr> 
+                                <tr><th rowspan="2">No</th><th rowspan="2">Kelompok Jabatan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>@if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif</tr> 
                                 <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
                             <?php $no = ($dataLaporan->currentPage() - 1) * $dataLaporan->perPage() + 1; ?>
                             @if($aturan->status_lembaga == 1)
                             @foreach ($dataLaporanKab as $laporan)
                             <tr>
                               <td>{{$no++}}</td>
-                                <td>{{$laporan->judul}}</td>
-                                <td>{{$laporan->sisa_l}}</td>
-                                <td>{{$laporan->sisa_p}}</td>
-                                <td>{{$laporan->terdaftar_l}}</td>
-                                <td>{{$laporan->terdaftar_p}}</td>
-                                <td>{{$laporan->penempatan_l}}</td>
-                                <td>{{$laporan->penempatan_p}}</td>
-                                <td>{{$laporan->hapus_l}}</td>
-                                <td>{{$laporan->hapus_p}}</td>
-                                <td><a href="/edit-laporan-ii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                <td>{{$laporan->judul_kj}}</td>
+                                <td>{{$laporan->sisa_l_kj}}</td>
+                                <td>{{$laporan->sisa_p_kj}}</td>
+                                <td>{{$laporan->terdaftar_l_kj}}</td>
+                                <td>{{$laporan->terdaftar_p_kj}}</td>
+                                <td>{{$laporan->penempatan_l_kj}}</td>
+                                <td>{{$laporan->penempatan_p_kj}}</td>
+                                <td>{{$laporan->hapus_l_kj}}</td>
+                                <td>{{$laporan->hapus_p_kj}}</td>
+                                <td><a href="/edit-laporan-iii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
                             </tr>
                             @endforeach
                             @else
                                 @foreach($dataLaporan as $lap)
                                     <tr>
                                         <td>{{$no++}}</td>
-                                        <td>{{ $lap->judul }}</td>
-                                        <td>{{ $lap->sisa_l }}</td>
-                                        <td>{{ $lap->sisa_p }}</td>
-                                        <td>{{ $lap->terdaftar_l }}</td>
-                                        <td>{{ $lap->terdaftar_p }}</td>
-                                        <td>{{ $lap->penempatan_l }}</td>
-                                        <td>{{ $lap->penempatan_p }}</td>
-                                        <td>{{ $lap->hapus_l }}</td>
-                                        <td>{{ $lap->hapus_p }}</td>
+                                        <td>{{ $lap->judul_kj }}</td>
+                                        <td>{{ $lap->sisa_l_kj }}</td>
+                                        <td>{{ $lap->sisa_p_kj }}</td>
+                                        <td>{{ $lap->terdaftar_l_kj }}</td>
+                                        <td>{{ $lap->terdaftar_p_kj }}</td>
+                                        <td>{{ $lap->penempatan_l_kj }}</td>
+                                        <td>{{ $lap->penempatan_p_kj }}</td>
+                                        <td>{{ $lap->hapus_l_kj }}</td>
+                                        <td>{{ $lap->hapus_p_kj }}</td>
                                     </tr>
                                 @endforeach
                             @endif
@@ -118,8 +118,7 @@
             
                             </div>
                             @endif
-                        </div>
-                        
+                      </div>
       
                     </div><!-- End Bordered Tabs -->
       
@@ -132,7 +131,7 @@
                 <!-- Recent Activity -->
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Laporan-IPK-III-2</h5>
+              <h5 class="card-title">Laporan-IPK-III-3</h5>
               <div class="activity">
                 <p style="text-align: justify">  @if($aturan->status_lembaga == 1)<span class="fw-bold text-dark">Edit data dapat dilakukan dengan menekan tombol pada kolom action. Tombol hapus, digunakan untuk menghapus keseluruhan data yang sudah di import, hal ini bisa dilakukan jika ingin melakukan import ulang.</span>@endif</p>
 
@@ -140,7 +139,7 @@
 
                 <p style="text-align: justify">Silahkan buat terlebih dahulu rentang tanggal terhadap laporan yang telah dibuat, kemudian pilih file laporan berdasarkan template yang sudah terisi data, selanjutnya pilih import. </p>
 
-                <form id="search-form" action="/importIPKII" method="post" enctype="multipart/form-data">
+                <form id="search-form" action="/importIPKIII" method="post" enctype="multipart/form-data">
                     @csrf
                 <div class="row">
                     <div class="col-md-6">
@@ -170,11 +169,11 @@
                         <h5 class="card-title mb-0">Template  @if($aturan->status_lembaga == 1) & Delete @endif</h5>
                         <div class="row">
                             <div class="col-lg-3">
-                            <a href="{{Storage::url('public/file/Template-IPK-III-2-sheet.xlsx')}}" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
+                            <a href="{{Storage::url('public/file/Template-IPK-III-3.xlsx')}}" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
                             </div>
                             @if($aturan->status_lembaga == 1)
                             <div class="col-lg-3">
-                                <a href="/delete-laporan-ii/{{Auth::user()->email}}" class="btn btn-danger mt-0" onclick="return confirm('Anda yakin ingin menghapus data laporan IPK-III-2 ?')"><i class="bi bi-trash3"></i></a>
+                                <a href="/delete-laporan-iii/{{Auth::user()->email}}" class="btn btn-danger mt-0" onclick="return confirm('Anda yakin ingin menghapus data laporan IPK-III-3 ?')"><i class="bi bi-trash3"></i></a>
                             </div>
                             @endif
                         </div>

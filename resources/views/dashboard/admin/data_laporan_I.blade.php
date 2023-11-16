@@ -203,7 +203,7 @@
                             </div>
                             @if($aturan->status_lembaga == 1)
                             <div class="col-lg-3">
-                                <a href="/delete-laporan-i/{{Auth::user()->email}}" class="btn btn-danger mt-0" onclick="return confirm('Anda yakin ingin menghapus data laporan IPK-III-I ?')"><i class="bi bi-trash3"></i></a>
+                                <a href="/delete-laporan-i/{{Auth::user()->email}}" class="btn btn-danger mt-0" onclick="return confirm('Anda yakin ingin menghapus data laporan IPK-III-1 ?')"><i class="bi bi-trash3"></i></a>
                             </div>
                             @endif
                         </div>
