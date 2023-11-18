@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\DataKelompokJabatan;
 use App\Models\PemangkuKepentingan;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CetakLaporanIIIPusat;
 use App\Imports\KelompokJabatanImport;
-use App\Models\DataKelompokJabatan;
 
 class KelompokJabatanController extends Controller
 {
@@ -101,4 +102,10 @@ class KelompokJabatanController extends Controller
             return redirect('/laporan-ipk-3')->with('success', 'Update data berhasil dilakukan');
         }
      }
+
+     public function CetakLaporanIII($id){
+    // dd($id);
+    return Excel::download(new CetakLaporanIIIPusat($id), 'Laporan-IPK-2.xlsx');
+
+    }
 }

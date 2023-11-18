@@ -169,7 +169,7 @@
                         <h5 class="card-title mb-0">Template  @if($aturan->status_lembaga == 1) & Delete @endif</h5>
                         <div class="row">
                             <div class="col-lg-3">
-                            <a href="{{Storage::url('public/file/Template-IPK-III-3.xlsx')}}" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
+                            <a href="{{Storage::url('public/file/Template-IPK-III-3-sheet.xlsx')}}" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
                             </div>
                             @if($aturan->status_lembaga == 1)
                             <div class="col-lg-3">
@@ -180,7 +180,7 @@
                         <h5 class="card-title mb-0">Download Hasil</h5>
                         <div class="row">
                             <div class="col-lg-3">
-                            <a href="/cetak-laporan-ii/{{Auth::user()->email}}" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
+                            <a href="/cetak-laporan-iii/{{Auth::user()->email}}" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
                             </div>
                         </div><!-- End Website Traffic -->
                         @if(Auth::user()->email == 'disnaker@gmail.com')
