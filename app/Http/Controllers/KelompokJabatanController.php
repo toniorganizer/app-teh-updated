@@ -105,7 +105,7 @@ class KelompokJabatanController extends Controller
 
      public function CetakLaporanIII($id){
     // dd($id);
-    return Excel::download(new CetakLaporanIIIPusat($id), 'Laporan-IPK-2.xlsx');
+    return Excel::download(new CetakLaporanIIIPusat($id), 'Laporan-IPK-3.xlsx');
 
     }
 }
