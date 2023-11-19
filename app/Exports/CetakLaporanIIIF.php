@@ -58,7 +58,13 @@ class CetakLaporanIIIF implements WithDrawings, WithStyles, WithTitle, FromView,
                     ]],
             ],
             
-            'A8:L10' => [
+            'A8:L9' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'D9E1F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'C10:L10' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'D9E1F2'], // Mengatur latar belakang menjadi kuning
@@ -72,7 +78,7 @@ class CetakLaporanIIIF implements WithDrawings, WithStyles, WithTitle, FromView,
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
-            'A11:L11' => [
+            'B11:L11' => [
                 'font' => [
                     'color' => ['rgb' => 'F2F2F2'], // Mengatur warna huruf menjadi merah (misalnya)
                 ],
@@ -96,11 +102,6 @@ class CetakLaporanIIIF implements WithDrawings, WithStyles, WithTitle, FromView,
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
-            ],
-
-            'A19:B19' => [
-                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
-                'font' => ['bold' => true],
             ],
             
             'B11:L11' => [

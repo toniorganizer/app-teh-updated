@@ -58,12 +58,19 @@ class CetakLaporanIIIA implements WithDrawings, WithStyles, WithTitle, FromView,
                     ]],
             ],
             
-            'A8:L10' => [
+            'A8:L9' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'D9E1F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
+            'C10:L10' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'D9E1F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            
             'A11:L12' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
