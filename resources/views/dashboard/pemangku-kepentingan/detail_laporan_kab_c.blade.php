@@ -38,18 +38,18 @@
                     @foreach ($dataLaporan as $laporan)
                     <tr>
                       <td>{{$no++}}</td>
-                        <td>{{$laporan->judul}}</td>
-                        <td>{{$laporan->sisa_l}}</td>
-                        <td>{{$laporan->sisa_p}}</td>
-                        <td>{{$laporan->terdaftar_l}}</td>
-                        <td>{{$laporan->terdaftar_p}}</td>
-                        <td>{{$laporan->penempatan_l}}</td>
-                        <td>{{$laporan->penempatan_p}}</td>
-                        <td>{{$laporan->hapus_l}}</td>
-                        <td>{{$laporan->hapus_p}}</td>
+                        <td>{{$laporan->judul_kj}}</td>
+                        <td>{{$laporan->sisa_l_kj}}</td>
+                        <td>{{$laporan->sisa_p_kj}}</td>
+                        <td>{{$laporan->terdaftar_l_kj}}</td>
+                        <td>{{$laporan->terdaftar_p_kj}}</td>
+                        <td>{{$laporan->penempatan_l_kj}}</td>
+                        <td>{{$laporan->penempatan_p_kj}}</td>
+                        <td>{{$laporan->hapus_l_kj}}</td>
+                        <td>{{$laporan->hapus_p_kj}}</td>
                         <td></td>
                         <td></td>
-                        <td><form action="/edit-laporan-ii/{{$laporan->nmr}}">
+                        <td><form action="/edit-laporan-iii/{{$laporan->nmr}}">
                             <input type="hidden" name="id_disnaker" value="{{$laporan->id_disnaker}}">
                             <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
                         </form></td>
@@ -139,7 +139,7 @@
                             @foreach($kab as $data)
                             <div class="activity-item d-flex">
                               <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                              <div class="activity-content"><a href="/detail-laporan-kab-ii/{{$data->email_lembaga}}" class="fw-bold text-dark">{{$data->nama_lembaga}}</a>
+                              <div class="activity-content"><a href="/detail-laporan-kab-iii/{{$data->email_lembaga}}" class="fw-bold text-dark">{{$data->nama_lembaga}}</a>
                               </div>
                             </div><!-- End activity item-->
                             @endforeach

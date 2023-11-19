@@ -249,6 +249,7 @@ class CetakLaporanIIB implements WithDrawings, WithStyles, WithTitle, FromView, 
         ->whereNotIn('nmr', [3801, 3802])
         ->get();
 
+
         $results = DB::table('data_jenis_pendidikans')
         ->select('judul', 'nmr', 'akhir_l', 'akhir_p')
         ->whereNotIn('nmr', [3801, 3802])

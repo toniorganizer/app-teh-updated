@@ -26,14 +26,14 @@
     <tr>
         <td>{{$lap->nmr}}</td>
         <td>{{ $lap->judul_kj }}</td>
-        <td>{{ $lap->sisa_l_kj }}</td>
-        <td>{{ $lap->sisa_p_kj }}</td>
-        <td>{{ $lap->terdaftar_l_kj }}</td>
-        <td>{{ $lap->terdaftar_p_kj }}</td>
-        <td>{{ $lap->penempatan_l_kj }}</td>
-        <td>{{ $lap->penempatan_p_kj }}</td>
-        <td>{{ $lap->hapus_l_kj }}</td>
-        <td>{{ $lap->hapus_p_kj }}</td>
+        <td>{{ $lap->sisa_l }}</td>
+        <td>{{ $lap->sisa_p }}</td>
+        <td>{{ $lap->terdaftar_l }}</td>
+        <td>{{ $lap->terdaftar_p }}</td>
+        <td>{{ $lap->penempatan_l }}</td>
+        <td>{{ $lap->penempatan_p }}</td>
+        <td>{{ $lap->hapus_l }}</td>
+        <td>{{ $lap->hapus_p }}</td>
         <td>{{$lap->akhir_l_kj}}</td>
         <td>{{$lap->akhir_p_kj}}</td>
     </tr>

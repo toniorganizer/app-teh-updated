@@ -50,7 +50,9 @@
                                 <td>{{$laporan->penempatan_p_kj}}</td>
                                 <td>{{$laporan->hapus_l_kj}}</td>
                                 <td>{{$laporan->hapus_p_kj}}</td>
+                                @if($laporan->sisa_l_kj != '-')
                                 <td><a href="/edit-laporan-iii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                @endif
                             </tr>
                             @endforeach
                             @else
@@ -58,14 +60,14 @@
                                     <tr>
                                         <td>{{$no++}}</td>
                                         <td>{{ $lap->judul_kj }}</td>
-                                        <td>{{ $lap->sisa_l_kj }}</td>
-                                        <td>{{ $lap->sisa_p_kj }}</td>
-                                        <td>{{ $lap->terdaftar_l_kj }}</td>
-                                        <td>{{ $lap->terdaftar_p_kj }}</td>
-                                        <td>{{ $lap->penempatan_l_kj }}</td>
-                                        <td>{{ $lap->penempatan_p_kj }}</td>
-                                        <td>{{ $lap->hapus_l_kj }}</td>
-                                        <td>{{ $lap->hapus_p_kj }}</td>
+                                        <td>{{ $lap->sisa_l }}</td>
+                                        <td>{{ $lap->sisa_p }}</td>
+                                        <td>{{ $lap->terdaftar_l }}</td>
+                                        <td>{{ $lap->terdaftar_p }}</td>
+                                        <td>{{ $lap->penempatan_l }}</td>
+                                        <td>{{ $lap->penempatan_p }}</td>
+                                        <td>{{ $lap->hapus_l }}</td>
+                                        <td>{{ $lap->hapus_p }}</td>
                                     </tr>
                                 @endforeach
                             @endif
@@ -189,7 +191,7 @@
                             @foreach($kab as $data)
                             <div class="activity-item d-flex">
                               <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                              <div class="activity-content"><a href="/detail-laporan-kab-ii/{{$data->email_lembaga}}" class="fw-bold text-dark">{{$data->nama_lembaga}}</a>
+                              <div class="activity-content"><a href="/detail-laporan-kab-iii/{{$data->email_lembaga}}" class="fw-bold text-dark">{{$data->nama_lembaga}}</a>
                               </div>
                             </div><!-- End activity item-->
                             @endforeach

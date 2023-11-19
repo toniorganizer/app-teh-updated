@@ -188,19 +188,21 @@ class CetakLaporanIIIE implements WithDrawings, WithStyles, WithTitle, FromView,
 
         // dd($data);
 
-        $results = DB::table('data_jenis_pendidikans')
-        ->select('judul', 'nmr', 'akhir_l', 'akhir_p')
+        $results = DB::table('data_kelompok_jabatans')
+        ->select('judul_kj', 'nmr', 'akhir_l_kj', 'akhir_p_kj')
         ->whereBetween('nmr', [$start, $end])
-        ->orWhere('nmr', 01)->orWhere('nmr', 3801)->orWhere('nmr', 3802)
-        ->selectRaw('CASE WHEN judul = "Sub Total" THEN sisa_l ELSE SUM(sisa_l) END AS sisa_l')
-        ->selectRaw('CASE WHEN judul = "Sub Total" THEN sisa_p ELSE SUM(sisa_p) END AS sisa_p')
-        ->selectRaw('CASE WHEN judul = "Sub Total" THEN terdaftar_l ELSE SUM(terdaftar_l) END AS terdaftar_l')
-        ->selectRaw('CASE WHEN judul = "Sub Total" THEN terdaftar_p ELSE SUM(terdaftar_p) END AS terdaftar_p')
-        ->selectRaw('CASE WHEN judul = "Sub Total" THEN penempatan_l ELSE SUM(penempatan_l) END AS penempatan_l')
-        ->selectRaw('CASE WHEN judul = "Sub Total" THEN penempatan_p ELSE SUM(penempatan_p) END AS penempatan_p')
-        ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_l ELSE SUM(hapus_l) END AS hapus_l')
-        ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_p ELSE SUM(hapus_p) END AS hapus_p')
-        ->groupBy('judul', 'nmr', 'akhir_l', 'akhir_p')
+        ->orWhere('nmr', '05')
+        ->orWhereIn('nmr', [6, 7])
+        ->whereNotIn('nmr', ['06', '5', '07'])
+        ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN sisa_l_kj ELSE SUM(sisa_l_kj) END AS sisa_l')
+        ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN sisa_p_kj ELSE SUM(sisa_p_kj) END AS sisa_p')
+        ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN terdaftar_l_kj ELSE SUM(terdaftar_l_kj) END AS terdaftar_l')
+        ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN terdaftar_p_kj ELSE SUM(terdaftar_p_kj) END AS terdaftar_p')
+        ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN penempatan_l_kj ELSE SUM(penempatan_l_kj) END AS penempatan_l')
+        ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN penempatan_p_kj ELSE SUM(penempatan_p_kj) END AS penempatan_p')
+        ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN hapus_l_kj ELSE SUM(hapus_l_kj) END AS hapus_l')
+        ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN hapus_p_kj ELSE SUM(hapus_p_kj) END AS hapus_p')
+        ->groupBy('judul_kj', 'nmr', 'akhir_l_kj', 'akhir_p_kj')
         ->oldest('id')
         ->get();
 
