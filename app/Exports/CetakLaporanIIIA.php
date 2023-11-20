@@ -197,7 +197,7 @@ class CetakLaporanIIIA implements WithDrawings, WithStyles, WithTitle, FromView,
 
     public function view(): View
     {
-        $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
+        $title = 'LAPORAN IPK III/3 - PENCARI KERJA MENURUT GOL.JABATAN PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
         $semester = DataKelompokJabatan::where('id_disnaker', $this->id)->first();
         $start = 0;
