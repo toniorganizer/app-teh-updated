@@ -76,7 +76,7 @@
             <!-- Recent Activity -->
             <div class="card">
                 <div class="card-body">
-                <h5 class="card-title">Laporan-IPK-III-4</h5>
+                <h5 class="card-title">Laporan-IPK-III-1</h5>
             </div><!-- End Recent Activity -->
             </div>
         </div>
@@ -94,7 +94,7 @@
                         <h5 class="card-title mb-0">Download Hasil</h5>
                         <div class="row">
                             <div class="col-lg-3">
-                            <a href="/cetak-laporan-i/{{Auth::user()->email}}" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
+                            <a href="/cetak-laporan-i/{{$nama->email_lembaga}}" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
                             </div>
                         </div><!-- End Website Traffic -->
                         @if(Auth::user()->email == 'disnaker@gmail.com')

@@ -11,6 +11,7 @@ use App\Http\Controllers\PekerjaController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\BursaKerjaController;
 use App\Http\Controllers\DataPencariKerjaController;
+use App\Http\Controllers\GolonganUsahaController;
 use App\Http\Controllers\JenisPendidikanController;
 use App\Http\Controllers\KelompokJabatanController;
 use App\Http\Controllers\KepentinganController;
@@ -161,6 +162,20 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/update-laporan-v/{id}', 'updateLaporanV');
             Route::get('/cetak-laporan-v/{id}','CetakLaporanV');
             Route::get('/detail-laporan-kab-v/{id}', 'DetailLaporanKabV');
+        });
+    });
+
+    
+    Route::group(['middleware' => ['CekUser:1,3']], function () {
+        Route::controller(GolonganUsahaController::class)->group(function () {
+            Route::get('laporan-ipk-6', 'index');
+            Route::get('export-ipk-6', 'downlaodTemplate1');
+            Route::post('importIPKVI', 'importDataIPK6');
+            Route::get('/edit-laporan-vi/{id}', 'editLaporanVI');
+            Route::get('/delete-laporan-vi/{id}', 'deleteLaporanVI');
+            Route::post('/update-laporan-vi/{id}', 'updateLaporanVI');
+            Route::get('/cetak-laporan-vi/{id}','CetakLaporanVI');
+            Route::get('/detail-laporan-kab-vi/{id}', 'DetailLaporanKabVI');
         });
     });
 

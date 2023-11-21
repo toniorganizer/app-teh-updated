@@ -53,7 +53,7 @@ class CetakLaporanVD implements WithDrawings, WithStyles, WithTitle, FromView, W
             ],
 
             // Garis hitam tabel
-            'A8:L64' => [
+            'A8:L70' => [
                 'font' => ['name' => 'Tahoma', 'size' => 8, 'normal' => true],
                 'borders' => [
                     'allBorders' => [
@@ -76,18 +76,135 @@ class CetakLaporanVD implements WithDrawings, WithStyles, WithTitle, FromView, W
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
+            'A11:L11' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
 
             // Konten
+            'A12:L12' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'C12:L12' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A12:B12' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
+            'B35:L35' => [
+                'font' => [
+                    'color' => ['rgb' => '4472C4'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'C35:L35' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'A35' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'B35' => [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ],
+            'A36:L36' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'C36:L36' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A36:B36' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
+            'B59:L59' => [
+                'font' => [
+                    'color' => ['rgb' => '4472C4'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'C59:L59' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'A59' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'B59' => [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ],
+            'A60:L60' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'C60:L60' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A60:B60' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
+            'B70:L70' => [
+                'font' => [
+                    'color' => ['rgb' => '4472C4'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'C70:L70' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'A70' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'B70' => [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ],
             
 
             // Default Aturan  
-            'A8:A64' => [
+            'A8:A70' => [
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
-            'B12:B64' => [
+            'B12:B70' => [
                 'alignment' => [
                     'wrapText' => true,
                 ]

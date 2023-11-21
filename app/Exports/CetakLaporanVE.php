@@ -53,7 +53,7 @@ class CetakLaporanVE implements WithDrawings, WithStyles, WithTitle, FromView, W
             ],
 
             // Garis hitam tabel
-            'A8:L64' => [
+            'A8:L66' => [
                 'font' => ['name' => 'Tahoma', 'size' => 8, 'normal' => true],
                 'borders' => [
                     'allBorders' => [
@@ -76,18 +76,39 @@ class CetakLaporanVE implements WithDrawings, WithStyles, WithTitle, FromView, W
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
+            'A11:L11' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
 
             // Konten
+            'A12:L12' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'C12:L12' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A12:B12' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
             
 
             // Default Aturan  
-            'A8:A64' => [
+            'A8:A66' => [
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
-            'B12:B64' => [
+            'B12:B66' => [
                 'alignment' => [
                     'wrapText' => true,
                 ]

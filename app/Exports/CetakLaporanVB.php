@@ -76,8 +76,51 @@ class CetakLaporanVB implements WithDrawings, WithStyles, WithTitle, FromView, W
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
+            'A11:L11' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
 
-            // Konten
+            // Konten 
+            'B50:L50' => [
+                'font' => [
+                    'color' => ['rgb' => '4472C4'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'C50:L50' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'A50' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'B50' => [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ],  
+            'A51:B51' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'C51:L51' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A51:B51' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
             
 
             // Default Aturan  

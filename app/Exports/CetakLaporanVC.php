@@ -53,7 +53,7 @@ class CetakLaporanVC implements WithDrawings, WithStyles, WithTitle, FromView, W
             ],
 
             // Garis hitam tabel
-            'A8:L64' => [
+            'A8:L69' => [
                 'font' => ['name' => 'Tahoma', 'size' => 8, 'normal' => true],
                 'borders' => [
                     'allBorders' => [
@@ -76,18 +76,46 @@ class CetakLaporanVC implements WithDrawings, WithStyles, WithTitle, FromView, W
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
+            'A11:L11' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
 
             // Konten
+            'B69:L69' => [
+                'font' => [
+                    'color' => ['rgb' => '4472C4'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'C69:L69' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'A69' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'B69' => [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ],
             
 
             // Default Aturan  
-            'A8:A64' => [
+            'A8:A69' => [
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
-            'B12:B64' => [
+            'B12:B69' => [
                 'alignment' => [
                     'wrapText' => true,
                 ]

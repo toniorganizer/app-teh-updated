@@ -53,7 +53,7 @@ class CetakLaporanVG implements WithDrawings, WithStyles, WithTitle, FromView, W
             ],
 
             // Garis hitam tabel
-            'A8:L64' => [
+            'A8:L54' => [
                 'font' => ['name' => 'Tahoma', 'size' => 8, 'normal' => true],
                 'borders' => [
                     'allBorders' => [
@@ -76,18 +76,109 @@ class CetakLaporanVG implements WithDrawings, WithStyles, WithTitle, FromView, W
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
+            'A11:L11' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
 
             // Konten
+            'B30:L30' => [
+                'font' => [
+                    'color' => ['rgb' => '4472C4'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'C30:L30' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'A30' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'B30' => [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ],
+            'A31:L31' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'C31:L31' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A31:B31' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
+            'B53:L53' => [
+                'font' => [
+                    'color' => ['rgb' => '4472C4'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'C53:L53' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'A53' => [
+                'font' => [
+                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'B53' => [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ],
+            'B54:L54' => [
+                'font' => [
+                    'color' => ['rgb' => '4472C4'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'A54:L54' => [
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
+                ],
+            ],
+            'A54' => [
+                'font' => [
+                    'color' => ['rgb' => 'F2F2F2'], // Mengatur warna huruf menjadi merah (misalnya)
+                ],
+            ],
+            'B54' => [
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                ],
+            ],
+            'B54:L54' => [
+                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
+                'font' => ['bold' => true],
+            ],
             
 
             // Default Aturan  
-            'A8:A64' => [
+            'A8:A54' => [
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
-            'B12:B64' => [
+            'B12:B54' => [
                 'alignment' => [
                     'wrapText' => true,
                 ]
@@ -145,7 +236,15 @@ class CetakLaporanVG implements WithDrawings, WithStyles, WithTitle, FromView, W
         ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN penempatan_l_lj ELSE SUM(penempatan_l_lj) END AS penempatan_l')
         ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN penempatan_p_lj ELSE SUM(penempatan_p_lj) END AS penempatan_p')
         ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN hapus_l_lj ELSE SUM(hapus_l_lj) END AS hapus_l')
-        ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN hapus_p_lj ELSE SUM(hapus_p_lj) END AS hapus_p')
+        ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN hapus_p_lj ELSE SUM(hapus_p_lj) END AS hapus_p')     
+        ->selectRaw('CASE WHEN judul_lj = "TOTAL" THEN sisa_l_lj ELSE SUM(sisa_l_lj) END AS sisa_l')
+        ->selectRaw('CASE WHEN judul_lj = "TOTAL" THEN sisa_p_lj ELSE SUM(sisa_p_lj) END AS sisa_p')
+        ->selectRaw('CASE WHEN judul_lj = "TOTAL" THEN terdaftar_l_lj ELSE SUM(terdaftar_l_lj) END AS terdaftar_l')
+        ->selectRaw('CASE WHEN judul_lj = "TOTAL" THEN terdaftar_p_lj ELSE SUM(terdaftar_p_lj) END AS terdaftar_p')
+        ->selectRaw('CASE WHEN judul_lj = "TOTAL" THEN penempatan_l_lj ELSE SUM(penempatan_l_lj) END AS penempatan_l')
+        ->selectRaw('CASE WHEN judul_lj = "TOTAL" THEN penempatan_p_lj ELSE SUM(penempatan_p_lj) END AS penempatan_p')
+        ->selectRaw('CASE WHEN judul_lj = "TOTAL" THEN hapus_l_lj ELSE SUM(hapus_l_lj) END AS hapus_l')
+        ->selectRaw('CASE WHEN judul_lj = "TOTAL" THEN hapus_p_lj ELSE SUM(hapus_p_lj) END AS hapus_p')
         ->groupBy('judul_lj', 'nmr', 'akhir_l_lj', 'akhir_p_lj')
         ->oldest('id')
         ->get();

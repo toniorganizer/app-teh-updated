@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\DataGolonganUsaha;
 use App\Models\Laporan;
 use App\Models\DataPencariKerja;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class CetakLaporanVF implements WithDrawings, WithStyles, WithTitle, FromView, WithColumnWidths
+class CetakLaporanVIA implements WithDrawings, WithStyles, WithTitle, FromView, WithColumnWidths
 {
     private $id;
 
@@ -53,7 +54,7 @@ class CetakLaporanVF implements WithDrawings, WithStyles, WithTitle, FromView, W
             ],
 
             // Garis hitam tabel
-            'A8:L66' => [
+            'A8:L60' => [
                 'font' => ['name' => 'Tahoma', 'size' => 8, 'normal' => true],
                 'borders' => [
                     'allBorders' => [
@@ -84,53 +85,15 @@ class CetakLaporanVF implements WithDrawings, WithStyles, WithTitle, FromView, W
             ],
 
             // Konten
-            'B18:L18' => [
-                'font' => [
-                    'color' => ['rgb' => '4472C4'], // Mengatur warna huruf menjadi merah (misalnya)
-                ],
-            ],
-            'C18:L18' => [
-                'fill' => [
-                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
-                ],
-            ],
-            'A18' => [
-                'font' => [
-                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
-                ],
-            ],
-            'B18' => [
-                'alignment' => [
-                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
-                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                ],
-            ],
-            'A19:L19' => [
-                'fill' => [
-                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                    'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
-                ],
-            ],
-            'C19:L19' => [
-                'font' => [
-                    'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
-                ],
-            ],
-            'A19:B19' => [
-                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
-                'font' => ['bold' => true],
-            ],
-            
 
             // Default Aturan  
-            'A8:A66' => [
+            'A8:A60' => [
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
-            'B12:B66' => [
+            'B12:B60' => [
                 'alignment' => [
                     'wrapText' => true,
                 ]
@@ -163,33 +126,34 @@ class CetakLaporanVF implements WithDrawings, WithStyles, WithTitle, FromView, W
 
     public function view(): View
     {
-        $title = 'LAPORAN IPK III/5 - LOWONGAN DIRINCI MENURUT GOL.JABATAN PROPINSI SUMATERA BARAT';
+        $title = 'LAPORAN IPK III/6-LOWONGAN DIRINCI MENURUT GOL.SEKTOR PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataLowonganJabatan::where('id_disnaker', $this->id)->first();
-        $start = 7432;
-        $end = 8279;
-        $data = DB::table('data_lowongan_jabatans')
+        $semester = DataGolonganUsaha::where('id_disnaker', $this->id)->first();
+        $start = 0110;
+        $end = 2145;
+        $data = DB::table('data_golongan_usahas')
         ->where('id_disnaker', $this->id)
         ->where(function ($query) use ($start, $end) {
             $query->whereBetween('nmr', [$start, $end])
-                    ->orWhere('nmr', '06')
-                    ->orWhere('nmr', '8');
+                    ->orWhere('nmr', '01')
+                    ->orWhereIn('nmr', [0,1,'2']);
         })
         ->get();
 
-        $results = DB::table('data_lowongan_jabatans')
-        ->select('judul_lj', 'nmr', 'akhir_l_lj', 'akhir_p_lj')
+
+        $results = DB::table('data_golongan_usahas')
+        ->select('judul_gu', 'nmr', 'akhir_l_gu', 'akhir_p_gu')
         ->whereBetween('nmr', [$start, $end])
-        ->orWhere('nmr', 06)
-        ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN sisa_l_lj ELSE SUM(sisa_l_lj) END AS sisa_l')
-        ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN sisa_p_lj ELSE SUM(sisa_p_lj) END AS sisa_p')
-        ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN terdaftar_l_lj ELSE SUM(terdaftar_l_lj) END AS terdaftar_l')
-        ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN terdaftar_p_lj ELSE SUM(terdaftar_p_lj) END AS terdaftar_p')
-        ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN penempatan_l_lj ELSE SUM(penempatan_l_lj) END AS penempatan_l')
-        ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN penempatan_p_lj ELSE SUM(penempatan_p_lj) END AS penempatan_p')
-        ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN hapus_l_lj ELSE SUM(hapus_l_lj) END AS hapus_l')
-        ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN hapus_p_lj ELSE SUM(hapus_p_lj) END AS hapus_p')
-        ->groupBy('judul_lj', 'nmr', 'akhir_l_lj', 'akhir_p_lj')
+        ->orWhere('nmr', 01)
+        ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN sisa_l_gu ELSE SUM(sisa_l_gu) END AS sisa_l')
+        ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN sisa_p_gu ELSE SUM(sisa_p_gu) END AS sisa_p')
+        ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN terdaftar_l_gu ELSE SUM(terdaftar_l_gu) END AS terdaftar_l')
+        ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN terdaftar_p_gu ELSE SUM(terdaftar_p_gu) END AS terdaftar_p')
+        ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN penempatan_l_gu ELSE SUM(penempatan_l_gu) END AS penempatan_l')
+        ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN penempatan_p_gu ELSE SUM(penempatan_p_gu) END AS penempatan_p')
+        ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN hapus_l_gu ELSE SUM(hapus_l_gu) END AS hapus_l')
+        ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN hapus_p_gu ELSE SUM(hapus_p_gu) END AS hapus_p')
+        ->groupBy('judul_gu', 'nmr', 'akhir_l_gu', 'akhir_p_gu')
         ->oldest('id')
         ->get();
 
@@ -204,6 +168,6 @@ class CetakLaporanVF implements WithDrawings, WithStyles, WithTitle, FromView, W
 
     public function title(): string
     {
-        return 'Sheet6';
+        return 'Sheet1';
     }
 }

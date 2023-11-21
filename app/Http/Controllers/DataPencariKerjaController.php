@@ -240,7 +240,7 @@ class DataPencariKerjaController extends Controller
         $datalaporan = DataPencariKerja::where('id_disnaker', $id)->whereNotIn('nmr', $excludedNumbers)->get();
         return view('Dashboard.pemangku-kepentingan.detail_laporan_kab_a', [
             'sub_title' => 'Laporan IPK-III-1',
-            'title' => 'Data Laporan IPK-III-1',
+            'title' => 'DataIPK',
             'datalaporan' => $datalaporan,
             'kab' => $kab,
             'nama' => $nama

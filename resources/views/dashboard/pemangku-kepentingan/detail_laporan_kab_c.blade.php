@@ -7,11 +7,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Laporan IPK-III-1</h1>
+        <h1>Laporan IPK-III-3</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Laporan IPK-III-1</li>
+                <li class="breadcrumb-item active">Laporan IPK-III-3</li>
             </ol>
             @if (session('success'))
             <div class="alert alert-primary">
@@ -28,7 +28,7 @@
                 <!-- Recent Activity -->
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Table Laporan-IPK-III-2 | {{$nama->nama_lembaga}}</h5>
+              <h5 class="card-title">Table Laporan-IPK-III-3 | {{$nama->nama_lembaga}}</h5>
               <div class="activity overflow-scroll">
                 <table class="table table-bordered center">
                     <tr><th rowspan="2">No</th><th rowspan="2">Jenis Pendidikan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th><th colspan="2">Sisa Akhir Smtr ini</th><th rowspan="2">Action</th></tr> 
@@ -88,7 +88,7 @@
             <!-- Recent Activity -->
             <div class="card">
                 <div class="card-body">
-                <h5 class="card-title">Laporan-IPK-III-4</h5>
+                <h5 class="card-title">Laporan-IPK-III-3</h5>
             </div><!-- End Recent Activity -->
             </div>
         </div>
@@ -105,7 +105,7 @@
                         <h5 class="card-title mb-0">Download Hasil</h5>
                         <div class="row">
                             <div class="col-lg-3">
-                            <a href="/cetak-laporan-i/{{Auth::user()->email}}" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
+                            <a href="/cetak-laporan-i/{{$nama->email_lembaga}}" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
                             </div>
                         </div><!-- End Website Traffic -->
                         @if(Auth::user()->email == 'disnaker@gmail.com')
