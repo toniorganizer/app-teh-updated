@@ -14,6 +14,7 @@ use App\Http\Controllers\DataPencariKerjaController;
 use App\Http\Controllers\JenisPendidikanController;
 use App\Http\Controllers\KelompokJabatanController;
 use App\Http\Controllers\KepentinganController;
+use App\Http\Controllers\lowonganJabatanController;
 use App\Http\Controllers\lowonganPendidikanController;
 use Illuminate\Http\Request as IlluminateRequest;
 use App\Http\Controllers\PemberiInformasiController;
@@ -147,6 +148,19 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/update-laporan-iv/{id}', 'updateLaporanIV');
             Route::get('/cetak-laporan-iv/{id}','CetakLaporanIV');
             Route::get('/detail-laporan-kab-iv/{id}', 'DetailLaporanKabIV');
+        });
+    });
+
+    Route::group(['middleware' => ['CekUser:1,3']], function () {
+        Route::controller(lowonganJabatanController::class)->group(function () {
+            Route::get('laporan-ipk-5', 'index');
+            Route::get('export-ipk-5', 'downlaodTemplate1');
+            Route::post('importIPKV', 'importDataIPK5');
+            Route::get('/edit-laporan-v/{id}', 'editLaporanV');
+            Route::get('/delete-laporan-v/{id}', 'deleteLaporanV');
+            Route::post('/update-laporan-v/{id}', 'updateLaporanV');
+            Route::get('/cetak-laporan-v/{id}','CetakLaporanV');
+            Route::get('/detail-laporan-kab-v/{id}', 'DetailLaporanKabV');
         });
     });
 
