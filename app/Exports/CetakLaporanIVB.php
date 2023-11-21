@@ -263,7 +263,7 @@ class CetakLaporanIVB implements WithDrawings, WithStyles, WithTitle, FromView, 
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
-            'B12:B64' => [
+            'B12:B66' => [
                 'alignment' => [
                     'wrapText' => true,
                 ]
@@ -313,7 +313,8 @@ class CetakLaporanIVB implements WithDrawings, WithStyles, WithTitle, FromView, 
         $results = DB::table('data_lowongan_pendidikans')
         ->select('judul_lp', 'nmr', 'akhir_l_lp', 'akhir_p_lp')
         ->whereBetween('nmr', [$start, $end])
-        ->orWhere('nmr', 02)->orWhere('nmr', 3801)->orWhere('nmr', 3802)
+        ->whereNotIn('nmr', [3801])->whereNotIn('nmr', [3802])
+        ->orWhere('nmr', 02)
         ->selectRaw('CASE WHEN judul_lp = "Sub Total" THEN sisa_l_lp ELSE SUM(sisa_l_lp) END AS sisa_l')
         ->selectRaw('CASE WHEN judul_lp = "Sub Total" THEN sisa_p_lp ELSE SUM(sisa_p_lp) END AS sisa_p')
         ->selectRaw('CASE WHEN judul_lp = "Sub Total" THEN terdaftar_l_lp ELSE SUM(terdaftar_l_lp) END AS terdaftar_l')

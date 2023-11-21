@@ -7,11 +7,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Laporan IPK-III-1</h1>
+        <h1>Laporan IPK-III-4</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Laporan IPK-III-1</li>
+                <li class="breadcrumb-item active">Laporan IPK-III-4</li>
             </ol>
             @if (session('success'))
             <div class="alert alert-primary">
@@ -28,7 +28,7 @@
                 <!-- Recent Activity -->
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Table Laporan-IPK-III-2 | {{$nama->nama_lembaga}}</h5>
+              <h5 class="card-title">Table Laporan-IPK-III-4 | {{$nama->nama_lembaga}}</h5>
               <div class="activity overflow-scroll">
                 <table class="table table-bordered center">
                     <tr><th rowspan="2">No</th><th rowspan="2">Jenis Pendidikan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th><th colspan="2">Sisa Akhir Smtr ini</th><th rowspan="2">Action</th></tr> 
@@ -38,21 +38,24 @@
                     @foreach ($dataLaporan as $laporan)
                     <tr>
                       <td>{{$no++}}</td>
-                        <td>{{$laporan->judul_kj}}</td>
-                        <td>{{$laporan->sisa_l_kj}}</td>
-                        <td>{{$laporan->sisa_p_kj}}</td>
-                        <td>{{$laporan->terdaftar_l_kj}}</td>
-                        <td>{{$laporan->terdaftar_p_kj}}</td>
-                        <td>{{$laporan->penempatan_l_kj}}</td>
-                        <td>{{$laporan->penempatan_p_kj}}</td>
-                        <td>{{$laporan->hapus_l_kj}}</td>
-                        <td>{{$laporan->hapus_p_kj}}</td>
+                        <td>{{$laporan->judul_lp}}</td>
+                        <td>{{$laporan->sisa_l_lp}}</td>
+                        <td>{{$laporan->sisa_p_lp}}</td>
+                        <td>{{$laporan->terdaftar_l_lp}}</td>
+                        <td>{{$laporan->terdaftar_p_lp}}</td>
+                        <td>{{$laporan->penempatan_l_lp}}</td>
+                        <td>{{$laporan->penempatan_p_lp}}</td>
+                        <td>{{$laporan->hapus_l_lp}}</td>
+                        <td>{{$laporan->hapus_p_lp}}</td>
                         <td></td>
                         <td></td>
-                        <td><form action="/edit-laporan-iii/{{$laporan->nmr}}">
+                        @if($laporan->sisa_l_lp != '-')
+                        <td><form action="/edit-laporan-iv/{{$laporan->nmr}}">
                             <input type="hidden" name="id_disnaker" value="{{$laporan->id_disnaker}}">
                             <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
-                        </form></td>
+                        </form>
+                        </td>
+                        @endif
                     </tr>
                     @endforeach
                     
@@ -85,13 +88,14 @@
         </div> 
 
         <div class="col-lg-8">
-            <!-- Recent Activity -->
-            <div class="card">
-                <div class="card-body">
-                <h5 class="card-title">Laporan-IPK-III-4</h5>
-            </div><!-- End Recent Activity -->
-            </div>
+                <!-- Recent Activity -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Laporan-IPK-III-4</h5>
+          </div><!-- End Recent Activity -->
         </div>
+        </div>
+
             <div class="col-lg-4">
                 <!-- Website Traffic -->
                 <div class="card">
@@ -99,13 +103,13 @@
                         <h5 class="card-title mb-0">Template</h5>
                         <div class="row">
                             <div class="col-lg-3">
-                            <a href="{{Storage::url('public/file/Template.xlsx')}}" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
+                            <a href="{{Storage::url('public/file/Template-IPK-III-4.xlsx')}}" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
                             </div>
                         </div>
                         <h5 class="card-title mb-0">Download Hasil</h5>
                         <div class="row">
                             <div class="col-lg-3">
-                            <a href="/cetak-laporan-i/{{Auth::user()->email}}" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
+                            <a href="/cetak-laporan-iv/{{Auth::user()->email}}" class="btn btn-info mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
                             </div>
                         </div><!-- End Website Traffic -->
                         @if(Auth::user()->email == 'disnaker@gmail.com')
@@ -114,7 +118,7 @@
                             @foreach($kab as $data)
                             <div class="activity-item d-flex">
                               <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                              <div class="activity-content"><a href="/detail-laporan-kab-iii/{{$data->email_lembaga}}" class="fw-bold text-dark">{{$data->nama_lembaga}}</a>
+                              <div class="activity-content"><a href="/detail-laporan-kab-iv/{{$data->email_lembaga}}" class="fw-bold text-dark">{{$data->nama_lembaga}}</a>
                               </div>
                             </div><!-- End activity item-->
                             @endforeach

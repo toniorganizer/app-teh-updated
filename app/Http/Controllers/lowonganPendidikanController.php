@@ -27,12 +27,10 @@ class lowonganPendidikanController extends Controller
         $lap = DB::table('data_lowongan_pendidikans')
             ->whereIn('nmr', $numbers)
             ->whereNotIn('judul_lp', $excludedNumbers)
-            ->select('nmr', 'judul_lp', DB::raw('SUM(sisa_l_lp) as sisa_l'), DB::raw('SUM(sisa_p_lp) as sisa_p_lp'), DB::raw('SUM(terdaftar_l_lp) as terdaftar_l_lp'), DB::raw('SUM(terdaftar_p_lp) as terdaftar_p_lp'), DB::raw('SUM(penempatan_l_lp) as penempatan_l'), DB::raw('SUM(penempatan_p_lp) as penempatan_p_lp'), DB::raw('SUM(hapus_l_lp) as hapus_l'), DB::raw('SUM(hapus_p_lp) as hapus_p'))
+            ->select('nmr', 'judul_lp', DB::raw('SUM(sisa_l_lp) as sisa_l'), DB::raw('SUM(sisa_p_lp) as sisa_p'), DB::raw('SUM(terdaftar_l_lp) as terdaftar_l'), DB::raw('SUM(terdaftar_p_lp) as terdaftar_p'), DB::raw('SUM(penempatan_l_lp) as penempatan_l'), DB::raw('SUM(penempatan_p_lp) as penempatan_p'), DB::raw('SUM(hapus_l_lp) as hapus_l'), DB::raw('SUM(hapus_p_lp) as hapus_p'))
             ->groupBy('nmr', 'judul_lp')
             ->oldest('id')
             ->paginate(20);
-
-        // dd($lap);
 
         return view('Dashboard.admin.data_laporan_IV', [
             'data' => $data,
@@ -103,4 +101,17 @@ class lowonganPendidikanController extends Controller
         return Excel::download(new CetakLaporanIVPusat($id), $fileName);
     }
 
+    public function detailLaporanKabIV($id){
+        $kab = PemangkuKepentingan::where('status_lembaga', 1)->get();
+        $nama = PemangkuKepentingan::where('email_lembaga', $id)->first();
+        $excludedNumbers = ['Sub Total','Total', 'BH & TIDAK TAMAT SD', 'SD', 'SLTP UMUM','SLTP KEJURUAN', 'SETINGKAT SLTP','PENDIDIKAN MENENGAH ATAS','SMK - TEKNOLOGI DAN REKAYASA','SMK - TEKNOLOGI INFORMASI DAN KOMUNIKASI','SMK - KESEHATAN','SMK - SENI, KERAJINAN DAN PARIWISATA','SMK - AGRIBISNIS DAN AGROTEKNOLOGI','SMK - BISNIS DAN MANAJEMEN','SETINGKAT SMU LAINNYA','DIPLOMA I / AKTA I / DIPLOMA II / AKTA II','DIPLOMA III / AKTA III/ AKADEMI/S.MUDA','SARJANA ( S1 )','SARJANA ( S2 )', 'SETINGKAT SLTP', '0'];
+        $datalaporan = DataLowonganPendidikan::where('id_disnaker', $id)->whereNotIn('judul_lp', $excludedNumbers)->paginate(20);
+        return view('Dashboard.pemangku-kepentingan.detail_laporan_kab_d', [
+            'sub_title' => 'Laporan IPK-III-4',
+            'title' => 'DataIPK',
+            'dataLaporan' => $datalaporan,
+            'kab' => $kab,
+            'nama' => $nama
+        ]);
+     }
 }

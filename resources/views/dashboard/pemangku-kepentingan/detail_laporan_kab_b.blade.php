@@ -49,10 +49,12 @@
                         <td>{{$laporan->hapus_p}}</td>
                         <td></td>
                         <td></td>
+                        @if($laporan->sisa_l != '-')
                         <td><form action="/edit-laporan-ii/{{$laporan->nmr}}">
                             <input type="hidden" name="id_disnaker" value="{{$laporan->id_disnaker}}">
                             <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
                         </form></td>
+                        @endif
                     </tr>
                     @endforeach
                     
@@ -84,37 +86,14 @@
         </div>
         </div> 
 
+        
         <div class="col-lg-8">
-                <!-- Recent Activity -->
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Laporan-IPK-III-2</h5>
-              <div class="activity">
-                <p style="text-align: justify">Pelaksanaan pembuatan laporan dapat dilakukan dengan download template terlebih dahulu, kemudian isi template berdasarkan data laporan yang ada. Pastikan setiap kolom terisi dengan benar sebelum melakukan import data.</p>
-
-                <p>Silahkan buat terlebih dahulu rentang tanggal terhadap laporan yang telah dibuat, kemudian pilih file laporan berdasarkan template yang sudah terisi data, selanjutnya pilih import. <span class="fw-bold text-dark">Edit data dapat dilakukan dengan menekan tombol pada kolom action.</span></p>
-
-                <form id="search-form" action="/import" method="post" enctype="multipart/form-data">
-                    @csrf
-                <div class="row">
-                    <div class="col-md-6">
-                        <input name="tgl1" type="date" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                        <input name="tgl2" type="date" class="form-control">
-                    </div>
-                    <div class="col-md-6 mt-2">
-                        <input type="file" class="form-control-file" name="file">
-                    </div>
-                    <div class="col-md-6 mt-2">
-                        <button type="submit" class="btn btn-success mt-0"><i class="bi bi-cloud-arrow-up"></i> Import</button>
-                    </div>
-                </div>
-                </form>
-                
+            <!-- Recent Activity -->
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Laporan-IPK-III-4</h5>
+            </div><!-- End Recent Activity -->
             </div>
-          </div><!-- End Recent Activity -->
-        </div>
         </div>
 
             <div class="col-lg-4">
