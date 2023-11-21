@@ -40,8 +40,13 @@
                             @if($aturan->status_lembaga == 1)
                             @foreach ($dataLaporanKab as $laporan)
                             <tr>
-                              <td>{{$no++}}</td>
+                                @if($laporan->sisa_l_lp == '-')
+                                <th>{{$no++}}</th>
+                                <th>{{$laporan->judul_lp}}</th>
+                                @else
+                                <td>{{$no++}}</td>
                                 <td>{{$laporan->judul_lp}}</td>
+                                @endif
                                 <td>{{$laporan->sisa_l_lp}}</td>
                                 <td>{{$laporan->sisa_p_lp}}</td>
                                 <td>{{$laporan->terdaftar_l_lp}}</td>
@@ -51,7 +56,7 @@
                                 <td>{{$laporan->hapus_l_lp}}</td>
                                 <td>{{$laporan->hapus_p_lp}}</td>
                                 @if($laporan->sisa_l_lp != '-')
-                                <td><a href="/edit-laporan-iii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                <td><a href="/edit-laporan-iv/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
                                 @endif
                             </tr>
                             @endforeach
@@ -171,7 +176,7 @@
                         <h5 class="card-title mb-0">Template  @if($aturan->status_lembaga == 1) & Delete @endif</h5>
                         <div class="row">
                             <div class="col-lg-3">
-                            <a href="{{Storage::url('public/file/Template-IPK-III-4-sheet.xlsx')}}" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
+                            <a href="{{Storage::url('public/file/Template-IPK-III-4.xlsx')}}" class="btn btn-primary mt-0"><i class="bi bi-cloud-arrow-down"></i></a>
                             </div>
                             @if($aturan->status_lembaga == 1)
                             <div class="col-lg-3">

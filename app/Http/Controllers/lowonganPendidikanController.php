@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\PemangkuKepentingan;
+use App\Exports\CetakLaporanIVPusat;
 use App\Http\Controllers\Controller;
 use App\Imports\JenisLowonganImport;
 use Illuminate\Support\Facades\Auth;
@@ -54,9 +55,52 @@ class lowonganPendidikanController extends Controller
      }
 
      public function deleteLaporanIV($id){
-        // dd($id);
         DataLowonganPendidikan::where('id_disnaker', $id)->delete();
         return redirect('/laporan-ipk-4')->with('success', 'Hapus data berhasil dilakukan');
      } 
+
+     public function editLaporanIV(Request $request, $id){
+        if($request->id_disnaker){
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            $data = DataLowonganPendidikan::where('nmr', $id)->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul_lp', $notIn)->first();
+        }
+        else{
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            $data = DataLowonganPendidikan::where('nmr', $id)->where('id_disnaker', Auth::user()->email)->whereNotIn('judul_lp', $notIn)->first();
+        }
+
+        return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_d', [
+            'sub_title' => 'Laporan IPK-III-4',
+            'title' => 'DataIPK',
+            'data' => $data
+        ]);
+
+    }
+
+    public function updateLaporanIV(Request $request, $id){
+        $notIn = ['BH & TIDAK TAMAT SD','SD'];
+        DataLowonganPendidikan::where('nmr', $id)->where('id_disnaker', $request->id_disnaker)->whereNotIn('judul_lp', $notIn)->update([
+            'sisa_l_lp' => $request->{'sisa_l'},
+            'sisa_p_lp' => $request->{'sisa_p'},
+            'terdaftar_l_lp' => $request->{'terdaftar_l'},
+            'terdaftar_p_lp' => $request->{'terdaftar_p'},
+            'penempatan_l_lp' => $request->{'penempatan_l'},
+            'penempatan_p_lp' => $request->{'penempatan_p'},
+            'hapus_l_lp' => $request->{'hapus_l'},
+            'hapus_p_lp' => $request->{'hapus_p'},
+        ]);
+
+        if(Auth::user()->email == 'disnaker@gmail.com'){
+            return redirect('/detail-laporan-kab-iv/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+        }else{
+            return redirect('/laporan-ipk-4')->with('success', 'Update data berhasil dilakukan');
+        }
+     }
+
+     public function CetakLaporanIV($id){
+        $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+        $fileName = 'Laporan-IPK-4-'. $data->nama_lembaga .'.xlsx';
+        return Excel::download(new CetakLaporanIVPusat($id), $fileName);
+    }
 
 }

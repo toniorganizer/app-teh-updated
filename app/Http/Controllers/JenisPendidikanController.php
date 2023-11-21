@@ -86,11 +86,9 @@ class JenisPendidikanController extends Controller
         return redirect('/laporan-ipk-2')->with('success', 'Hapus data berhasil dilakukan');
      } 
 
-     public function CetakLaporanII($id){
-        // dd($id);
+    public function CetakLaporanII($id){
         return Excel::download(new CetakLaporanIIPusat($id), 'Laporan-IPK-2.xlsx');
-
-        }
+    }
 
     public function editLaporanII(Request $request, $id){
         if($request->id_disnaker){
