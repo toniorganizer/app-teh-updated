@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\CetakLaporanVPusat;
 use App\Models\DataLowonganJabatan;
 use App\Models\PemangkuKepentingan;
 use App\Http\Controllers\Controller;
@@ -49,5 +50,55 @@ class lowonganJabatanController extends Controller
         Excel::import(new LowonganJabatanImport($bulan1, $bulan2), $request->file('file'));
         
         return redirect('/laporan-ipk-5')->with('success', 'Import data berhasil dilakukan!');
+    }
+
+    public function deleteLaporanV($id){
+        DataLowonganJabatan::where('id_disnaker', $id)->delete();
+        return redirect('/laporan-ipk-5')->with('success', 'Hapus data berhasil dilakukan');
+     } 
+
+    
+     public function editLaporanV(Request $request, $id){
+        if($request->id_disnaker){
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            $data = DataLowonganJabatan::where('nmr', $id)->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul_lj', $notIn)->first();
+        }
+        else{
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            $data = DataLowonganJabatan::where('nmr', $id)->where('id_disnaker', Auth::user()->email)->whereNotIn('judul_lj', $notIn)->first();
+        }
+
+        return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_e', [
+            'sub_title' => 'Laporan IPK-III-5',
+            'title' => 'DataIPK',
+            'data' => $data
+        ]);
+
+    }
+
+    public function updateLaporanV(Request $request, $id){
+        $notIn = ['BH & TIDAK TAMAT SD','SD'];
+        DataLowonganJabatan::where('nmr', $id)->where('id_disnaker', $request->id_disnaker)->whereNotIn('judul_lj', $notIn)->update([
+            'sisa_l_lj' => $request->{'sisa_l'},
+            'sisa_p_lj' => $request->{'sisa_p'},
+            'terdaftar_l_lj' => $request->{'terdaftar_l'},
+            'terdaftar_p_lj' => $request->{'terdaftar_p'},
+            'penempatan_l_lj' => $request->{'penempatan_l'},
+            'penempatan_p_lj' => $request->{'penempatan_p'},
+            'hapus_l_lj' => $request->{'hapus_l'},
+            'hapus_p_lj' => $request->{'hapus_p'},
+        ]);
+
+        if(Auth::user()->email == 'disnaker@gmail.com'){
+            return redirect('/detail-laporan-kab-v/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+        }else{
+            return redirect('/laporan-ipk-5')->with('success', 'Update data berhasil dilakukan');
+        }
+     }
+
+    public function CetakLaporanV($id){
+        $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+        $fileName = 'Laporan-IPK-5-'. $data->nama_lembaga .'.xlsx';
+        return Excel::download(new CetakLaporanVPusat($id), $fileName);
     }
 }
