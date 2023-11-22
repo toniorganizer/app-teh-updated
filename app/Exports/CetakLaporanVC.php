@@ -164,7 +164,7 @@ class CetakLaporanVC implements WithDrawings, WithStyles, WithTitle, FromView, W
         $results = DB::table('data_lowongan_jabatans')
         ->select('judul_lj', 'nmr', 'akhir_l_lj', 'akhir_p_lj')
         ->whereBetween('nmr', [$start, $end])
-        ->orWhere('nmr', 03)
+        ->orWhere('nmr', '03')
         ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN sisa_l_lj ELSE SUM(sisa_l_lj) END AS sisa_l')
         ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN sisa_p_lj ELSE SUM(sisa_p_lj) END AS sisa_p')
         ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN terdaftar_l_lj ELSE SUM(terdaftar_l_lj) END AS terdaftar_l')
