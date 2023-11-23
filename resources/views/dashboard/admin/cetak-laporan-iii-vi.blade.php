@@ -23,6 +23,22 @@
 @if($disnaker->email_lembaga == 'disnaker@gmail.com')
 @if(isset($laporan) && $laporan->count() > 0)
 @foreach($laporan as $lap)
+@if($lap->judul_gu == "TOTAL")
+    <tr>
+        <td>{{$lap->nmr}}</td>
+        <td>{{ $lap->judul_gu }}</td>
+        <td>{{ $lap->sisa_l_s }}</td>
+        <td>{{ $lap->sisa_p_s }}</td>
+        <td>{{ $lap->terdaftar_l_s }}</td>
+        <td>{{ $lap->terdaftar_p_s }}</td>
+        <td>{{ $lap->penempatan_l_s }}</td>
+        <td>{{ $lap->penempatan_p_s }}</td>
+        <td>{{ $lap->hapus_l_s }}</td>
+        <td>{{ $lap->hapus_p_s }}</td>
+        <td>{{$lap->akhir_l_gu}}</td>
+        <td>{{$lap->akhir_p_gu}}</td>
+    </tr>
+    @else
     <tr>
         <td>{{$lap->nmr}}</td>
         <td>{{ $lap->judul_gu }}</td>
@@ -37,6 +53,7 @@
         <td>{{$lap->akhir_l_gu}}</td>
         <td>{{$lap->akhir_p_gu}}</td>
     </tr>
+    @endif
 @endforeach
 @endif
 @else

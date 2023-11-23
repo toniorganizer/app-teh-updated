@@ -228,8 +228,18 @@ class DataPencariKerjaController extends Controller
      }
 
      public function CetakLaporanI($id){
-// dd($id);
-        return Excel::download(new CetakLaporanI($id), 'Laporan.xlsx');
+        $item = DataPencariKerja::where('id_disnaker', $id)->first();
+        if($id == 'disnaker@gmail.com'){
+            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+            $fileName = 'Laporan-IPK-1-'. $data->nama_lembaga .'.xlsx';
+            return Excel::download(new CetakLaporanI($id), $fileName);
+        }elseif($item == null){
+            return redirect('/laporan-ipk-1')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
+        }else{
+            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+            $fileName = 'Laporan-IPK-1-'. $data->nama_lembaga .'.xlsx';
+            return Excel::download(new CetakLaporanI($id), 'Laporan.xlsx');
+        }
 
      }
 

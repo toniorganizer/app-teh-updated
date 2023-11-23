@@ -87,7 +87,18 @@ class JenisPendidikanController extends Controller
      } 
 
     public function CetakLaporanII($id){
-        return Excel::download(new CetakLaporanIIPusat($id), 'Laporan-IPK-2.xlsx');
+        $item = DataJenisPendidikan::where('id_disnaker', $id)->first();
+        if($id == 'disnaker@gmail.com'){
+            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+            $fileName = 'Laporan-IPK-2-'. $data->nama_lembaga .'.xlsx';
+            return Excel::download(new CetakLaporanIIPusat($id), $fileName);
+        }elseif($item == null){
+            return redirect('/laporan-ipk-2')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
+        }else{
+            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+            $fileName = 'Laporan-IPK-2-'. $data->nama_lembaga .'.xlsx';
+            return Excel::download(new CetakLaporanIIPusat($id), 'Laporan-IPK-2.xlsx');
+        }
     }
 
     public function editLaporanII(Request $request, $id){

@@ -93,9 +93,18 @@ class GolonganUsahaController extends Controller
      }
 
      public function CetakLaporanVI($id){
+        $item = DataGolonganUsaha::where('id_disnaker', $id)->first();
+        if($id == 'disnaker@gmail.com'){
+            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+            $fileName = 'Laporan-IPK-6-'. $data->nama_lembaga .'.xlsx';
+            return Excel::download(new CetakLaporanVIPusat($id), $fileName);
+        }elseif($item == null){
+            return redirect('/laporan-ipk-6')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
+        }else{
         $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
         $fileName = 'Laporan-IPK-6-'. $data->nama_lembaga .'.xlsx';
         return Excel::download(new CetakLaporanVIPusat($id), $fileName);
+        }
     }
 
     
@@ -111,5 +120,5 @@ class GolonganUsahaController extends Controller
             'kab' => $kab,
             'nama' => $nama
         ]);
-     }
+    }
 }

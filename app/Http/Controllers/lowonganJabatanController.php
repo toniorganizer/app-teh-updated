@@ -96,9 +96,18 @@ class lowonganJabatanController extends Controller
      }
 
     public function CetakLaporanV($id){
-        $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
-        $fileName = 'Laporan-IPK-5-'. $data->nama_lembaga .'.xlsx';
-        return Excel::download(new CetakLaporanVPusat($id), $fileName);
+        $item = DataLowonganJabatan::where('id_disnaker', $id)->first();
+        if($id == 'disnaker@gmail.com'){
+            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+            $fileName = 'Laporan-IPK-5-'. $data->nama_lembaga .'.xlsx';
+            return Excel::download(new CetakLaporanVPusat($id), $fileName);
+        }elseif($item == null){
+            return redirect('/laporan-ipk-5')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
+        }else{
+            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+            $fileName = 'Laporan-IPK-5-'. $data->nama_lembaga .'.xlsx';
+            return Excel::download(new CetakLaporanVPusat($id), $fileName);
+        }
     }
 
     public function detailLaporanKabV($id){

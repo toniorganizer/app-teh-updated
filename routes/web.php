@@ -19,6 +19,7 @@ use App\Http\Controllers\lowonganJabatanController;
 use App\Http\Controllers\lowonganPendidikanController;
 use Illuminate\Http\Request as IlluminateRequest;
 use App\Http\Controllers\PemberiInformasiController;
+use App\Http\Controllers\PencariPenerimaController;
 use App\Models\DataPencariKerja;
 use App\Models\JenisPendidikan;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -176,6 +177,19 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/update-laporan-vi/{id}', 'updateLaporanVI');
             Route::get('/cetak-laporan-vi/{id}','CetakLaporanVI');
             Route::get('/detail-laporan-kab-vi/{id}', 'DetailLaporanKabVI');
+        });
+    });
+
+    Route::group(['middleware' => ['CekUser:1,3']], function () {
+        Route::controller(PencariPenerimaController::class)->group(function () {
+            Route::get('laporan-ipk-8', 'index');
+            Route::get('export-ipk-8', 'downlaodTemplate1');
+            Route::post('importIPKVIII', 'importDataIPK8');
+            Route::get('/edit-laporan-viii/{id}', 'editLaporanVIII');
+            Route::get('/delete-laporan-viii/{id}', 'deleteLaporanVIII');
+            Route::post('/update-laporan-viii/{id}', 'updateLaporanVIII');
+            Route::get('/cetak-laporan-viii/{id}','CetakLaporanVIII');
+            Route::get('/detail-laporan-kab-viii/{id}', 'DetailLaporanKabVIII');
         });
     });
 

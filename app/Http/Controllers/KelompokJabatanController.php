@@ -108,10 +108,18 @@ class KelompokJabatanController extends Controller
      }
 
      public function CetakLaporanIII($id){
-    // dd($id);
-    $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
-    $fileName = 'Laporan-IPK-3-'. $data->nama_lembaga .'.xlsx';
-    return Excel::download(new CetakLaporanIIIPusat($id), $fileName);
+        $item = DataKelompokJabatan::where('id_disnaker', $id)->first();
+        if($id == 'disnaker@gmail.com'){
+            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+            $fileName = 'Laporan-IPK-3-'. $data->nama_lembaga .'.xlsx';
+            return Excel::download(new CetakLaporanIIIPusat($id), $fileName);
+        }elseif($item == null){
+            return redirect('/laporan-ipk-3')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
+        }else{
+            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+            $fileName = 'Laporan-IPK-3-'. $data->nama_lembaga .'.xlsx';
+            return Excel::download(new CetakLaporanIIIPusat($id), $fileName);
+        }
 
     }
 
