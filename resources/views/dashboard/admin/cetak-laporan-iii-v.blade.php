@@ -23,20 +23,37 @@
 @if($disnaker->email_lembaga == 'disnaker@gmail.com')
 @if(isset($laporan) && $laporan->count() > 0)
 @foreach($laporan as $lap)
+@if($lap->judul_lj == 'TOTAL')
     <tr>
         <td>{{$lap->nmr}}</td>
         <td>{{ $lap->judul_lj }}</td>
-        <td>{{ $lap->sisa_l }}</td>
-        <td>{{ $lap->sisa_p }}</td>
-        <td>{{ $lap->terdaftar_l }}</td>
-        <td>{{ $lap->terdaftar_p }}</td>
-        <td>{{ $lap->penempatan_l }}</td>
-        <td>{{ $lap->penempatan_p }}</td>
-        <td>{{ $lap->hapus_l }}</td>
-        <td>{{ $lap->hapus_p }}</td>
+        <td>{{ $lap->sisa_l_s }}</td>
+        <td>{{ $lap->sisa_p_s }}</td>
+        <td>{{ $lap->terdaftar_l_s }}</td>
+        <td>{{ $lap->terdaftar_p_s }}</td>
+        <td>{{ $lap->penempatan_l_s }}</td>
+        <td>{{ $lap->penempatan_p_s }}</td>
+        <td>{{ $lap->hapus_l_s }}</td>
+        <td>{{ $lap->hapus_p_s }}</td>
         <td>{{$lap->akhir_l_lj}}</td>
         <td>{{$lap->akhir_p_lj}}</td>
     </tr>
+@else
+<tr>
+    <td>{{$lap->nmr}}</td>
+    <td>{{ $lap->judul_lj }}</td>
+    <td>{{ $lap->sisa_l }}</td>
+    <td>{{ $lap->sisa_p }}</td>
+    <td>{{ $lap->terdaftar_l }}</td>
+    <td>{{ $lap->terdaftar_p }}</td>
+    <td>{{ $lap->penempatan_l }}</td>
+    <td>{{ $lap->penempatan_p }}</td>
+    <td>{{ $lap->hapus_l }}</td>
+    <td>{{ $lap->hapus_p }}</td>
+    <td>{{$lap->akhir_l_lj}}</td>
+    <td>{{$lap->akhir_p_lj}}</td>
+</tr>
+@endif
 @endforeach
 @endif
 @else

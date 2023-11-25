@@ -161,7 +161,7 @@ class CetakLaporanII9 implements WithDrawings, WithStyles, WithTitle, FromView, 
 
     public function view(): View
     {
-        $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
+        $title = 'LAPORAN IPK III/2 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
         $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->first();
         $start = 7507;
@@ -184,14 +184,14 @@ class CetakLaporanII9 implements WithDrawings, WithStyles, WithTitle, FromView, 
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN terdaftar_p ELSE SUM(terdaftar_p) END AS terdaftar_p')
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN penempatan_l ELSE SUM(penempatan_l) END AS penempatan_l')
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN penempatan_p ELSE SUM(penempatan_p) END AS penempatan_p')
-        ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_l ELSE SUM(hapus_l) END AS hapus_l')
-        ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_p ELSE SUM(hapus_p) END AS hapus_p')
-        ->selectRaw('CASE WHEN judul = "0" THEN sisa_l ELSE SUM(sisa_l) END AS sisa_l')
-        ->selectRaw('CASE WHEN judul = "0" THEN sisa_p ELSE SUM(sisa_p) END AS sisa_p')
-        ->selectRaw('CASE WHEN judul = "0" THEN terdaftar_l ELSE SUM(terdaftar_l) END AS terdaftar_l')
-        ->selectRaw('CASE WHEN judul = "0" THEN terdaftar_p ELSE SUM(terdaftar_p) END AS terdaftar_p')
-        ->selectRaw('CASE WHEN judul = "0" THEN penempatan_l ELSE SUM(penempatan_l) END AS penempatan_l')
-        ->selectRaw('CASE WHEN judul = "0" THEN penempatan_p ELSE SUM(penempatan_p) END AS penempatan_p')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_l ELSE SUM(hapus_l) END AS hapus_l_s')
+        ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_p ELSE SUM(hapus_p) END AS hapus_p_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN sisa_l ELSE SUM(sisa_l) END AS sisa_l_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN sisa_p ELSE SUM(sisa_p) END AS sisa_p_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN terdaftar_l ELSE SUM(terdaftar_l) END AS terdaftar_l_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN terdaftar_p ELSE SUM(terdaftar_p) END AS terdaftar_p_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN penempatan_l ELSE SUM(penempatan_l) END AS penempatan_l_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN penempatan_p ELSE SUM(penempatan_p) END AS penempatan_p_s')
         ->selectRaw('CASE WHEN judul = "0" THEN hapus_l ELSE SUM(hapus_l) END AS hapus_l')
         ->selectRaw('CASE WHEN judul = "0" THEN hapus_p ELSE SUM(hapus_p) END AS hapus_p')
         ->groupBy('judul', 'nmr', 'akhir_l', 'akhir_p')
