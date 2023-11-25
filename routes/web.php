@@ -15,6 +15,7 @@ use App\Http\Controllers\GolonganUsahaController;
 use App\Http\Controllers\JenisPendidikanController;
 use App\Http\Controllers\KelompokJabatanController;
 use App\Http\Controllers\KepentinganController;
+use App\Http\Controllers\LampiranLaporanController;
 use App\Http\Controllers\lowonganJabatanController;
 use App\Http\Controllers\lowonganPendidikanController;
 use Illuminate\Http\Request as IlluminateRequest;
@@ -190,6 +191,18 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/update-laporan-viii/{id}', 'updateLaporanVIII');
             Route::get('/cetak-laporan-viii/{id}','CetakLaporanVIII');
             Route::get('/detail-laporan-kab-viii/{id}', 'DetailLaporanKabVIII');
+        });
+    });
+
+    Route::group(['middleware' => ['CekUser:1,3']], function () {
+        Route::controller(LampiranLaporanController::class)->group(function () {
+            Route::get('lampiran', 'index');
+            Route::post('importLampiran', 'importLampiran');
+            Route::get('/edit-lampiran/{id}', 'editLampiran');
+            Route::get('/delete-lampiran/{id}', 'deleteLampiran');
+            Route::post('/update-lampiran/{id}', 'updateLampiran');
+            Route::get('/cetak-lampiran/{id}','CetakLampiran');
+            Route::get('/detail-lampiran-kab/{id}', 'DetailLampiranKab');
         });
     });
 

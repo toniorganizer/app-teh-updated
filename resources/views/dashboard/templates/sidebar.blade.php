@@ -214,13 +214,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/laporan-ipk-7" @if($sub_title == 'Laporan IPK-III-7') class="active" @endif>
-                      <i class="bi bi-circle"></i><span>Laporan IPK-III-7</span>
+                    <a href="/laporan-ipk-8" @if($sub_title == 'Laporan IPK-III-8') class="active" @endif>
+                        <i class="bi bi-circle"></i><span>Laporan IPK-III-8</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/laporan-ipk-8" @if($sub_title == 'Laporan IPK-III-8') class="active" @endif>
-                      <i class="bi bi-circle"></i><span>Laporan IPK-III-8</span>
+                    <a href="/lampiran" @if($sub_title == 'Lampiran') class="active" @endif>
+                      <i class="bi bi-circle"></i><span>Lampiran</span>
                     </a>
                 </li>
             </ul>
