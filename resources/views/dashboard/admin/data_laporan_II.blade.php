@@ -40,8 +40,13 @@
                             @if($aturan->status_lembaga == 1)
                             @foreach ($dataLaporanKab as $laporan)
                             <tr>
-                              <td>{{$no++}}</td>
-                                <td>{{$laporan->judul}}</td>
+                                @if($laporan->sisa_l == '-')
+                                <th>{{$no++}}</th>
+                                <th>{{ $laporan->judul }}</th>
+                                @else
+                                <td>{{$no++}}</td>
+                                <td>{{ $laporan->judul }}</td>
+                                @endif
                                 <td>{{$laporan->sisa_l}}</td>
                                 <td>{{$laporan->sisa_p}}</td>
                                 <td>{{$laporan->terdaftar_l}}</td>
@@ -50,14 +55,21 @@
                                 <td>{{$laporan->penempatan_p}}</td>
                                 <td>{{$laporan->hapus_l}}</td>
                                 <td>{{$laporan->hapus_p}}</td>
+                                @if($laporan->sisa_l != '-')
                                 <td><a href="/edit-laporan-ii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                @endif
                             </tr>
                             @endforeach
                             @else
                                 @foreach($dataLaporan as $lap)
                                     <tr>
+                                        @if($lap->sisa_l == '-')
+                                        <th>{{$no++}}</th>
+                                        <th>{{ $lap->judul }}</th>
+                                        @else
                                         <td>{{$no++}}</td>
                                         <td>{{ $lap->judul }}</td>
+                                        @endif
                                         <td>{{ $lap->sisa_l }}</td>
                                         <td>{{ $lap->sisa_p }}</td>
                                         <td>{{ $lap->terdaftar_l }}</td>

@@ -95,19 +95,19 @@
                                     <td>{{ $laporan->lowongan_L }}</td>
                                     <td>{{ $laporan->lowongan_P }}</td>
                                     <td>{{ $laporan->lowongan_L + $laporan->lowongan_P }}</td>
-                                    <td><a href="/edit-laporan-i/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                    <td>
+                                        <form action="edit-laporan-i/{{$laporan->nmr}}">
+                                            @csrf
+                                            <input type="hidden" value="{{$laporan->type}}" name="type">
+                                            <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                        </form>
+                                    </td>
 
                                 </tr>
                                 @endforeach
                                 @else
-                                {{-- @foreach($lapor as $user => $data)
-                                    @foreach($data as $lap)
-                                        <tr>
-                                            <td>{{ $lap->pencari_kerja }}</td>
-                                            <td>{{ $lap->{'15_L'} }}</td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach --}}
+                                @if(is_null($pencari_kerja1))
+                                @else
                                 <tr>
                                     <td>{{ $pencari_kerja1->pencari_kerja }}</td>
                                     <td>{{ $jumlahL151 }}</td>
@@ -189,6 +189,7 @@
                                     <td>{{ $jumlahLowonganL4 + $jumlahLowonganP4 }}</td>
                                 </tr>
                                 @endif
+                                @endif
                             </table>
                             
                         </div>
@@ -219,7 +220,13 @@
                                 <td>{{$laporan->akanl}}</td>
                                 <td>{{$laporan->akanp}}</td>
                                 @if($laporan->akanl != '-')
-                                <td><a href="/edit-laporan-viii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                <td>
+                                <form action="edit-laporan-viii/{{$laporan->nmr}}">
+                                    @csrf
+                                    <input type="hidden" value="{{$laporan->type}}" name="type">
+                                    <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                </form>
+                                </td>
                                 @endif
                             </tr>
                             @endforeach
@@ -309,7 +316,13 @@
                                 <td>{{$laporan->penempatan_p}}</td>
                                 <td>{{$laporan->hapus_l}}</td>
                                 <td>{{$laporan->hapus_p}}</td>
-                                <td><a href="/edit-laporan-ii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                <td>
+                                    <form action="edit-laporan-ii/{{$laporan->nmr}}">
+                                        @csrf
+                                        <input type="hidden" value="{{$laporan->type}}" name="type">
+                                        <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                             @else
@@ -403,7 +416,13 @@
                                 <td>{{$laporan->hapus_l_kj}}</td>
                                 <td>{{$laporan->hapus_p_kj}}</td>
                                 @if($laporan->sisa_l_kj != '-')
-                                <td><a href="/edit-laporan-iii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                <td>
+                                    <form action="edit-laporan-iii/{{$laporan->nmr}}">
+                                        @csrf
+                                        <input type="hidden" value="{{$laporan->type}}" name="type">
+                                        <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                    </form>
+                                </td>
                                 @endif
                             </tr>
                             @endforeach
@@ -456,7 +475,13 @@
                                 <td>{{$laporan->hapus_l_lp}}</td>
                                 <td>{{$laporan->hapus_p_lp}}</td>
                                 @if($laporan->sisa_l_lp != '-')
-                                <td><a href="/edit-laporan-iv/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                <td>
+                                    <form action="edit-laporan-iv/{{$laporan->nmr}}">
+                                        @csrf
+                                        <input type="hidden" value="{{$laporan->type}}" name="type">
+                                        <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                    </form>
+                                </td>
                                 @endif
                             </tr>
                             @endforeach
@@ -556,7 +581,13 @@
                                 <td>{{$laporan->hapus_l_lj}}</td>
                                 <td>{{$laporan->hapus_p_lj}}</td>
                                 @if($laporan->sisa_l_lj != '-')
-                                <td><a href="/edit-laporan-v/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                <td>
+                                    <form action="edit-laporan-v/{{$laporan->nmr}}">
+                                        @csrf
+                                        <input type="hidden" value="{{$laporan->type}}" name="type">
+                                        <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                    </form>
+                                </td>
                                 @endif
                             </tr>
                             @endforeach
@@ -609,7 +640,13 @@
                                 <td>{{$laporan->hapus_l_gu}}</td>
                                 <td>{{$laporan->hapus_p_gu}}</td>
                                 @if($laporan->sisa_l_gu != '-')
-                                <td><a href="/edit-laporan-vi/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                <td>
+                                    <form action="edit-laporan-vi/{{$laporan->nmr}}">
+                                        @csrf
+                                        <input type="hidden" value="{{$laporan->type}}" name="type">
+                                        <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                    </form>
+                                </td>
                                 @endif
                             </tr>
                             @endforeach
@@ -660,7 +697,13 @@
                               <td>{{$laporan->pkdl}}</td>
                               <td>{{$laporan->pkdw}}</td>
                               @if($laporan->pktl != '-')
-                              <td><a href="/edit-laporan-vi/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                              <td>
+                                <form action="edit-lampiran-kab-kota/{{$laporan->nmr}}">
+                                    @csrf
+                                    <input type="hidden" value="{{$laporan->type}}" name="type">
+                                    <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                </form>
+                            </td>
                               @endif
                             </tr>
                             @endforeach

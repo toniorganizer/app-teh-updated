@@ -237,11 +237,11 @@ class CetakLaporanIIB implements WithDrawings, WithStyles, WithTitle, FromView, 
     {
         $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->first();
+        $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->where('type','Laporan')->first();
         $start = 3300;
         $end = 4199;
         $data = DB::table('data_jenis_pendidikans')
-        ->where('id_disnaker', $this->id)
+        ->where('id_disnaker', $this->id)->where('type','Laporan')
         ->where(function ($query) use ($start, $end) {
             $query->whereBetween('nmr', [$start, $end])
                     ->orWhere('nmr', 02);
@@ -252,7 +252,7 @@ class CetakLaporanIIB implements WithDrawings, WithStyles, WithTitle, FromView, 
 
         $results = DB::table('data_jenis_pendidikans')
         ->select('judul', 'nmr', 'akhir_l', 'akhir_p')
-        ->whereNotIn('nmr', [3801, 3802])
+        ->whereNotIn('nmr', [3801, 3802])->where('type','Laporan')
         ->whereBetween('nmr', [$start, $end])
         ->orWhere('nmr', 02)
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN sisa_l ELSE SUM(sisa_l) END AS sisa_l')

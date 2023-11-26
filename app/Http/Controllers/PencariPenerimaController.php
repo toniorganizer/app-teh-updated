@@ -20,10 +20,10 @@ class PencariPenerimaController extends Controller
         $kab = PemangkuKepentingan::where('status_lembaga', 1)->get();
         $aturan = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         $excludedNumbers = ['Sub Total','Total'];
-        $datalaporan = DataPencariPenerima::where('id_disnaker', Auth::user()->email)->whereNotIn('judul', $excludedNumbers)->paginate(20);
+        $datalaporan = DataPencariPenerima::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->whereNotIn('judul', $excludedNumbers)->paginate(20);
 
         $lap = DB::table('data_pencari_penerimas')
-            ->whereNotIn('judul', $excludedNumbers)
+            ->whereNotIn('judul', $excludedNumbers)->where('type','Laporan')
             ->select('nmr', 'judul', 'jmll', 'jmlp', DB::raw('SUM(akll) as akll'), DB::raw('SUM(aklp) as aklp'), DB::raw('SUM(akadl) as akadl'), DB::raw('SUM(akadp) as akadp'), DB::raw('SUM(akanl) as akanl'), DB::raw('SUM(akanp) as akanp'))
             ->groupBy('nmr', 'judul', 'jmll', 'jmlp')
             ->oldest('id')
@@ -51,41 +51,66 @@ class PencariPenerimaController extends Controller
     }
 
     public function deleteLaporanVIII($id){
-        DataPencariPenerima::where('id_disnaker', $id)->delete();
+        DataPencariPenerima::where('id_disnaker', $id)->where('type','Laporan')->delete();
         return redirect('/laporan-ipk-8')->with('success', 'Hapus data berhasil dilakukan');
     }
 
     public function editLaporanVIII(Request $request, $id){
         if($request->id_disnaker){
             $notIn = ['BH & TIDAK TAMAT SD','SD'];
-            $data = DataPencariPenerima::where('nmr', $id)->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul', $notIn)->first();
+            $data = DataPencariPenerima::where('nmr', $id)->where('type','Laporan')->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul', $notIn)->first();
+        }
+        elseif($request->type == 'Lampiran'){
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            $data = DataPencariPenerima::where('nmr', $id)->where('type','Lampiran')->where('id_disnaker', Auth::user()->email)->whereNotIn('judul', $notIn)->first();
         }
         else{
             $notIn = ['BH & TIDAK TAMAT SD','SD'];
-            $data = DataPencariPenerima::where('nmr', $id)->where('id_disnaker', Auth::user()->email)->whereNotIn('judul', $notIn)->first();
+            $data = DataPencariPenerima::where('nmr', $id)->where('type','Laporan')->where('id_disnaker', Auth::user()->email)->whereNotIn('judul', $notIn)->first();
         }
 
-        return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_h', [
-            'sub_title' => 'Laporan IPK-III-8',
-            'title' => 'DataIPK',
-            'data' => $data
-        ]);
+        if($request->type == "Laporan"){
+            return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_h', [
+                'sub_title' => 'Laporan IPK-III-8',
+                'title' => 'DataIPK',
+                'data' => $data
+            ]);
+        }else{
+            return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_h', [
+                'sub_title' => 'Lampiran',
+                'title' => 'DataIPK',
+                'data' => $data
+            ]);
+        }
+
     }
 
     public function updateLaporanVIII(Request $request, $id){
-        DataPencariPenerima::where('nmr', $id)->where('id_disnaker', $request->id_disnaker)->update([
-            'akll' => $request->{'akll'},
-            'aklp' => $request->{'aklp'},
-            'akadl' => $request->{'akadl'},
-            'akadp' => $request->{'akadp'},
-            'akanl' => $request->{'akanl'},
-            'akanp' => $request->{'akanp'},
-        ]);
+        if($request->type == "Laporan"){
+            DataPencariPenerima::where('nmr', $id)->where('type','Laporan')->where('id_disnaker', $request->id_disnaker)->update([
+                'akll' => $request->{'akll'},
+                'aklp' => $request->{'aklp'},
+                'akadl' => $request->{'akadl'},
+                'akadp' => $request->{'akadp'},
+                'akanl' => $request->{'akanl'},
+                'akanp' => $request->{'akanp'},
+            ]);
 
-        if(Auth::user()->email == 'disnaker@gmail.com'){
-            return redirect('/detail-laporan-kab-viii/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+            if(Auth::user()->email == 'disnaker@gmail.com'){
+                return redirect('/detail-laporan-kab-viii/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+            }else{
+                return redirect('/laporan-ipk-8')->with('success', 'Update data berhasil dilakukan');
+            }
         }else{
-            return redirect('/laporan-ipk-8')->with('success', 'Update data berhasil dilakukan');
+            DataPencariPenerima::where('nmr', $id)->where('type','Lampiran')->where('id_disnaker', $request->id_disnaker)->update([
+                'akll' => $request->{'akll'},
+                'aklp' => $request->{'aklp'},
+                'akadl' => $request->{'akadl'},
+                'akadp' => $request->{'akadp'},
+                'akanl' => $request->{'akanl'},
+                'akanp' => $request->{'akanp'},
+            ]);
+            return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
         }
      }
 
@@ -108,7 +133,7 @@ class PencariPenerimaController extends Controller
         $kab = PemangkuKepentingan::where('status_lembaga', 1)->get();
         $nama = PemangkuKepentingan::where('email_lembaga', $id)->first();
         $excludedNumbers = ['Sub Total','Total'];
-        $datalaporan = DataPencariPenerima::where('id_disnaker', $id)->whereNotIn('judul', $excludedNumbers)->paginate(20);
+        $datalaporan = DataPencariPenerima::where('id_disnaker', $id)->where('type','Laporan')->whereNotIn('judul', $excludedNumbers)->paginate(20);
         return view('Dashboard.pemangku-kepentingan.detail_laporan_kab_h', [
             'sub_title' => 'Laporan IPK-III-8',
             'title' => 'DataIPK',

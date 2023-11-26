@@ -61,14 +61,8 @@
                     </tr>
                     @endforeach
                     @else
-                    {{-- @foreach($lapor as $user => $data)
-                        @foreach($data as $lap)
-                            <tr>
-                                <td>{{ $lap->pencari_kerja }}</td>
-                                <td>{{ $lap->{'15_L'} }}</td>
-                            </tr>
-                        @endforeach
-                    @endforeach --}}
+                    @if(is_null($pencari_kerja1))
+                    @else
                     <tr>
                         <td>{{ $pencari_kerja1->pencari_kerja }}</td>
                         <td>{{ $jumlahL151 }}</td>
@@ -149,6 +143,7 @@
                         <td>{{ $jumlahLowonganP4 }}</td>
                         <td>{{ $jumlahLowonganL4 + $jumlahLowonganP4 }}</td>
                     </tr>
+                    @endif
                     @endif
                 </table>
                 

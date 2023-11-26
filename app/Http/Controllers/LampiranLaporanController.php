@@ -301,9 +301,61 @@ class LampiranLaporanController extends Controller
         DataLowonganPendidikan::where('id_disnaker', $id)->where('type','Lampiran')->delete();
         DataKelompokJabatan::where('id_disnaker', $id)->where('type','Lampiran')->delete();
         DataLowonganJabatan::where('id_disnaker', $id)->where('type','Lampiran')->delete();
-        DataLowonganPendidikan::where('id_disnaker', $id)->where('type','Lampiran')->delete();
         DataGolonganUsaha::where('id_disnaker', $id)->where('type','Lampiran')->delete();
         DataKabKota::where('id_disnaker', $id)->where('type','Lampiran')->delete();
+        DataPencariPenerima::where('id_disnaker', $id)->where('type','Lampiran')->delete();
         return redirect('/lampiran')->with('success', 'Hapus data berhasil dilakukan');
      } 
+
+     public function editLampiranKabKota(Request $request, $id){
+        if($request->id_disnaker){
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            $data = DataKabKota::where('nmr', $id)->where('type','Laporan')->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul', $notIn)->first();
+        }
+        elseif($request->type == 'Lampiran'){
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            $data = DataKabKota::where('nmr', $id)->where('type','Lampiran')->where('id_disnaker', Auth::user()->email)->whereNotIn('judul', $notIn)->first();
+        }
+        else{
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            $data = DataKabKota::where('nmr', $id)->where('type','Laporan')->where('id_disnaker', Auth::user()->email)->whereNotIn('judul', $notIn)->first();
+        }
+
+        return view('Dashboard.pemangku-kepentingan.edit_lampiran_kab_kota', [
+            'sub_title' => 'Lampiran',
+            'title' => 'DataIPK',
+            'data' => $data
+        ]);
+     }
+
+     public function updateLampiranKabKota(Request $request, $id){
+        if($request->type == "Laporan"){
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            DataKabKota::where('nmr', $id)->where('type','Laporan')->where('id_disnaker', $request->id_disnaker)->whereNotIn('judul', $notIn)->update([
+                'pktl' => $request->{'pktl'},
+                'pktw' => $request->{'pktw'},
+                'lktl' => $request->{'lktl'},
+                'lktw' => $request->{'lktw'},
+                'pkdl' => $request->{'pkdl'},
+                'pktw' => $request->{'pktw'},
+            ]);
+    
+            if(Auth::user()->email == 'disnaker@gmail.com'){
+                return redirect('/detail-laporan-kab-iii/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+            }else{
+                return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
+            }
+        }else{
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            DataKabKota::where('nmr', $id)->where('type','Lampiran')->where('id_disnaker', $request->id_disnaker)->whereNotIn('judul', $notIn)->update([
+                'pktl' => $request->{'pktl'},
+                'pktw' => $request->{'pktw'},
+                'lktl' => $request->{'lktl'},
+                'lktw' => $request->{'lktw'},
+                'pkdl' => $request->{'pkdl'},
+                'pktw' => $request->{'pktw'},
+            ]);
+            return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
+        }
+     }
 }

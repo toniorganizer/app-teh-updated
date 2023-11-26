@@ -167,7 +167,7 @@ class CetakLaporanII9 implements WithDrawings, WithStyles, WithTitle, FromView, 
         $start = 7507;
         $end = 7699;
         $data = DB::table('data_jenis_pendidikans')
-        ->where('id_disnaker', $this->id)
+        ->where('id_disnaker', $this->id)->where('type','Laporan')
         ->where(function ($query) use ($start, $end) {
             $query->whereBetween('nmr', [$start, $end])
                     ->orWhere('nmr', '09');
@@ -176,7 +176,7 @@ class CetakLaporanII9 implements WithDrawings, WithStyles, WithTitle, FromView, 
 
         $results = DB::table('data_jenis_pendidikans')
         ->select('judul', 'nmr', 'akhir_l', 'akhir_p')
-        ->whereBetween('nmr', [$start, $end])
+        ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
         ->orWhere('nmr', '09')
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN sisa_l ELSE SUM(sisa_l) END AS sisa_l')
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN sisa_p ELSE SUM(sisa_p) END AS sisa_p')

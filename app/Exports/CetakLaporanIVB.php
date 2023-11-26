@@ -298,11 +298,11 @@ class CetakLaporanIVB implements WithDrawings, WithStyles, WithTitle, FromView, 
     {
         $title = 'LAPORAN IPK III/4 - LOWONGAN DIRINCI MENURUT PENDIDIKAN PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataLowonganPendidikan::where('id_disnaker', $this->id)->first();
+        $semester = DataLowonganPendidikan::where('id_disnaker', $this->id)->where('type','Laporan')->first();
         $start = 3300;
         $end = 4127;
         $data = DB::table('data_lowongan_pendidikans')
-        ->where('id_disnaker', $this->id)
+        ->where('id_disnaker', $this->id)->where('type','Laporan')
         ->whereNotIn('nmr', [3801])->whereNotIn('nmr', [3802])
         ->where(function ($query) use ($start, $end) {
             $query->whereBetween('nmr', [$start, $end])
@@ -312,7 +312,7 @@ class CetakLaporanIVB implements WithDrawings, WithStyles, WithTitle, FromView, 
 
         $results = DB::table('data_lowongan_pendidikans')
         ->select('judul_lp', 'nmr', 'akhir_l_lp', 'akhir_p_lp')
-        ->whereBetween('nmr', [$start, $end])
+        ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
         ->whereNotIn('nmr', [3801])->whereNotIn('nmr', [3802])
         ->orWhere('nmr', 02)
         ->selectRaw('CASE WHEN judul_lp = "Sub Total" THEN sisa_l_lp ELSE SUM(sisa_l_lp) END AS sisa_l')

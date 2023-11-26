@@ -36,9 +36,10 @@
                 <form id="search-form" action="/update-laporan-i/{{$data->nmr}}" method="post" enctype="multipart/form-data">
                     @csrf
                 <div class="row">
-                    <h6>Pencari kerja</h6>
+                    <h6>Pencari kerja | {{$data->pencari_kerja}}</h6>
                     <div class="col-md-6">
                       <input type="hidden" value="{{$data->id_disnaker}}" name="id_disnaker" id="">
+                      <input type="hidden" value="{{$data->type}}" name="type" id="">
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-5 col-form-label">Laki-laki Umur 15-20</label>
                             <div class="col-sm-7">

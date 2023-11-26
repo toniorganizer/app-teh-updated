@@ -277,11 +277,11 @@ class CetakLaporanVIA implements WithDrawings, WithStyles, WithTitle, FromView, 
     {
         $title = 'LAPORAN IPK III/6-LOWONGAN DIRINCI MENURUT GOL.SEKTOR PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataGolonganUsaha::where('id_disnaker', $this->id)->first();
+        $semester = DataGolonganUsaha::where('id_disnaker', $this->id)->where('type','Laporan')->first();
         $start = 011;
         $end = 353;
         $data = DB::table('data_golongan_usahas')
-        ->where('id_disnaker', $this->id)
+        ->where('id_disnaker', $this->id)->where('type','Laporan')
         ->where(function ($query) use ($start, $end) {
             $query->whereBetween('nmr', [$start, $end])
                     ->orWhere('nmr', '01')
@@ -292,7 +292,7 @@ class CetakLaporanVIA implements WithDrawings, WithStyles, WithTitle, FromView, 
 
         $results = DB::table('data_golongan_usahas')
         ->select('judul_gu', 'nmr', 'akhir_l_gu', 'akhir_p_gu')
-        ->whereBetween('nmr', [$start, $end])
+        ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
         ->orWhere('nmr', '01')
         ->orWhereIn('nmr', ['A','B','C','D'])
         ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN sisa_l_gu ELSE SUM(sisa_l_gu) END AS sisa_l')

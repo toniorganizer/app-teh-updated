@@ -242,11 +242,11 @@ class CetakPencariPenerima implements WithDrawings, WithStyles, WithTitle, FromV
     {
         $title = 'LAPORAN IPK III/8 - PENEMPATAN PENCARI KRJ MENURUT JEN. ANTAR KERJA PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataPencariPenerima::where('id_disnaker', $this->id)->first();
+        $semester = DataPencariPenerima::where('id_disnaker', $this->id)->where('type','Laporan')->first();
         $start = 11;
         $end = 26;
         $data = DB::table('data_pencari_penerimas')
-        ->where('id_disnaker', $this->id)
+        ->where('id_disnaker', $this->id)->where('type','Laporan')
         ->where(function ($query) use ($start, $end) {
             $query->whereBetween('nmr', [$start, $end])
                 ->orWhere('nmr', '08');
@@ -256,7 +256,7 @@ class CetakPencariPenerima implements WithDrawings, WithStyles, WithTitle, FromV
 
         $results = DB::table('data_pencari_penerimas')
         ->select('judul', 'nmr', 'jmll', 'jmlp')
-        ->whereBetween('nmr', [$start, $end])
+        ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
         ->orWhere('nmr', '08')
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN akll ELSE SUM(akll) END AS akll_s')
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN aklp ELSE SUM(aklp) END AS aklp_s')

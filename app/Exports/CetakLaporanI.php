@@ -183,73 +183,73 @@ class CetakLaporanI implements WithDrawings, WithStyles, WithTitle, FromView, Wi
         // dd($this->id)
         $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataPencariKerja::where('id_disnaker', $this->id)->first();
-        $data = DataPencariKerja::where('id_disnaker', $this->id)->get();
+        $semester = DataPencariKerja::where('id_disnaker', $this->id)->where('type','Laporan')->first();
+        $data = DataPencariKerja::where('id_disnaker', $this->id)->where('type','Laporan')->get();
         // dd($disnaker->email_lembaga);
 
         // Cetak data pada id disnaker provinsi
-        $pencari_kerja1 = DataPencariKerja::where('nmr', 1)->first();
-        $pencari_kerja2 = DataPencariKerja::where('nmr', 2)->first();
-        $pencari_kerjaA = DataPencariKerja::where('nmr', 'A.')->first();
-        $pencari_kerja3 = DataPencariKerja::where('nmr', 3)->first();
-        $pencari_kerja4 = DataPencariKerja::where('nmr', 4)->first();
-        $pencari_kerjaB = DataPencariKerja::where('nmr', 'B.')->first();
-        $pencari_kerja5 = DataPencariKerja::where('nmr', 5)->first();
+        $pencari_kerja1 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->first();
+        $pencari_kerja2 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->first();
+        $pencari_kerjaA = DataPencariKerja::where('nmr', 'A.')->where('type','Laporan')->first();
+        $pencari_kerja3 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->first();
+        $pencari_kerja4 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->first();
+        $pencari_kerjaB = DataPencariKerja::where('nmr', 'B.')->where('type','Laporan')->first();
+        $pencari_kerja5 = DataPencariKerja::where('nmr', 5)->where('type','Laporan')->first();
 
         // dd($pencari_kerja1->L);
 
-        $jumlahL151 = DataPencariKerja::where('nmr', 1)->sum('15_L');
-        $jumlahL152 = DataPencariKerja::where('nmr', 2)->sum('15_L');
-        $jumlahL153 = DataPencariKerja::where('nmr', 3)->sum('15_L');
-        $jumlahL154 = DataPencariKerja::where('nmr', 4)->sum('15_L');
-        $jumlahP151 = DataPencariKerja::where('nmr', 1)->sum('15_P');
-        $jumlahP152 = DataPencariKerja::where('nmr', 2)->sum('15_P');
-        $jumlahP153 = DataPencariKerja::where('nmr', 3)->sum('15_P');
-        $jumlahP154 = DataPencariKerja::where('nmr', 4)->sum('15_P');
-        $jumlahLowonganL1 = DataPencariKerja::where('nmr', 1)->sum('lowongan_L');
-        $jumlahLowonganP1 = DataPencariKerja::where('nmr', 1)->sum('lowongan_P');
+        $jumlahL151 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->sum('15_L');
+        $jumlahL152 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->sum('15_L');
+        $jumlahL153 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->sum('15_L');
+        $jumlahL154 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->sum('15_L');
+        $jumlahP151 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->sum('15_P');
+        $jumlahP152 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->sum('15_P');
+        $jumlahP153 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->sum('15_P');
+        $jumlahP154 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->sum('15_P');
+        $jumlahLowonganL1 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->sum('lowongan_L');
+        $jumlahLowonganP1 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->sum('lowongan_P');
 
-        $jumlahL201 = DataPencariKerja::where('nmr', 1)->sum('20_L');
-        $jumlahL202 = DataPencariKerja::where('nmr', 2)->sum('20_L');
-        $jumlahL203 = DataPencariKerja::where('nmr', 3)->sum('20_L');
-        $jumlahL204 = DataPencariKerja::where('nmr', 4)->sum('20_L');
-        $jumlahP201 = DataPencariKerja::where('nmr', 1)->sum('20_P');
-        $jumlahP202 = DataPencariKerja::where('nmr', 2)->sum('20_P');
-        $jumlahP203 = DataPencariKerja::where('nmr', 3)->sum('20_P');
-        $jumlahP204 = DataPencariKerja::where('nmr', 4)->sum('20_P');
-        $jumlahLowonganL2 = DataPencariKerja::where('nmr', 2)->sum('lowongan_L');
-        $jumlahLowonganP2 = DataPencariKerja::where('nmr', 2)->sum('lowongan_P');
+        $jumlahL201 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->sum('20_L');
+        $jumlahL202 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->sum('20_L');
+        $jumlahL203 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->sum('20_L');
+        $jumlahL204 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->sum('20_L');
+        $jumlahP201 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->sum('20_P');
+        $jumlahP202 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->sum('20_P');
+        $jumlahP203 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->sum('20_P');
+        $jumlahP204 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->sum('20_P');
+        $jumlahLowonganL2 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->sum('lowongan_L');
+        $jumlahLowonganP2 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->sum('lowongan_P');
 
-        $jumlahL301 = DataPencariKerja::where('nmr', 1)->sum('30_L');
-        $jumlahL302 = DataPencariKerja::where('nmr', 2)->sum('30_L');
-        $jumlahL303 = DataPencariKerja::where('nmr', 3)->sum('30_L');
-        $jumlahL304 = DataPencariKerja::where('nmr', 4)->sum('30_L');
-        $jumlahP301 = DataPencariKerja::where('nmr', 1)->sum('30_P');
-        $jumlahP302 = DataPencariKerja::where('nmr', 2)->sum('30_P');
-        $jumlahP303 = DataPencariKerja::where('nmr', 3)->sum('30_P');
-        $jumlahP304 = DataPencariKerja::where('nmr', 4)->sum('30_P');
-        $jumlahLowonganL3 = DataPencariKerja::where('nmr', 3)->sum('lowongan_L');
-        $jumlahLowonganP3 = DataPencariKerja::where('nmr', 3)->sum('lowongan_P');
+        $jumlahL301 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->sum('30_L');
+        $jumlahL302 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->sum('30_L');
+        $jumlahL303 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->sum('30_L');
+        $jumlahL304 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->sum('30_L');
+        $jumlahP301 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->sum('30_P');
+        $jumlahP302 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->sum('30_P');
+        $jumlahP303 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->sum('30_P');
+        $jumlahP304 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->sum('30_P');
+        $jumlahLowonganL3 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->sum('lowongan_L');
+        $jumlahLowonganP3 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->sum('lowongan_P');
 
-        $jumlahL451 = DataPencariKerja::where('nmr', 1)->sum('45_L');
-        $jumlahL452 = DataPencariKerja::where('nmr', 2)->sum('45_L');
-        $jumlahL453 = DataPencariKerja::where('nmr', 3)->sum('45_L');
-        $jumlahL454 = DataPencariKerja::where('nmr', 4)->sum('45_L');
-        $jumlahP451 = DataPencariKerja::where('nmr', 1)->sum('45_P');
-        $jumlahP452 = DataPencariKerja::where('nmr', 2)->sum('45_P');
-        $jumlahP453 = DataPencariKerja::where('nmr', 3)->sum('45_P');
-        $jumlahP454 = DataPencariKerja::where('nmr', 4)->sum('45_P');
-        $jumlahLowonganL4 = DataPencariKerja::where('nmr', 4)->sum('lowongan_L');
-        $jumlahLowonganP4 = DataPencariKerja::where('nmr', 4)->sum('lowongan_P');
+        $jumlahL451 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->sum('45_L');
+        $jumlahL452 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->sum('45_L');
+        $jumlahL453 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->sum('45_L');
+        $jumlahL454 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->sum('45_L');
+        $jumlahP451 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->sum('45_P');
+        $jumlahP452 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->sum('45_P');
+        $jumlahP453 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->sum('45_P');
+        $jumlahP454 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->sum('45_P');
+        $jumlahLowonganL4 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->sum('lowongan_L');
+        $jumlahLowonganP4 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->sum('lowongan_P');
 
-        $jumlahL551 = DataPencariKerja::where('nmr', 1)->sum('55_L');
-        $jumlahL552 = DataPencariKerja::where('nmr', 2)->sum('55_L');
-        $jumlahL553 = DataPencariKerja::where('nmr', 3)->sum('55_L');
-        $jumlahL554 = DataPencariKerja::where('nmr', 4)->sum('55_L');
-        $jumlahP551 = DataPencariKerja::where('nmr', 1)->sum('55_P');
-        $jumlahP552 = DataPencariKerja::where('nmr', 2)->sum('55_P');
-        $jumlahP553 = DataPencariKerja::where('nmr', 3)->sum('55_P');
-        $jumlahP554 = DataPencariKerja::where('nmr', 4)->sum('55_P');
+        $jumlahL551 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->sum('55_L');
+        $jumlahL552 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->sum('55_L');
+        $jumlahL553 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->sum('55_L');
+        $jumlahL554 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->sum('55_L');
+        $jumlahP551 = DataPencariKerja::where('nmr', 1)->where('type','Laporan')->sum('55_P');
+        $jumlahP552 = DataPencariKerja::where('nmr', 2)->where('type','Laporan')->sum('55_P');
+        $jumlahP553 = DataPencariKerja::where('nmr', 3)->where('type','Laporan')->sum('55_P');
+        $jumlahP554 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->sum('55_P');
 
         return view('Dashboard.admin.cetak-laporan-iii-i')->with([
             'data' => $data,

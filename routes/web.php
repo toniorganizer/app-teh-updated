@@ -198,9 +198,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::controller(LampiranLaporanController::class)->group(function () {
             Route::get('lampiran', 'index');
             Route::post('importLampiran', 'importLampiran');
-            Route::get('/edit-lampiran/{id}', 'editLampiran');
+            Route::get('/edit-lampiran-kab-kota/{id}', 'editLampiranKabKota');
             Route::get('/delete-lampiran/{id}', 'deleteLampiran');
-            Route::post('/update-lampiran/{id}', 'updateLampiran');
+            Route::post('/update-lampiran-kab-kota/{id}', 'updateLampiranKabKota');
             Route::get('/cetak-lampiran/{id}','CetakLampiran');
             Route::get('/detail-lampiran-kab/{id}', 'DetailLampiranKab');
         });

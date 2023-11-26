@@ -43,7 +43,7 @@ class DataPencariKerjaImport implements ToModel, WithHeadingRow
                 'nmr' => $row['no'],
                 'tgl_1' => strtoupper($tgl1),
                 'tgl_2' => strtoupper($tgl2),
-                'Type' => 'Laporan',
+                'type' => 'Laporan',
                 'pencari_kerja' => $row['judul1'],
                 '15_L' => $row['u2'],
                 '15_P' => $row['u3'],

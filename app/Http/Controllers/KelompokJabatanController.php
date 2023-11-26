@@ -21,7 +21,7 @@ class KelompokJabatanController extends Controller
         $aturan = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         // dd($aturan);
         $excludedNumbers = ['Sub Total','TOTAL', 'ANGGOTA ANGKATAN BERSENJATA (KECUALI','ANGGOTA BADAN LEGISLATIF, PEJABAT TINGGI', 'TENAGA PROFESIONAL', 'TEKNISI DAN KELOMPOK JABATAN YANG', 'PENATA USAHA','TENAGA USAHA JASA DAN PENJUAL DAGANGAN','PEKERJA-PEKERJA KETERAMPILAN BIDANG','PEKERJA KASAR TERAMPIL DAN SEJENISNYA','OPERATOR DAN PERAKIT MESIN DAN MESIN','PEKERJA KASAR'];
-        $datalaporan = DataKelompokJabatan::where('id_disnaker', Auth::user()->email)->whereNotIn('judul_kj', $excludedNumbers)->paginate(20);
+        $datalaporan = DataKelompokJabatan::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->whereNotIn('judul_kj', $excludedNumbers)->paginate(20);
 
 
         $numbers = [
@@ -29,7 +29,7 @@ class KelompokJabatanController extends Controller
         ];
         
         $lap = DB::table('data_kelompok_jabatans')
-            ->whereIn('nmr', $numbers)
+            ->whereIn('nmr', $numbers)->where('type','Laporan')
             ->whereNotIn('judul_kj', $excludedNumbers)
             ->select('nmr', 'judul_kj', DB::raw('SUM(sisa_l_kj) as sisa_l'), DB::raw('SUM(sisa_p_kj) as sisa_p'), DB::raw('SUM(terdaftar_l_kj) as terdaftar_l'), DB::raw('SUM(terdaftar_p_kj) as terdaftar_p'), DB::raw('SUM(penempatan_l_kj) as penempatan_l'), DB::raw('SUM(penempatan_p_kj) as penempatan_p'), DB::raw('SUM(hapus_l_kj) as hapus_l'), DB::raw('SUM(hapus_p_kj) as hapus_p'))
             ->groupBy('nmr', 'judul_kj')
@@ -62,46 +62,72 @@ class KelompokJabatanController extends Controller
      }
 
      public function deleteLaporanIII($id){
-        DataKelompokJabatan::where('id_disnaker', $id)->delete();
+        DataKelompokJabatan::where('id_disnaker', $id)->where('type','Laporan')->delete();
         return redirect('/laporan-ipk-3')->with('success', 'Hapus data berhasil dilakukan');
      } 
 
      public function editLaporanIII(Request $request, $id){
         if($request->id_disnaker){
             $notIn = ['BH & TIDAK TAMAT SD','SD'];
-            $data = DataKelompokJabatan::where('nmr', $id)->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul_kj', $notIn)->first();
+            $data = DataKelompokJabatan::where('nmr', $id)->where('type','Laporan')->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul_kj', $notIn)->first();
+        }
+        elseif($request->type == 'Lampiran'){
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            $data = DataKelompokJabatan::where('nmr', $id)->where('type','Lampiran')->where('id_disnaker', Auth::user()->email)->whereNotIn('judul_kj', $notIn)->first();
         }
         else{
             $notIn = ['BH & TIDAK TAMAT SD','SD'];
-            $data = DataKelompokJabatan::where('nmr', $id)->where('id_disnaker', Auth::user()->email)->whereNotIn('judul_kj', $notIn)->first();
+            $data = DataKelompokJabatan::where('nmr', $id)->where('type','Laporan')->where('id_disnaker', Auth::user()->email)->whereNotIn('judul_kj', $notIn)->first();
         }
 
-        return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_c', [
-            'sub_title' => 'Laporan IPK-III-3',
-            'title' => 'DataIPK',
-            'data' => $data
-        ]);
+        if($request->type == 'Laporan'){
+            return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_c', [
+                'sub_title' => 'Laporan IPK-III-3',
+                'title' => 'DataIPK',
+                'data' => $data
+            ]);
+        }else{
+            return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_c', [
+                'sub_title' => 'Lampiran',
+                'title' => 'DataIPK',
+                'data' => $data
+            ]);
+        }
 
     }
 
     public function updateLaporanIII(Request $request, $id){
-        // dd($request->id_disnaker);
-        $notIn = ['BH & TIDAK TAMAT SD','SD'];
-        DataKelompokJabatan::where('nmr', $id)->where('id_disnaker', $request->id_disnaker)->whereNotIn('judul_kj', $notIn)->update([
-            'sisa_l_kj' => $request->{'sisa_l'},
-            'sisa_p_kj' => $request->{'sisa_p'},
-            'terdaftar_l_kj' => $request->{'terdaftar_l'},
-            'terdaftar_p_kj' => $request->{'terdaftar_p'},
-            'penempatan_l_kj' => $request->{'penempatan_l'},
-            'penempatan_p_kj' => $request->{'penempatan_p'},
-            'hapus_l_kj' => $request->{'hapus_l'},
-            'hapus_p_kj' => $request->{'hapus_p'},
-        ]);
-
-        if(Auth::user()->email == 'disnaker@gmail.com'){
-            return redirect('/detail-laporan-kab-iii/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+        if($request->type == "Laporan"){
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            DataKelompokJabatan::where('nmr', $id)->where('type','Laporan')->where('id_disnaker', $request->id_disnaker)->whereNotIn('judul_kj', $notIn)->update([
+                'sisa_l_kj' => $request->{'sisa_l'},
+                'sisa_p_kj' => $request->{'sisa_p'},
+                'terdaftar_l_kj' => $request->{'terdaftar_l'},
+                'terdaftar_p_kj' => $request->{'terdaftar_p'},
+                'penempatan_l_kj' => $request->{'penempatan_l'},
+                'penempatan_p_kj' => $request->{'penempatan_p'},
+                'hapus_l_kj' => $request->{'hapus_l'},
+                'hapus_p_kj' => $request->{'hapus_p'},
+            ]);
+    
+            if(Auth::user()->email == 'disnaker@gmail.com'){
+                return redirect('/detail-laporan-kab-iii/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+            }else{
+                return redirect('/laporan-ipk-3')->with('success', 'Update data berhasil dilakukan');
+            }
         }else{
-            return redirect('/laporan-ipk-3')->with('success', 'Update data berhasil dilakukan');
+            $notIn = ['BH & TIDAK TAMAT SD','SD'];
+            DataKelompokJabatan::where('nmr', $id)->where('type','Lampiran')->where('id_disnaker', $request->id_disnaker)->whereNotIn('judul_kj', $notIn)->update([
+                'sisa_l_kj' => $request->{'sisa_l'},
+                'sisa_p_kj' => $request->{'sisa_p'},
+                'terdaftar_l_kj' => $request->{'terdaftar_l'},
+                'terdaftar_p_kj' => $request->{'terdaftar_p'},
+                'penempatan_l_kj' => $request->{'penempatan_l'},
+                'penempatan_p_kj' => $request->{'penempatan_p'},
+                'hapus_l_kj' => $request->{'hapus_l'},
+                'hapus_p_kj' => $request->{'hapus_p'},
+            ]);
+            return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
         }
      }
 
@@ -126,7 +152,7 @@ class KelompokJabatanController extends Controller
         $nama = PemangkuKepentingan::where('email_lembaga', $id)->first();
         // dd($id);
         $excludedNumbers = ['Sub Total','TOTAL', 'ANGGOTA ANGKATAN BERSENJATA (KECUALI','ANGGOTA BADAN LEGISLATIF, PEJABAT TINGGI', 'TENAGA PROFESIONAL', 'TEKNISI DAN KELOMPOK JABATAN YANG', 'PENATA USAHA','TENAGA USAHA JASA DAN PENJUAL DAGANGAN','PEKERJA-PEKERJA KETERAMPILAN BIDANG','PEKERJA KASAR TERAMPIL DAN SEJENISNYA','OPERATOR DAN PERAKIT MESIN DAN MESIN','PEKERJA KASAR'];
-        $datalaporan = DataKelompokJabatan::where('id_disnaker', $id)->whereNotIn('judul_kj', $excludedNumbers)->paginate(20);
+        $datalaporan = DataKelompokJabatan::where('id_disnaker', $id)->where('type','Laporan')->whereNotIn('judul_kj', $excludedNumbers)->paginate(20);
 
         // dd($datalaporan);
 

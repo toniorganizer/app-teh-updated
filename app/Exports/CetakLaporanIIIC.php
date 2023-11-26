@@ -127,11 +127,11 @@ class CetakLaporanIIIC implements WithDrawings, WithStyles, WithTitle, FromView,
     {
         $title = 'LAPORAN IPK III/3 - PENCARI KERJA MENURUT GOL.JABATAN PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataKelompokJabatan::where('id_disnaker', $this->id)->first();
+        $semester = DataKelompokJabatan::where('id_disnaker', $this->id)->where('type','Laporan')->first();
         $start = 3132;
         $end = 3460;
         $data = DB::table('data_kelompok_jabatans')
-        ->where('id_disnaker', $this->id)
+        ->where('id_disnaker', $this->id)->where('type','Laporan')
         ->where(function ($query) use ($start, $end) {
             $query->whereBetween('nmr', [$start, $end]);
         })
@@ -139,7 +139,7 @@ class CetakLaporanIIIC implements WithDrawings, WithStyles, WithTitle, FromView,
 
         $results = DB::table('data_kelompok_jabatans')
         ->select('judul_kj', 'nmr', 'akhir_l_kj', 'akhir_p_kj')
-        ->whereBetween('nmr', [$start, $end])
+        ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
         ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN sisa_l_kj ELSE SUM(sisa_l_kj) END AS sisa_l')
         ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN sisa_p_kj ELSE SUM(sisa_p_kj) END AS sisa_p')
         ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN terdaftar_l_kj ELSE SUM(terdaftar_l_kj) END AS terdaftar_l')

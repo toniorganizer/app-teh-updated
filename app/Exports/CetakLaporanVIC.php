@@ -276,11 +276,11 @@ class CetakLaporanVIC implements WithDrawings, WithStyles, WithTitle, FromView, 
     {
         $title = 'LAPORAN IPK III/6-LOWONGAN DIRINCI MENURUT GOL.SEKTOR PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataGolonganUsaha::where('id_disnaker', $this->id)->first();
+        $semester = DataGolonganUsaha::where('id_disnaker', $this->id)->where('type','Laporan')->first();
         $start = 581;
         $end = 722;
         $data = DB::table('data_golongan_usahas')
-        ->where('id_disnaker', $this->id)
+        ->where('id_disnaker', $this->id)->where('type','Laporan')
         ->where(function ($query) use ($start, $end) {
             $query->whereBetween('nmr', [$start, $end])
                 ->orWhere('nmr', '03')
@@ -292,7 +292,7 @@ class CetakLaporanVIC implements WithDrawings, WithStyles, WithTitle, FromView, 
 
         $results = DB::table('data_golongan_usahas')
         ->select('judul_gu', 'nmr', 'akhir_l_gu', 'akhir_p_gu')
-        ->whereBetween('nmr', [$start, $end])
+        ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
         ->orWhere('nmr', '03')
         ->orWhereIn('nmr', ['J','K','L','M'])
         ->orWhereIn('nmr', [741, 749, 742, 749, 781, 801, 812, 821, 829])
