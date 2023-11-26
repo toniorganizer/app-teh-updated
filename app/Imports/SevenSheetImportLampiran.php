@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Carbon\Carbon;
 
-class SecondSheetImportGU implements ToModel, WithHeadingRow
+class SevenSheetImportLampiran implements ToModel, WithHeadingRow
 {
     private $data1;
     private $data2;
@@ -44,8 +44,8 @@ class SecondSheetImportGU implements ToModel, WithHeadingRow
                 'nmr' => $row['nmr'],
                 'tgl_1' => strtoupper($tgl1),
                 'tgl_2' => strtoupper($tgl2),
+                'type' => 'Lampiran',
                 'judul_gu' => $row['judul'],
-                'type' => 'Laporan',
                 'sisa_l_gu' => $row['sisa_l'],
                 'sisa_p_gu' => $row['sisa_p'],
                 'terdaftar_l_gu' => $row['dftr_l'],

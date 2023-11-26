@@ -31,7 +31,7 @@
                     <!-- Bordered Tabs -->
                     <div class="tab-content pt-2">
                       {{-- <div class="tab-pane fade show active profile-overview"> --}}
-                        <h5 class="card-title">Table Laporan-IPK-III-3</h5>
+                        <h5 class="card-title">LAPORAN-IPK-III-3 | IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT</h5>
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
                                 <tr><th rowspan="2">No</th><th rowspan="2">Kelompok Jabatan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>@if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif</tr> 

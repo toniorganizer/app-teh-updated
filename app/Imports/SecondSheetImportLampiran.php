@@ -2,16 +2,15 @@
 
 namespace App\Imports;
 
-use App\Models\DataGolonganUsaha;
-use App\Models\DataJenisPendidikan;
-use App\Models\DataLowonganJabatan;
+use Carbon\Carbon;
+use App\Models\DataPencariPenerima;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Carbon\Carbon;
 
-class SecondSheetImportGU implements ToModel, WithHeadingRow
+class SecondSheetImportLampiran implements ToModel, WithHeadingRow
 {
+
     private $data1;
     private $data2;
 
@@ -39,30 +38,30 @@ class SecondSheetImportGU implements ToModel, WithHeadingRow
         $tgl1 = $tanggalMulai->isoFormat('D MMMM Y');
         $tgl2 = $tanggalAkhir->isoFormat('D MMMM Y');
 
-            return new DataGolonganUsaha([
+        $type = 'Lampiran';
+
+            return new DataPencariPenerima([
                 'id_disnaker' => Auth::user()->email,
                 'nmr' => $row['nmr'],
+                'type' => $type,
                 'tgl_1' => strtoupper($tgl1),
                 'tgl_2' => strtoupper($tgl2),
-                'judul_gu' => $row['judul'],
-                'type' => 'Laporan',
-                'sisa_l_gu' => $row['sisa_l'],
-                'sisa_p_gu' => $row['sisa_p'],
-                'terdaftar_l_gu' => $row['dftr_l'],
-                'terdaftar_p_gu' => $row['dftr_p'],
-                'penempatan_l_gu' => $row['tmpt_l'],
-                'penempatan_p_gu' => $row['tmpt_p'],
-                'hapus_l_gu' => $row['hps_l'],
-                'hapus_p_gu' => $row['hps_p'],
-                'akhir_l_gu' => $row['akhr_l'],
-                'akhir_p_gu' => $row['akhr_p'],
+                'judul' => $row['judul'],
+                'akll' => $row['akll'],
+                'aklp' => $row['aklp'],
+                'akadl' => $row['akadl'],
+                'akadp' => $row['akadp'],
+                'akanl' => $row['akanl'],
+                'akanp' => $row['akanp'],
+                'jmll' => $row['jmll'],
+                'jmlp' => $row['jmlp'],
             ]);
         
     }
 
     public function headingRow(): int
     {
-        return 11;
+        return 10;
     }
 
 }

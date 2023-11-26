@@ -15,6 +15,7 @@ class DataGolonganUsaha extends Model
         'tgl_2',
         'nmr',
         'judul_gu',
+        'type',
         'sisa_l_gu',
         'sisa_p_gu',
         'terdaftar_l_gu',

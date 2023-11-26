@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DataJenisPendidikan extends Model
+class DataKabKota extends Model
 {
     use HasFactory;
 
@@ -14,17 +14,16 @@ class DataJenisPendidikan extends Model
         'tgl_1',
         'tgl_2',
         'nmr',
-        'type',
         'judul',
-        'sisa_l',
-        'sisa_p',
-        'terdaftar_l',
-        'terdaftar_p',
-        'penempatan_l',
-        'penempatan_p',
-        'hapus_l',
-        'hapus_p',
-        'akhir_l',
-        'akhir_p',
+        'type',
+        'pktl',
+        'pktw',
+        'jpkt',
+        'lktl',
+        'lktw',
+        'jlkt',
+        'pkdl',
+        'pkdw',
+        'jpkd'
     ];
 }

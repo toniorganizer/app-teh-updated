@@ -15,6 +15,7 @@ class DataPencariPenerima extends Model
         'tgl_2',
         'nmr',
         'judul',
+        'type',
         'akll',
         'aklp',
         'akadl',

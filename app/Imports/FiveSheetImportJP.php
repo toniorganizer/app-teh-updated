@@ -43,6 +43,7 @@ class FiveSheetImportJP implements ToModel, WithHeadingRow
                 'tgl_1' => strtoupper($tgl1),
                 'tgl_2' => strtoupper($tgl2),
                 'judul' => $row['judul'],
+                'type' => 'Laporan',
                 'sisa_l' => $row['sisa_l'],
                 'sisa_p' => $row['sisa_p'],
                 'terdaftar_l' => $row['dftr_l'],

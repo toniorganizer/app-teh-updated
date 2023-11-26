@@ -42,6 +42,7 @@ class SevenSheetImportJP implements ToModel, WithHeadingRow
                 'nmr' => $row['nmr'],
                 'tgl_1' => strtoupper($tgl1),
                 'tgl_2' => strtoupper($tgl2),
+                'type' => 'Laporan',
                 'judul' => $row['judul'],
                 'sisa_l' => $row['sisa_l'],
                 'sisa_p' => $row['sisa_p'],

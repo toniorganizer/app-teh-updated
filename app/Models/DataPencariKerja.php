@@ -14,6 +14,7 @@ class DataPencariKerja extends Model
         'nmr',
         'tgl_1',
         'tgl_2',
+        'type',
         'pencari_kerja',
         '15_L',
         '15_P',

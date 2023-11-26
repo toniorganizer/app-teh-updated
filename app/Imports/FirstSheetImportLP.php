@@ -44,6 +44,7 @@ class FirstSheetImportLP implements ToModel, WithHeadingRow
                 'tgl_1' => strtoupper($tgl1),
                 'tgl_2' => strtoupper($tgl2),
                 'judul_lp' => $row['judul'],
+                'type' => 'Laporan',
                 'sisa_l_lp' => $row['sisa_l'],
                 'sisa_p_lp' => $row['sisa_p'],
                 'terdaftar_l_lp' => $row['dftr_l'],

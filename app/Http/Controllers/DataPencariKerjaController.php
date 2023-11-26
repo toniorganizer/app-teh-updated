@@ -35,8 +35,6 @@ class DataPencariKerjaController extends Controller
             $lapor[$user] = $lap;
         }
 
-        // dd($lapor);
-
         // menghitung jumlah untuk disnakerprov
         $jumlahL151 = DataPencariKerja::where('nmr', 1)->whereNotIn('nmr', $excludedNumbers)->sum('15_L');
         $pencari_kerja1 = DataPencariKerja::where('nmr', 1)->whereNotIn('nmr', $excludedNumbers)->first();

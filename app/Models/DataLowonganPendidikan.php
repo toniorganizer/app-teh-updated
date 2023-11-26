@@ -15,6 +15,7 @@ class DataLowonganPendidikan extends Model
         'tgl_2',
         'nmr',
         'judul_lp',
+        'type',
         'sisa_l_lp',
         'sisa_p_lp',
         'terdaftar_l_lp',

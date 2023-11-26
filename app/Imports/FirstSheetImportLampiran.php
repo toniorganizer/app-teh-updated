@@ -2,16 +2,15 @@
 
 namespace App\Imports;
 
-use App\Models\DataGolonganUsaha;
-use App\Models\DataJenisPendidikan;
-use App\Models\DataLowonganJabatan;
+use Carbon\Carbon;
+use App\Models\DataPencariKerja;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Carbon\Carbon;
 
-class SecondSheetImportGU implements ToModel, WithHeadingRow
+class FirstSheetImportLampiran implements ToModel, WithHeadingRow
 {
+
     private $data1;
     private $data2;
 
@@ -39,30 +38,39 @@ class SecondSheetImportGU implements ToModel, WithHeadingRow
         $tgl1 = $tanggalMulai->isoFormat('D MMMM Y');
         $tgl2 = $tanggalAkhir->isoFormat('D MMMM Y');
 
-            return new DataGolonganUsaha([
+        $type = 'Lampiran';
+
+            return new DataPencariKerja([
                 'id_disnaker' => Auth::user()->email,
-                'nmr' => $row['nmr'],
+                'nmr' => $row['no'],
                 'tgl_1' => strtoupper($tgl1),
                 'tgl_2' => strtoupper($tgl2),
-                'judul_gu' => $row['judul'],
-                'type' => 'Laporan',
-                'sisa_l_gu' => $row['sisa_l'],
-                'sisa_p_gu' => $row['sisa_p'],
-                'terdaftar_l_gu' => $row['dftr_l'],
-                'terdaftar_p_gu' => $row['dftr_p'],
-                'penempatan_l_gu' => $row['tmpt_l'],
-                'penempatan_p_gu' => $row['tmpt_p'],
-                'hapus_l_gu' => $row['hps_l'],
-                'hapus_p_gu' => $row['hps_p'],
-                'akhir_l_gu' => $row['akhr_l'],
-                'akhir_p_gu' => $row['akhr_p'],
+                'pencari_kerja' => $row['judul1'],
+                'type' => $type,
+                '15_L' => $row['u2'],
+                '15_P' => $row['u3'],
+                '20_L' => $row['u4'],
+                '20_P' => $row['u5'],
+                '30_L' => $row['u6'],
+                '30_P' => $row['u7'],
+                '45_L' => $row['u8'],
+                '45_P' => $row['u9'],
+                '55_L' => $row['u10'],
+                '55_P' => $row['u11'],
+                'L' => $row['u12'],
+                'P' => $row['u13'],      
+                'jml' => $row['u14'],
+                'lowongan' => $row['lowongan1'],
+                'lowongan_L' => $row['l2'],
+                'lowongan_P' => $row['l3'],
+                'jml_lowongan' => $row['l4']
             ]);
         
     }
 
     public function headingRow(): int
     {
-        return 11;
+        return 10;
     }
 
 }

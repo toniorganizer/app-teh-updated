@@ -15,6 +15,7 @@ class DataKelompokJabatan extends Model
         'tgl_2',
         'nmr',
         'judul_kj',
+        'type',
         'sisa_l_kj',
         'sisa_p_kj',
         'terdaftar_l_kj',

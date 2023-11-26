@@ -41,6 +41,7 @@ class PencariPenerimaImport implements ToModel, WithHeadingRow
             return new DataPencariPenerima([
                 'id_disnaker' => Auth::user()->email,
                 'nmr' => $row['nmr'],
+                'type' => 'Laporan',
                 'tgl_1' => strtoupper($tgl1),
                 'tgl_2' => strtoupper($tgl2),
                 'judul' => $row['judul'],

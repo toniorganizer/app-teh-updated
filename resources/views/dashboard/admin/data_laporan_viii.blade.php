@@ -31,7 +31,7 @@
                     <!-- Bordered Tabs -->
                     <div class="tab-content pt-2">
                       {{-- <div class="tab-pane fade show active profile-overview"> --}}
-                        <h5 class="card-title">Table Laporan-IPK-III-VIII</h5>
+                        <h5 class="card-title">LAPORAN-IPK-III-VIII | PENEMPATAN PENCARI KRJ MENURUT JEN. ANTAR KERJA PROPINSI SUMATERA BARAT</h5>
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
                             <tr><th colspan="2" rowspan="3">TINGKAT PENDIDIKAN PENCARI KERJA DAN PENERIMA TENAGA KERJA</th><th colspan="6">Jenis Antar Kerja</th>@if($aturan->status_lembaga == 1)<th rowspan="3" colspan="2">Action</th>@endif</tr>

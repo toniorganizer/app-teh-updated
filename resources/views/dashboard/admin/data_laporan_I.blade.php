@@ -28,7 +28,7 @@
                 <!-- Recent Activity -->
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Table Laporan-IPK-III-1</h5>
+              <h5 class="card-title">LAPORAN-IPK-III-1 | IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT</h5>
               <div class="activity overflow-scroll">
                 <table class="table datatable table-bordered center">
                     <tr><th rowspan="3">Pencari Kerja</th><th colspan="10">Kelompok umur</th><th colspan="3" rowspan="2">Jumlah</th><th rowspan="3">Lowongan</th><th rowspan="3">L</th><th rowspan="3">P</th><th rowspan="3">JML</th><th rowspan="3">Action</th></tr> 

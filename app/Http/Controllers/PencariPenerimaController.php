@@ -34,7 +34,7 @@ class PencariPenerimaController extends Controller
             'kab' => $kab,
             'aturan' => $aturan,
             'dataLaporanKab' => $datalaporan,
-            'sub_title' => 'Laporan IPK-III-6',
+            'sub_title' => 'Laporan IPK-III-8',
             'title' => 'DataIPK',
             'dataLaporan' => $lap
         ]);
