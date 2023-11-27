@@ -281,7 +281,7 @@ class LampiranLaporanController extends Controller
     }
 
     public function CetakLampiran($id){
-        $item = DataGolonganUsaha::where('id_disnaker', $id)->first();
+        $item = DataPencariKerja::where('id_disnaker', $id)->where('type', 'Lampiran')->first();
         if($id == 'disnaker@gmail.com'){
             $data = PemangkuKepentingan::where('email_lembaga', $id)->orWhere('type', 'Lampiran')->first();
             $fileName = 'Lampiran-Laporan'. $data->nama_lembaga .'.xlsx';
@@ -358,4 +358,5 @@ class LampiranLaporanController extends Controller
             return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
         }
      }
+
 }
