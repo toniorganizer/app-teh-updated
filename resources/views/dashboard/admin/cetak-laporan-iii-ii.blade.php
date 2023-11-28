@@ -23,7 +23,7 @@
 @if($disnaker->email_lembaga == 'disnaker@gmail.com')
 @if(isset($laporan) && $laporan->count() > 0)
 @foreach($laporan as $lap)
-@if($lap->judul == '0' || $lap->judul == ' TOTAL :SARJANA ( S1 )')
+@if($lap->judul == '0' || $lap->judul == 'SARJANA ( S1 )')
     <tr>
         <td>{{$lap->nmr}}</td>
         <td>{{ $lap->judul }}</td>
@@ -38,7 +38,7 @@
         <td>{{$lap->akhir_l}}</td>
         <td>{{$lap->akhir_p}}</td>
     </tr>
-    @elseif($lap->judul == ' TOTAL :JUMLAH     SMA')
+    @elseif($lap->judul == 'JUMLAH     SMA')
     <tr>
         <td>{{$lap->nmr}}</td>
         <td>{{ $lap->judul }}</td>
@@ -53,7 +53,7 @@
         <td>{{$lap->akhir_l}}</td>
         <td>{{$lap->akhir_p}}</td>
     </tr>
-    @elseif($lap->judul == ' TOTAL :JUMLAH    SMK ')
+    @elseif($lap->judul == 'JUMLAH    SMK ')
     <tr>
         <td>{{$lap->nmr}}</td>
         <td>{{ $lap->judul }}</td>
@@ -68,7 +68,7 @@
         <td>{{$lap->akhir_l}}</td>
         <td>{{$lap->akhir_p}}</td>
     </tr>
-    @elseif($lap->judul == ' TOTAL :DIPLOMA III/AKTA III/AKADEMI / ')
+    @elseif($lap->judul == 'DIPLOMA III/AKTA III/AKADEMI / ')
     <tr>
         <td>{{$lap->nmr}}</td>
         <td>{{ $lap->judul }}</td>
@@ -83,7 +83,7 @@
         <td>{{$lap->akhir_l}}</td>
         <td>{{$lap->akhir_p}}</td>
     </tr>
-    @elseif($lap->judul == ' TOTAL :PASCA SARJANA ( S2 )')
+    @elseif($lap->judul == 'PASCA SARJANA ( S2 )')
     <tr>
         <td>{{$lap->nmr}}</td>
         <td>{{ $lap->judul }}</td>
@@ -98,7 +98,7 @@
         <td>{{$lap->akhir_l}}</td>
         <td>{{$lap->akhir_p}}</td>
     </tr>
-    @elseif($lap->judul == ' TOTAL :JUMLAH TOTAL')
+    @elseif($lap->judul == 'JUMLAH TOTAL')
     <tr>
         <td>{{$lap->nmr}}</td>
         <td>{{ $lap->judul }}</td>
