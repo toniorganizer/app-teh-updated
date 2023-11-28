@@ -23,7 +23,7 @@
 @if($disnaker->email_lembaga == 'disnaker@gmail.com')
 @if(isset($laporan) && $laporan->count() > 0)
 @foreach($laporan as $lap)
-@if($lap->judul == '0')
+@if($lap->judul == '0' || $lap->judul == ' TOTAL :SARJANA ( S1 )')
     <tr>
         <td>{{$lap->nmr}}</td>
         <td>{{ $lap->judul }}</td>
@@ -35,6 +35,81 @@
         <td>{{ $lap->penempatan_p_s }}</td>
         <td>{{ $lap->hapus_l_s }}</td>
         <td>{{ $lap->hapus_p_s }}</td>
+        <td>{{$lap->akhir_l}}</td>
+        <td>{{$lap->akhir_p}}</td>
+    </tr>
+    @elseif($lap->judul == ' TOTAL :JUMLAH     SMA')
+    <tr>
+        <td>{{$lap->nmr}}</td>
+        <td>{{ $lap->judul }}</td>
+        <td>{{ $lap->sisa_l_sma }}</td>
+        <td>{{ $lap->sisa_p_sma }}</td>
+        <td>{{ $lap->terdaftar_l_sma }}</td>
+        <td>{{ $lap->terdaftar_p_sma }}</td>
+        <td>{{ $lap->penempatan_l_sma }}</td>
+        <td>{{ $lap->penempatan_p_sma }}</td>
+        <td>{{ $lap->hapus_l_sma }}</td>
+        <td>{{ $lap->hapus_p_sma }}</td>
+        <td>{{$lap->akhir_l}}</td>
+        <td>{{$lap->akhir_p}}</td>
+    </tr>
+    @elseif($lap->judul == ' TOTAL :JUMLAH    SMK ')
+    <tr>
+        <td>{{$lap->nmr}}</td>
+        <td>{{ $lap->judul }}</td>
+        <td>{{ $lap->sisa_l_smk }}</td>
+        <td>{{ $lap->sisa_p_smk }}</td>
+        <td>{{ $lap->terdaftar_l_smk }}</td>
+        <td>{{ $lap->terdaftar_p_smk }}</td>
+        <td>{{ $lap->penempatan_l_smk }}</td>
+        <td>{{ $lap->penempatan_p_smk }}</td>
+        <td>{{ $lap->hapus_l_smk }}</td>
+        <td>{{ $lap->hapus_p_smk }}</td>
+        <td>{{$lap->akhir_l}}</td>
+        <td>{{$lap->akhir_p}}</td>
+    </tr>
+    @elseif($lap->judul == ' TOTAL :DIPLOMA III/AKTA III/AKADEMI / ')
+    <tr>
+        <td>{{$lap->nmr}}</td>
+        <td>{{ $lap->judul }}</td>
+        <td>{{ $lap->sisa_l_d }}</td>
+        <td>{{ $lap->sisa_p_d }}</td>
+        <td>{{ $lap->terdaftar_l_d }}</td>
+        <td>{{ $lap->terdaftar_p_d }}</td>
+        <td>{{ $lap->penempatan_l_d }}</td>
+        <td>{{ $lap->penempatan_p_d }}</td>
+        <td>{{ $lap->hapus_l_d }}</td>
+        <td>{{ $lap->hapus_p_d }}</td>
+        <td>{{$lap->akhir_l}}</td>
+        <td>{{$lap->akhir_p}}</td>
+    </tr>
+    @elseif($lap->judul == ' TOTAL :PASCA SARJANA ( S2 )')
+    <tr>
+        <td>{{$lap->nmr}}</td>
+        <td>{{ $lap->judul }}</td>
+        <td>{{ $lap->sisa_l_ss }}</td>
+        <td>{{ $lap->sisa_p_ss }}</td>
+        <td>{{ $lap->terdaftar_l_ss }}</td>
+        <td>{{ $lap->terdaftar_p_ss }}</td>
+        <td>{{ $lap->penempatan_l_ss }}</td>
+        <td>{{ $lap->penempatan_p_ss }}</td>
+        <td>{{ $lap->hapus_l_ss }}</td>
+        <td>{{ $lap->hapus_p_ss }}</td>
+        <td>{{$lap->akhir_l}}</td>
+        <td>{{$lap->akhir_p}}</td>
+    </tr>
+    @elseif($lap->judul == ' TOTAL :JUMLAH TOTAL')
+    <tr>
+        <td>{{$lap->nmr}}</td>
+        <td>{{ $lap->judul }}</td>
+        <td>{{ $lap->sisa_l_tot }}</td>
+        <td>{{ $lap->sisa_p_tot }}</td>
+        <td>{{ $lap->terdaftar_l_tot }}</td>
+        <td>{{ $lap->terdaftar_p_tot }}</td>
+        <td>{{ $lap->penempatan_l_tot }}</td>
+        <td>{{ $lap->penempatan_p_tot }}</td>
+        <td>{{ $lap->hapus_l_tot }}</td>
+        <td>{{ $lap->hapus_p_tot }}</td>
         <td>{{$lap->akhir_l}}</td>
         <td>{{$lap->akhir_p}}</td>
     </tr>

@@ -70,7 +70,7 @@ class FirstSheetImportLampiran implements ToModel, WithHeadingRow
 
     public function headingRow(): int
     {
-        return 10;
+        return 11;
     }
 
 }

@@ -23,7 +23,7 @@
 @if($disnaker->email_lembaga == 'disnaker@gmail.com')
 @if(isset($laporan) && $laporan->count() > 0)
 @foreach($laporan as $lap)
-@if($lap->judul_lp == 'Total')
+@if($lap->judul_lp == 'Total' || $lap->judul_lp == 'SARJANA ( S1 )')
     <tr>
         <td>{{$lap->nmr}}</td>
         <td>{{ $lap->judul_lp }}</td>
@@ -35,6 +35,66 @@
         <td>{{ $lap->penempatan_p_s }}</td>
         <td>{{ $lap->hapus_l_s }}</td>
         <td>{{ $lap->hapus_p_s }}</td>
+        <td>{{$lap->akhir_l_lp}}</td>
+        <td>{{$lap->akhir_p_lp}}</td>
+    </tr>
+    @elseif($lap->judul_lp == 'SMK : JURUSAN ( TOTAL )')
+    <tr>
+        <td>{{$lap->nmr}}</td>
+        <td>{{ $lap->judul_lp }}</td>
+        <td>{{ $lap->sisa_l_smk }}</td>
+        <td>{{ $lap->sisa_p_smk }}</td>
+        <td>{{ $lap->terdaftar_l_smk }}</td>
+        <td>{{ $lap->terdaftar_p_smk }}</td>
+        <td>{{ $lap->penempatan_l_smk }}</td>
+        <td>{{ $lap->penempatan_p_smk }}</td>
+        <td>{{ $lap->hapus_l_smk }}</td>
+        <td>{{ $lap->hapus_p_smk }}</td>
+        <td>{{$lap->akhir_l_lp}}</td>
+        <td>{{$lap->akhir_p_lp}}</td>
+    </tr>
+    @elseif($lap->judul_lp == 'DIPLOMA III/AKTA III/AKADEMI / SARJANA MUDA')
+    <tr>
+        <td>{{$lap->nmr}}</td>
+        <td>{{ $lap->judul_lp }}</td>
+        <td>{{ $lap->sisa_l_diplo }}</td>
+        <td>{{ $lap->sisa_p_diplo }}</td>
+        <td>{{ $lap->terdaftar_l_diplo }}</td>
+        <td>{{ $lap->terdaftar_p_diplo }}</td>
+        <td>{{ $lap->penempatan_l_diplo }}</td>
+        <td>{{ $lap->penempatan_p_diplo }}</td>
+        <td>{{ $lap->hapus_l_diplo }}</td>
+        <td>{{ $lap->hapus_p_diplo }}</td>
+        <td>{{$lap->akhir_l_lp}}</td>
+        <td>{{$lap->akhir_p_lp}}</td>
+    </tr>
+    @elseif($lap->judul_lp == 'PASCA SARJANA ( S2 )')
+    <tr>
+        <td>{{$lap->nmr}}</td>
+        <td>{{ $lap->judul_lp }}</td>
+        <td>{{ $lap->sisa_l_ss }}</td>
+        <td>{{ $lap->sisa_p_ss }}</td>
+        <td>{{ $lap->terdaftar_l_ss }}</td>
+        <td>{{ $lap->terdaftar_p_ss }}</td>
+        <td>{{ $lap->penempatan_l_ss }}</td>
+        <td>{{ $lap->penempatan_p_ss }}</td>
+        <td>{{ $lap->hapus_l_ss }}</td>
+        <td>{{ $lap->hapus_p_ss }}</td>
+        <td>{{$lap->akhir_l_lp}}</td>
+        <td>{{$lap->akhir_p_lp}}</td>
+    </tr>
+    @elseif($lap->judul_lp == 'JUMLAH TOTAL')
+    <tr>
+        <td>{{$lap->nmr}}</td>
+        <td>{{ $lap->judul_lp }}</td>
+        <td>{{ $lap->sisa_l_tot }}</td>
+        <td>{{ $lap->sisa_p_tot }}</td>
+        <td>{{ $lap->terdaftar_l_tot }}</td>
+        <td>{{ $lap->terdaftar_p_tot }}</td>
+        <td>{{ $lap->penempatan_l_tot }}</td>
+        <td>{{ $lap->penempatan_p_tot }}</td>
+        <td>{{ $lap->hapus_l_tot }}</td>
+        <td>{{ $lap->hapus_p_tot }}</td>
         <td>{{$lap->akhir_l_lp}}</td>
         <td>{{$lap->akhir_p_lp}}</td>
     </tr>

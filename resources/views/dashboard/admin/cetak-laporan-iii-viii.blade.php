@@ -23,7 +23,7 @@
 @if($disnaker->email_lembaga == 'disnaker@gmail.com')
 @if(isset($laporan) && $laporan->count() > 0)
 @foreach($laporan as $lap)
-@if($lap->judul == 'Sub Total')
+@if($lap->judul == 'Sub Total' || $lap->judul == 'SMK : JURUSAN')
 <tr>
     <td>{{$lap->nmr}}</td>
     <td>{{$lap->judul}}</td>

@@ -283,14 +283,14 @@ class LampiranLaporanController extends Controller
     public function CetakLampiran($id){
         $item = DataPencariKerja::where('id_disnaker', $id)->where('type', 'Lampiran')->first();
         if($id == 'disnaker@gmail.com'){
-            $data = PemangkuKepentingan::where('email_lembaga', $id)->orWhere('type', 'Lampiran')->first();
-            $fileName = 'Lampiran-Laporan'. $data->nama_lembaga .'.xlsx';
+            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+            $fileName = 'Lampiran-Laporan ('. $data->nama_lembaga .').xlsx';
             return Excel::download(new CetakLampiran($id), $fileName);
         }elseif($item == null){
             return redirect('/lampiran')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
         }else{
         $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
-        $fileName = 'Lampiran-Laporan'. $data->nama_lembaga .'.xlsx';
+        $fileName = 'Lampiran-Laporan ('. $data->nama_lembaga .').xlsx';
         return Excel::download(new CetakLampiran($id), $fileName);
         }
     }
