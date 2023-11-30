@@ -182,7 +182,11 @@ class DataPencariKerjaController extends Controller
 
      public function editLaporanI(Request $request, $id){
          if($request->id_disnaker){
-            $data = DataPencariKerja::where('nmr', $id)->where('id_disnaker', $request->id_disnaker)->where('type','Laporan')->first();
+            if($request->type == 'Lampiran'){
+                $data = DataPencariKerja::where('nmr', $id)->where('id_disnaker', $request->id_disnaker)->where('type','Lampiran')->first();
+            }else{
+                $data = DataPencariKerja::where('nmr', $id)->where('id_disnaker', $request->id_disnaker)->where('type','Laporan')->first();
+            }
          }elseif($request->type == 'Lampiran')
          {
             $data = DataPencariKerja::where('nmr', $id)->where('id_disnaker', Auth::user()->email)->where('type','Lampiran')->first();
@@ -245,8 +249,11 @@ class DataPencariKerjaController extends Controller
                 'lowongan_L' => $request->lowongan_L,
                 'lowongan_P' => $request->lowongan_P
             ]);
-
+            if(Auth::user()->email == 'disnaker@gmail.com'){
+                return redirect('/detail-lampiran-kab/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+            }else{
             return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
+            }
         }
      }
 

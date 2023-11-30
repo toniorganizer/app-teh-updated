@@ -57,8 +57,13 @@ class PencariPenerimaController extends Controller
 
     public function editLaporanVIII(Request $request, $id){
         if($request->id_disnaker){
-            $notIn = ['BH & TIDAK TAMAT SD','SD'];
-            $data = DataPencariPenerima::where('nmr', $id)->where('type','Laporan')->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul', $notIn)->first();
+            if($request->type == 'Lampiran'){
+                $notIn = ['BH & TIDAK TAMAT SD','SD'];
+                $data = DataPencariPenerima::where('nmr', $id)->where('type','Lampiran')->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul', $notIn)->first();
+            }else{
+                $notIn = ['BH & TIDAK TAMAT SD','SD'];
+                $data = DataPencariPenerima::where('nmr', $id)->where('type','Laporan')->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul', $notIn)->first();
+            }
         }
         elseif($request->type == 'Lampiran'){
             $notIn = ['BH & TIDAK TAMAT SD','SD'];
@@ -110,7 +115,11 @@ class PencariPenerimaController extends Controller
                 'akanl' => $request->{'akanl'},
                 'akanp' => $request->{'akanp'},
             ]);
-            return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
+            if(Auth::user()->email == 'disnaker@gmail.com'){
+                return redirect('/detail-lampiran-kab/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+            }else{
+                return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
+            }
         }
      }
 

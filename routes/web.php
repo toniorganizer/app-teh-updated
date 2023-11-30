@@ -108,6 +108,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('export-ipk-1', 'downlaodTemplate1');
             Route::post('import', 'importDataIPK1');
             Route::get('/edit-laporan-i/{id}', 'editLaporanI');
+            Route::get('/detail-lampiran-kab/edit-laporan-i/{id}', 'editLaporanI');
             Route::get('/delete-laporan-i/{id}', 'deleteLaporanI');
             Route::post('/update-laporan-i/{id}', 'updateLaporanI');
             Route::get('/cetak-laporan-i/{id}','CetakLaporanI');
@@ -121,6 +122,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('export-ipk-2', 'downlaodTemplate1');
             Route::post('importIPKII', 'importDataIPK2');
             Route::get('/edit-laporan-ii/{id}', 'editLaporanII');
+            Route::get('/detail-lampiran-kab/edit-laporan-ii/{id}', 'editLaporanII');
             Route::get('/delete-laporan-ii/{id}', 'deleteLaporanII');
             Route::post('/update-laporan-ii/{id}', 'updateLaporanII');
             Route::get('/cetak-laporan-ii/{id}','CetakLaporanII');
@@ -134,6 +136,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('export-ipk-3', 'downlaodTemplate1');
             Route::post('importIPKIII', 'importDataIPK3');
             Route::get('/edit-laporan-iii/{id}', 'editLaporanIII');
+            Route::get('/detail-lampiran-kab/edit-laporan-iii/{id}', 'editLaporanIII');
             Route::get('/delete-laporan-iii/{id}', 'deleteLaporanIII');
             Route::post('/update-laporan-iii/{id}', 'updateLaporanIII');
             Route::get('/cetak-laporan-iii/{id}','CetakLaporanIII');
@@ -147,6 +150,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('export-ipk-4', 'downlaodTemplate1');
             Route::post('importIPKIV', 'importDataIPK4');
             Route::get('/edit-laporan-iv/{id}', 'editLaporanIV');
+            Route::get('/detail-lampiran-kab/edit-laporan-iv/{id}', 'editLaporanIV');
             Route::get('/delete-laporan-iv/{id}', 'deleteLaporanIV');
             Route::post('/update-laporan-iv/{id}', 'updateLaporanIV');
             Route::get('/cetak-laporan-iv/{id}','CetakLaporanIV');
@@ -160,6 +164,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('export-ipk-5', 'downlaodTemplate1');
             Route::post('importIPKV', 'importDataIPK5');
             Route::get('/edit-laporan-v/{id}', 'editLaporanV');
+            Route::get('/detail-lampiran-kab/edit-laporan-v/{id}', 'editLaporanV');
             Route::get('/delete-laporan-v/{id}', 'deleteLaporanV');
             Route::post('/update-laporan-v/{id}', 'updateLaporanV');
             Route::get('/cetak-laporan-v/{id}','CetakLaporanV');
@@ -174,6 +179,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('export-ipk-6', 'downlaodTemplate1');
             Route::post('importIPKVI', 'importDataIPK6');
             Route::get('/edit-laporan-vi/{id}', 'editLaporanVI');
+            Route::get('/detail-lampiran-kab/edit-laporan-vi/{id}', 'editLaporanVI');
             Route::get('/delete-laporan-vi/{id}', 'deleteLaporanVI');
             Route::post('/update-laporan-vi/{id}', 'updateLaporanVI');
             Route::get('/cetak-laporan-vi/{id}','CetakLaporanVI');
@@ -187,6 +193,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('export-ipk-8', 'downlaodTemplate1');
             Route::post('importIPKVIII', 'importDataIPK8');
             Route::get('/edit-laporan-viii/{id}', 'editLaporanVIII');
+            Route::get('/detail-lampiran-kab/edit-laporan-viii/{id}', 'editLaporanVIII');
             Route::get('/delete-laporan-viii/{id}', 'deleteLaporanVIII');
             Route::post('/update-laporan-viii/{id}', 'updateLaporanVIII');
             Route::get('/cetak-laporan-viii/{id}','CetakLaporanVIII');
@@ -199,6 +206,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('lampiran', 'index');
             Route::post('importLampiran', 'importLampiran');
             Route::get('/edit-lampiran-kab-kota/{id}', 'editLampiranKabKota');
+            Route::get('/detail-lampiran-kab/edit-lampiran-kab-kota/{id}', 'editLampiranKabKota');
             Route::get('/delete-lampiran/{id}', 'deleteLampiran');
             Route::post('/update-lampiran-kab-kota/{id}', 'updateLampiranKabKota');
             Route::get('/cetak-lampiran/{id}','CetakLampiran');

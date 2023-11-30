@@ -183,7 +183,7 @@ class LampiranLaporanController extends Controller
                 ->get();
             
             // Tabel 414
-            $excludedNumbers414 = ['JUMLAH TOTAL'];
+            $excludedNumbers414 = ['JUMLAH TOTAL','KABUPATEN','KOTA'];
             $datalaporan414 = DataKabKota::where('id_disnaker', Auth::user()->email)->where('type','Lampiran')->whereNotIn('judul', $excludedNumbers414)->get();
 
             $lap414 = DB::table('data_kab_kotas')
@@ -309,8 +309,13 @@ class LampiranLaporanController extends Controller
 
      public function editLampiranKabKota(Request $request, $id){
         if($request->id_disnaker){
-            $notIn = ['BH & TIDAK TAMAT SD','SD'];
-            $data = DataKabKota::where('nmr', $id)->where('type','Laporan')->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul', $notIn)->first();
+            if($request->type == 'Lampiran'){
+                $notIn = ['BH & TIDAK TAMAT SD','SD'];
+                $data = DataKabKota::where('nmr', $id)->where('type','Lampiran')->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul', $notIn)->first();
+            }else{
+                $notIn = ['BH & TIDAK TAMAT SD','SD'];
+                $data = DataKabKota::where('nmr', $id)->where('type','Laporan')->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul', $notIn)->first();
+            }
         }
         elseif($request->type == 'Lampiran'){
             $notIn = ['BH & TIDAK TAMAT SD','SD'];
@@ -320,6 +325,7 @@ class LampiranLaporanController extends Controller
             $notIn = ['BH & TIDAK TAMAT SD','SD'];
             $data = DataKabKota::where('nmr', $id)->where('type','Laporan')->where('id_disnaker', Auth::user()->email)->whereNotIn('judul', $notIn)->first();
         }
+
 
         return view('Dashboard.pemangku-kepentingan.edit_lampiran_kab_kota', [
             'sub_title' => 'Lampiran',
@@ -341,7 +347,7 @@ class LampiranLaporanController extends Controller
             ]);
     
             if(Auth::user()->email == 'disnaker@gmail.com'){
-                return redirect('/detail-laporan-kab-iii/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+                return redirect('/detail-lampiran-kab/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
             }else{
                 return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
             }
@@ -355,8 +361,59 @@ class LampiranLaporanController extends Controller
                 'pkdl' => $request->{'pkdl'},
                 'pktw' => $request->{'pktw'},
             ]);
-            return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
+            if(Auth::user()->email == 'disnaker@gmail.com'){
+                return redirect('/detail-lampiran-kab/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+            }else{
+                return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
+            }
         }
      }
+
+     public function detailLampiranKab($id){
+        $kab = PemangkuKepentingan::where('status_lembaga', 1)->get();
+        $nama = PemangkuKepentingan::where('email_lembaga', $id)->first();
+
+        $data = DataPencariKerja::get();
+        $excludedNumbers41 = ['A.', 'B.', 5];
+        $datalaporan = DataPencariKerja::where('id_disnaker', Auth::user()->email)->where('type', 'Lampiran')->whereNotIn('nmr', $excludedNumbers41)->get();
+
+        $excludedNumbers48 = ['SMK : JURUSAN','JUMLAH',''];
+        $datalaporan48 = DataPencariPenerima::where('id_disnaker', $id)->where('type','Lampiran')->whereNotIn('judul', $excludedNumbers48)->paginate(20);
+
+        $excludedNumbers49 = [' TOTAL : SLTA /SMK /D.I/D.II ','JUMLAH     SMA','JUMLAH    SMK ','DIPLOMA III/AKTA III/AKADEMI /','PASCA SARJANA ( S2 )','JUMLAH TOTAL','SARJANA ( S1 )'];
+        $datalaporan49 = DataJenisPendidikan::where('id_disnaker', $id)->where('type','Lampiran')->whereNotIn('judul', $excludedNumbers49)->paginate(20);
+
+        $excludedNumbers410 = ['JUMLAH'];
+        $datalaporan410 = DataKelompokJabatan::where('id_disnaker', $id)->whereNotIn('judul_kj', $excludedNumbers410)->where('type','Lampiran')->get();
+
+        $excludedNumbers411 = ['DIPLOMA III/AKTA III/AKADEMI / SARJANA MUDA','PASCA SARJANA ( S2 )','JUMLAH TOTAL','SARJANA ( S1 )','PENDIDIKAN MENENGAH ATAS','SMK : JURUSAN ( TOTAL )'];
+        $datalaporan411 = DataLowonganPendidikan::where('id_disnaker', $id)->where('type','Lampiran')->whereNotIn('judul_lp', $excludedNumbers411)->paginate(20);
+
+        $excludedNumbers412 = ['JUMLAH'];
+        $datalaporan412 = DataLowonganJabatan::where('id_disnaker', $id)->whereNotIn('judul_lj', $excludedNumbers412)->where('type','Lampiran')->get();
+
+        $excludedNumbers413 = ['JUMLAH TOTAL'];
+        $datalaporan413 = DataGolonganUsaha::where('id_disnaker', $id)->where('type','Lampiran')->whereNotIn('judul_gu', $excludedNumbers413)->get();
+
+        $excludedNumbers414 = ['JUMLAH TOTAL'];
+        $datalaporan414 = DataKabKota::where('id_disnaker', $id)->where('type','Lampiran')->whereNotIn('judul', $excludedNumbers414)->get();
+
+        // dd($datalaporan410);
+
+        return view('Dashboard.pemangku-kepentingan.detail_lampiran_kab', [
+            'sub_title' => 'Lampiran',
+            'title' => 'DataIPK',
+            'dataLaporanKab414' => $datalaporan414,
+            'dataLaporanKab413' => $datalaporan413,
+            'dataLaporanKab412' => $datalaporan412,
+            'dataLaporanKab411' => $datalaporan411,
+            'dataLaporanKab410' => $datalaporan410,
+            'dataLaporanKab49' => $datalaporan49,
+            'dataLaporanKab48' => $datalaporan48,
+            'datalaporan' => $datalaporan,
+            'kab' => $kab,
+            'nama' => $nama
+        ]);
+    }
 
 }

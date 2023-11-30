@@ -68,8 +68,13 @@ class KelompokJabatanController extends Controller
 
      public function editLaporanIII(Request $request, $id){
         if($request->id_disnaker){
-            $notIn = ['BH & TIDAK TAMAT SD','SD'];
-            $data = DataKelompokJabatan::where('nmr', $id)->where('type','Laporan')->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul_kj', $notIn)->first();
+            if($request->type == 'Lampiran'){
+                $notIn = ['BH & TIDAK TAMAT SD','SD'];
+                $data = DataKelompokJabatan::where('nmr', $id)->where('type','Lampiran')->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul_kj', $notIn)->first();
+            }else{
+                $notIn = ['BH & TIDAK TAMAT SD','SD'];
+                $data = DataKelompokJabatan::where('nmr', $id)->where('type','Laporan')->Where('id_disnaker', $request->id_disnaker)->whereNotIn('judul_kj', $notIn)->first();
+            }
         }
         elseif($request->type == 'Lampiran'){
             $notIn = ['BH & TIDAK TAMAT SD','SD'];
@@ -127,7 +132,11 @@ class KelompokJabatanController extends Controller
                 'hapus_l_kj' => $request->{'hapus_l'},
                 'hapus_p_kj' => $request->{'hapus_p'},
             ]);
-            return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
+            if(Auth::user()->email == 'disnaker@gmail.com'){
+                return redirect('/detail-lampiran-kab/'. $request->id_disnaker )->with('success', 'Update data berhasil dilakukan');
+            }else{
+                return redirect('/lampiran')->with('success', 'Update data berhasil dilakukan');
+            }
         }
      }
 
