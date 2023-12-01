@@ -96,6 +96,7 @@ class KepentinganController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'icon' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -127,6 +128,15 @@ class KepentinganController extends Controller
                 'foto_user' => $foto->hashName(),
             ]);
 
+        }elseif($request->hasFile('icon')){
+            $foto = $request->file('icon');
+            $foto->storeAs('public/icon-lembaga', $foto->hashName());
+            Storage::delete('public/icon-lembaga/'. $data->icon);
+
+            User::where('email', $request->email)->update([
+                'name' => $request->nama_lembaga,
+                'icon' => $foto->hashName(),
+            ]);
         }else{
             PemangkuKepentingan::where('email_lembaga', $id)->update([
                 'nama_lembaga' => $request->nama_lembaga,

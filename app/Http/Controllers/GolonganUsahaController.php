@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\DataGolonganUsaha;
 use Illuminate\Support\Facades\DB;
@@ -130,16 +131,18 @@ class GolonganUsahaController extends Controller
 
      public function CetakLaporanVI($id){
         $item = DataGolonganUsaha::where('id_disnaker', $id)->first();
+        $data = User::where('email', $id)->first();
+        $lambang= $data->icon;
         if($id == 'disnaker@gmail.com'){
             $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
             $fileName = 'Laporan-IPK-6-'. $data->nama_lembaga .'.xlsx';
-            return Excel::download(new CetakLaporanVIPusat($id), $fileName);
+            return Excel::download(new CetakLaporanVIPusat($id, $lambang), $fileName);
         }elseif($item == null){
             return redirect('/laporan-ipk-6')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
         }else{
         $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
         $fileName = 'Laporan-IPK-6-'. $data->nama_lembaga .'.xlsx';
-        return Excel::download(new CetakLaporanVIPusat($id), $fileName);
+        return Excel::download(new CetakLaporanVIPusat($id, $lambang), $fileName);
         }
     }
 

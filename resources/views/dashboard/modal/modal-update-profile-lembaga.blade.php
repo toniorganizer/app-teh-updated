@@ -86,6 +86,18 @@
                           </div>
                       @enderror
                       </div>
+                      @if($data->status_lembaga == 1)
+                      <div class="col-md-12">
+                        <label for="inputCity" class="form-label">Lambang Lembaga</label>
+                        <input class="form-control @error('icon') is-invalid @enderror" name="icon" id="icon" type="file" id="formFile">
+                          @error('icon')
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
+                          @enderror
+                          <small id="emailHelp" class="form-text text-muted">File max. 150 KB</small>
+                        </div>
+                        @endif
                     <div class="col-md-12">
                       <label for="inputCity" class="form-label">Foto Lembaga</label><br>
                       <img src="

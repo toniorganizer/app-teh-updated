@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\DataKabKota;
 use App\Models\PencariKerja;
 use Illuminate\Http\Request;
 use App\Exports\CetakLampiran;
@@ -15,7 +17,6 @@ use App\Models\DataLowonganJabatan;
 use App\Models\DataPencariPenerima;
 use App\Models\PemangkuKepentingan;
 use App\Http\Controllers\Controller;
-use App\Models\DataKabKota;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\DataLowonganPendidikan;
@@ -282,16 +283,18 @@ class LampiranLaporanController extends Controller
 
     public function CetakLampiran($id){
         $item = DataPencariKerja::where('id_disnaker', $id)->where('type', 'Lampiran')->first();
+        $data = User::where('email', $id)->first();
+        $lambang= $data->icon;
         if($id == 'disnaker@gmail.com'){
             $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
             $fileName = 'Lampiran-Laporan ('. $data->nama_lembaga .').xlsx';
-            return Excel::download(new CetakLampiran($id), $fileName);
+            return Excel::download(new CetakLampiran($id, $lambang), $fileName);
         }elseif($item == null){
             return redirect('/lampiran')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
         }else{
         $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
         $fileName = 'Lampiran-Laporan ('. $data->nama_lembaga .').xlsx';
-        return Excel::download(new CetakLampiran($id), $fileName);
+        return Excel::download(new CetakLampiran($id, $lambang), $fileName);
         }
     }
 

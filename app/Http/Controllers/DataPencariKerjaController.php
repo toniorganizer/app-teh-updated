@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Exports\DataIpk1;
 use Illuminate\Http\Request;
 use App\Exports\CetakLaporanI;
@@ -264,16 +265,18 @@ class DataPencariKerjaController extends Controller
 
      public function CetakLaporanI($id){
         $item = DataPencariKerja::where('id_disnaker', $id)->first();
+        $data = User::where('email', $id)->first();
+        $lambang= $data->icon;
         if($id == 'disnaker@gmail.com'){
             $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
             $fileName = 'Laporan-IPK-1-'. $data->nama_lembaga .'.xlsx';
-            return Excel::download(new CetakLaporanI($id), $fileName);
+            return Excel::download(new CetakLaporanI($id, $lambang), $fileName);
         }elseif($item == null){
             return redirect('/laporan-ipk-1')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
         }else{
             $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
             $fileName = 'Laporan-IPK-1-'. $data->nama_lembaga .'.xlsx';
-            return Excel::download(new CetakLaporanI($id), $fileName);
+            return Excel::download(new CetakLaporanI($id, $lambang), $fileName);
         }
 
      }

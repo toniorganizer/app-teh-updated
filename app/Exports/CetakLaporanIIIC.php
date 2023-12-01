@@ -21,17 +21,19 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class CetakLaporanIIIC implements WithDrawings, WithStyles, WithTitle, FromView, WithColumnWidths
 {
     private $id;
+    private $lambang;
 
-    public function __construct($id)
+    public function __construct($id, $lambang)
     {
         $this->id = $id;
+        $this->lambang = $lambang;
     }
 
     public function drawings()
     {
         $drawing = new Drawing();
         $drawing->setName('Logo');
-        $drawing->setPath(public_path('assets/img/sumbar.png'));
+        $drawing->setPath(public_path('storage/icon-lembaga/'. $this->lambang));
         $drawing->setHeight(95);
         $drawing->setCoordinates('B2');
 

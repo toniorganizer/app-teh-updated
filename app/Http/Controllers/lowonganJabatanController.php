@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Exports\CetakLaporanVPusat;
@@ -133,16 +134,18 @@ class lowonganJabatanController extends Controller
 
     public function CetakLaporanV($id){
         $item = DataLowonganJabatan::where('id_disnaker', $id)->first();
+        $data = User::where('email', $id)->first();
+        $lambang= $data->icon;
         if($id == 'disnaker@gmail.com'){
             $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
             $fileName = 'Laporan-IPK-5-'. $data->nama_lembaga .'.xlsx';
-            return Excel::download(new CetakLaporanVPusat($id), $fileName);
+            return Excel::download(new CetakLaporanVPusat($id, $lambang), $fileName);
         }elseif($item == null){
             return redirect('/laporan-ipk-5')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
         }else{
             $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
             $fileName = 'Laporan-IPK-5-'. $data->nama_lembaga .'.xlsx';
-            return Excel::download(new CetakLaporanVPusat($id), $fileName);
+            return Excel::download(new CetakLaporanVPusat($id, $lambang), $fileName);
         }
     }
 

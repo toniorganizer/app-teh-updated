@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Exports\CetakLaporanII;
 use Illuminate\Support\Facades\DB;
@@ -73,16 +74,18 @@ class JenisPendidikanController extends Controller
 
     public function CetakLaporanII($id){
         $item = DataJenisPendidikan::where('id_disnaker', $id)->first();
+        $data = User::where('email', $id)->first();
+        $lambang= $data->icon;
         if($id == 'disnaker@gmail.com'){
             $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
             $fileName = 'Laporan-IPK-2-'. $data->nama_lembaga .'.xlsx';
-            return Excel::download(new CetakLaporanIIPusat($id), $fileName);
+            return Excel::download(new CetakLaporanIIPusat($id, $lambang), $fileName);
         }elseif($item == null){
             return redirect('/laporan-ipk-2')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
         }else{
             $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
             $fileName = 'Laporan-IPK-2-'. $data->nama_lembaga .'.xlsx';
-            return Excel::download(new CetakLaporanIIPusat($id), 'Laporan-IPK-2.xlsx');
+            return Excel::download(new CetakLaporanIIPusat($id, $lambang), 'Laporan-IPK-2.xlsx');
         }
     }
 

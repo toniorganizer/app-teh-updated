@@ -11,10 +11,12 @@ class CetakLaporanIVPusat implements WithMultipleSheets
     use Exportable;
 
     private $id;
+    private $lambang;
 
-    public function __construct($id)
+    public function __construct($id, $lambang)
     {
         $this->id = $id;
+        $this->lambang = $lambang;
     }
 
     /**
@@ -23,15 +25,15 @@ class CetakLaporanIVPusat implements WithMultipleSheets
     public function sheets(): array
     {
 
-        $sheets[] = new CetakLaporanIVA($this->id);
-        $sheets[] = new CetakLaporanIVB($this->id);
-        $sheets[] = new CetakLaporanIVC($this->id);
-        $sheets[] = new CetakLaporanIVD($this->id);
-        $sheets[] = new CetakLaporanIVE($this->id);
-        $sheets[] = new CetakLaporanIVF($this->id);
-        $sheets[] = new CetakLaporanIVG($this->id);
-        $sheets[] = new CetakLaporanIVH($this->id);
-        $sheets[] = new CetakLaporanIV9($this->id);
+        $sheets[] = new CetakLaporanIVA($this->id, $this->lambang);
+        $sheets[] = new CetakLaporanIVB($this->id, $this->lambang);
+        $sheets[] = new CetakLaporanIVC($this->id, $this->lambang);
+        $sheets[] = new CetakLaporanIVD($this->id, $this->lambang);
+        $sheets[] = new CetakLaporanIVE($this->id, $this->lambang);
+        $sheets[] = new CetakLaporanIVF($this->id, $this->lambang);
+        $sheets[] = new CetakLaporanIVG($this->id, $this->lambang);
+        $sheets[] = new CetakLaporanIVH($this->id, $this->lambang);
+        $sheets[] = new CetakLaporanIV9($this->id, $this->lambang);
 
         return $sheets;
     }

@@ -2,8 +2,13 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
         <a href="/home" class="logo d-flex align-items-center">
+            @if(Auth::user()->icon)
+            <img src="{{ Storage::url('public/icon-lembaga/').Auth::user()->icon}}" alt="" />
+            <span class="d-none d-lg-block">{{substr(Auth::user()->name, 18)}}</span>
+            @else
             <img src="{{ asset('assets/img/sumbar.png')}}" alt="" />
             <span class="d-none d-lg-block">SUMBAR</span>
+            @endif
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>

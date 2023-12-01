@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\CetakPencariPenerima;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\DataPencariKerja;
 use Illuminate\Support\Facades\DB;
 use App\Models\DataPencariPenerima;
 use App\Models\PemangkuKepentingan;
 use App\Http\Controllers\Controller;
-use App\Imports\PencariPenerimaImport;
-use App\Models\DataPencariKerja;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CetakPencariPenerima;
+use App\Imports\PencariPenerimaImport;
 
 class PencariPenerimaController extends Controller
 {
@@ -125,16 +126,18 @@ class PencariPenerimaController extends Controller
 
      public function CetakLaporanVIII($id){
         $item = DataPencariPenerima::where('id_disnaker', $id)->first();
+        $data = User::where('email', $id)->first();
+        $lambang= $data->icon;
         if($id == 'disnaker@gmail.com'){
             $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
             $fileName = 'Laporan-IPK-8-'. $data->nama_lembaga .'.xlsx';
-            return Excel::download(new CetakPencariPenerima($id), $fileName);
+            return Excel::download(new CetakPencariPenerima($id, $lambang), $fileName);
         }elseif($item == null){
             return redirect('/laporan-ipk-8')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
         }else{
             $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
             $fileName = 'Laporan-IPK-8-'. $data->nama_lembaga .'.xlsx';
-            return Excel::download(new CetakPencariPenerima($id), $fileName);
+            return Excel::download(new CetakPencariPenerima($id, $lambang), $fileName);
         }
     }
 

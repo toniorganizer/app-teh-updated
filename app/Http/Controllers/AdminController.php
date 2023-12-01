@@ -168,6 +168,7 @@ class AdminController extends Controller
             'email' => $request->email,
             'level' => 2,
             'status_tracer' => 0,
+            'icon' => 0,
             'password' => Hash::make($request->password),
             'foto_user' => $foto->hashName(),
         ]);
@@ -329,6 +330,7 @@ class AdminController extends Controller
                 'email' => $request->email,
                 'level' => 2,
                 'status_tracer' => 0,
+                'icon' => 0,
                 'password' => Hash::make($request->password),
                 'foto_user' => 'default.jpg',
             ]);
@@ -352,6 +354,7 @@ class AdminController extends Controller
                 'email' => $request->email,
                 'level' => 3,
                 'status_tracer' => 0,
+                'icon' => 0,
                 'password' => Hash::make($request->password),
                 'foto_user' => 'default.jpg',
             ]);
@@ -375,6 +378,7 @@ class AdminController extends Controller
                 'email' => $request->email,
                 'level' => 4,
                 'status_tracer' => 0,
+                'icon' => 0,
                 'password' => Hash::make($request->password),
                 'foto_user' => 'default.jpg',
             ]);
@@ -396,6 +400,7 @@ class AdminController extends Controller
                 'email' => $request->email,
                 'level' => 5,
                 'status_tracer' => 0,
+                'icon' => 0,
                 'password' => Hash::make($request->password),
                 'foto_user' => 'default.jpg',
             ]);
