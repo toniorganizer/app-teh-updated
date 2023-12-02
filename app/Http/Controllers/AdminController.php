@@ -178,7 +178,6 @@ class AdminController extends Controller
     }
 
     public function hapusTenagaKerja($id){
-        
         $id_user = DB::table('pencari_kerjas')->where('email_pk',$id)->first();
         $data = DB::table('pencari_kerjas')->where('id_pencari_kerja', $id_user->id_pencari_kerja)->first();
         Storage::delete('public/user/' . $data->foto_pencari_kerja);
@@ -259,6 +258,7 @@ class AdminController extends Controller
             'nama_lembaga' => $request->nama_lembaga,
             'bidang_lembaga' => '-',
             'status_lembaga' => $request->status_lembaga,
+            'role_acc' => 0,
             'email_lembaga' =>  $request->email,
             'website_lembaga' => '-',
             'instagram_lembaga' => '-',
@@ -273,6 +273,7 @@ class AdminController extends Controller
             'name' => $request->nama_lembaga,
             'email' => $request->email,
             'level' => 3,
+            'icon' => 0,
             'status_tracer' => 0,
             'password' => Hash::make($request->password),
             'foto_user' => 'default.jpg',
@@ -339,6 +340,7 @@ class AdminController extends Controller
                 'nama_lembaga' => $request->nama_user,
                 'bidang_lembaga' => '-',
                 'status_lembaga' => 0,
+                'role_acc' => 0,
                 'email_lembaga' =>  $request->email,
                 'website_lembaga' => '-',
                 'instagram_lembaga' => '-',

@@ -14,6 +14,7 @@ class PemangkuKepentingan extends Model
         'bidang_lembaga',
         'email_lembaga',
         'status_lembaga',
+        'role_acc',
         'website_lembaga',
         'instagram_lembaga',
         'facebook_lembaga',

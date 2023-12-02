@@ -165,6 +165,12 @@ class KepentinganController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id_user = DB::table('pemangku_kepentingans')->where('email_lembaga',$id)->first();
+        $data = DB::table('pemangku_kepentingans')->where('id_pemangku_kepentingan', $id_user->id_pemangku_kepentingan)->first();
+        Storage::delete('public/user/' . $data->foto_lembaga);
+        User::where('email',$id)->delete();
+        PemangkuKepentingan::where('email_lembaga',$id)->delete();
+
+        return redirect('/pemangku-kepentingan-data')->with('success', 'Data Berhasil Dihapus!');
     }
 }

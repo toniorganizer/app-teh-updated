@@ -73,10 +73,10 @@
                                                 <td>
                                                     <a href="{{route('pemerintah.show', $user->email_lembaga)}}" class="badge badge-info">Detail</a>
                                                     @if(Auth::user()->level == 1)
-                                                    <a href="/deleteTenagaKerja/{{$user->email_lembaga}}" class="badge badge-danger" onclick="return confirm('Yakin ingin menghpus?')">Hapus</a>
+                                                    <a href="/deletePemangkuKepentingan/{{$user->email_lembaga}}" class="badge badge-danger" onclick="return confirm('Yakin ingin menghpus?')">Hapus</a>
                                                     @endif
                                                     @if(Auth::user()->level == 3)
-                                                    <a href="/deleteTenagaKerja/{{$user->email_llembaga}}" class="badge badge-danger" onclick="return confirm('Yakin ingin menghpus?')">Hapus</a>
+                                                    <a href="/deletePemangkuKepentingan/{{$user->email_llembaga}}" class="badge badge-danger" onclick="return confirm('Yakin ingin menghpus?')">Hapus</a>
                                                     @endif
                                                 </td>
                                             </tr>

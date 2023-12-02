@@ -100,6 +100,9 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/search-semester', 'searchSemester')->name('search-semester');
             });
         Route::resource('/pemerintah', KepentinganController::class);
+        Route::controller(KepentinganController::class)->group(function (){
+            Route::get('/deletePemangkuKepentingan/{id}', 'destroy');
+        });
     });
 
     Route::group(['middleware' => ['CekUser:1,3']], function () {

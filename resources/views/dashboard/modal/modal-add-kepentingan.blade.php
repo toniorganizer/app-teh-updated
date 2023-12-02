@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah data user</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah data pemangku kepentingan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -36,9 +36,10 @@
                     <div class="col-12">
                         <label for="yourEmail" class="form-label">Level</label>
                         <select name="status_lembaga" class="form-control" id="exampleFormControlSelect1">
-                            <option>--Pilih Level Lembaga--</option>
-                            <option value="1">Disnaker Kab/kota</option>
+                            <option>--Pilih Level--</option>
                             <option value="2">Disdik</option>
+                            <option value="3">Kadis Disnaker Kab/Kota</option>
+                            <option value="1">Disnaker Kab/kota</option>
                         </select>
                         @error('status_lembaga')
                         <small id="emailHelp" class="form-text text-muted">
