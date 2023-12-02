@@ -183,11 +183,17 @@ class CetakLampiranIIIA implements WithDrawings, WithStyles, WithTitle, FromView
     public function view(): View
     {
         // dd($this->id)
-        $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
         $semester = DataPencariKerja::where('id_disnaker', $this->id)->where('type','Lampiran')->first();
         $data = DataPencariKerja::where('id_disnaker', $this->id)->where('type','Lampiran')->get();
-        // dd($disnaker->email_lembaga);
+
+        if($disnaker->status_lembaga == 0){
+            $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
+        }elseif($semester->type == 'Lampiran'){
+            $title = 'TABEL 4. 1';
+        }else{
+            $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA KAB/KOTA' . strtoupper(substr($disnaker->nama_lembaga, 18));
+        }
 
         // Cetak data pada id disnaker provinsi
         $pencari_kerja1 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->first();

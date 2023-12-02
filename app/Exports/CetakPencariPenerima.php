@@ -242,9 +242,15 @@ class CetakPencariPenerima implements WithDrawings, WithStyles, WithTitle, FromV
 
     public function view(): View
     {
-        $title = 'LAPORAN IPK III/8 - PENEMPATAN PENCARI KRJ MENURUT JEN. ANTAR KERJA PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
         $semester = DataPencariPenerima::where('id_disnaker', $this->id)->where('type','Laporan')->first();
+        if($disnaker->status_lembaga == 0){
+            $title = 'LAPORAN IPK III/8 - PENEMPATAN PENCARI KRJ MENURUT JEN. ANTAR KERJA PROPINSI SUMATERA BARAT';
+        }elseif($semester->type == 'Lampiran'){
+            $title = 'TABEL 4. 1';
+        }else{
+            $title = 'LAPORAN IPK III/8 - PENEMPATAN PENCARI KRJ MENURUT JEN. ANTAR KERJA KAB/KOTA' . strtoupper(substr($disnaker->nama_lembaga, 18));
+        }
         $start = 11;
         $end = 26;
         $data = DB::table('data_pencari_penerimas')

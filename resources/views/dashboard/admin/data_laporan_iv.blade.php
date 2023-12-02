@@ -150,13 +150,13 @@
                     @csrf
                 <div class="row">
                     <div class="col-md-6">
-                        <input name="tgl1" type="date" class="form-control">
+                        <input name="tgl1" type="date" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                        <input name="tgl2" type="date" class="form-control">
+                        <input name="tgl2" type="date" class="form-control" required>
                     </div>
                     <div class="col-md-6 mt-2">
-                        <input type="file" class="form-control-file" name="file">
+                        <input type="file" class="form-control-file" name="file" required>
                     </div>
                     <div class="col-md-6 mt-2">
                         <button type="submit" class="btn btn-success mt-0"><i class="bi bi-cloud-arrow-up"></i> Import</button>

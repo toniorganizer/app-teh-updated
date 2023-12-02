@@ -165,9 +165,15 @@ class CetakLaporanVB implements WithDrawings, WithStyles, WithTitle, FromView, W
 
     public function view(): View
     {
-        $title = 'LAPORAN IPK III/5 - LOWONGAN DIRINCI MENURUT GOL.JABATAN PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
         $semester = DataLowonganJabatan::where('id_disnaker', $this->id)->where('type','Laporan')->first();
+        if($disnaker->status_lembaga == 0){
+            $title = 'LAPORAN IPK III/5 - LOWONGAN DIRINCI MENURUT GOL.JABATAN PROPINSI SUMATERA BARAT';
+        }elseif($semester->type == 'Lampiran'){
+            $title = 'TABEL 4. 1';
+        }else{
+            $title = 'LAPORAN IPK III/5 - LOWONGAN DIRINCI MENURUT GOL.JABATAN KAB/KOTA' . strtoupper(substr($disnaker->nama_lembaga, 18));
+        }
         $start = 2146;
         $end = 3131;
         $data = DB::table('data_lowongan_jabatans')

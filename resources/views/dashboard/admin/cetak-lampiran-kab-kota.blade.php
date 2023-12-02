@@ -5,15 +5,27 @@
 <body>
 <table>
 <tr><td></td><td></td><td></td></tr>
-<tr><td></td><td></td><td>{{$title}}</td></tr>
-@if($disnaker->email_lembaga == 'disnaker@gmail.com')
-<tr><td></td><td></td><td></td></tr>
+@if($disnaker->email_lembaga == 'disnaker@gmail.com' || $semester->type == 'Lampiran')
+    <tr><td></td><td></td><td colspan="9" style="text-align: center;">{{$title}}</td></tr>
+    <tr><td></td><td></td><td colspan="9" style="text-align: center;">PENCARI KERJA TERDAFTAR, LOWONGAN TERDAFTAR DAN PENEMPATAN / PEMENUHAN</td></tr>
+    <tr><td></td><td></td><td colspan="9" style="text-align: center;">DI PROVINSI SUMATERA BARAT</td></tr>
+    <tr><td></td><td></td><td colspan="9" style="text-align: center;">DIRINCI MENURUT KABUPATEN / KOTA DAN JENIS KELAMIN</td></tr>
+    @if($disnaker->email_lembaga == 'disnaker@gmail.com')
+    <tr><td></td><td></td><td></td></tr>
+    @else
+    <tr><td></td><td></td><td colspan="9" style="text-align: center;">SEMESTER : {{$semester->tgl_1}} S/D {{$semester->tgl_2}}</td></tr>
+    @endif
 @else
-<tr><td></td><td></td><td>{{$semester->tgl_1}} S/D {{$semester->tgl_2}}</td></tr>
+    <tr><td></td><td></td><td>{{$title}}</td></tr>
+    @if($disnaker->email_lembaga == 'disnaker@gmail.com')
+        <tr><td></td><td></td><td></td></tr>
+    @else
+        <tr><td></td><td></td><td>{{$semester->tgl_1}} S/D {{$semester->tgl_2}}</td></tr>
+    @endif
+    <tr><td></td><td></td><td>Dinas Tenaga Kerja dan Transmigrasi Propisi Sumatera Barat</td></tr>
+    <tr><td></td><td></td><td>Jl. Ujung Gurun No. 7 Padang</td></tr>
+    <tr><td></td><td></td><td>( 0751 ) 27430 - 37430</td></tr>
 @endif
-<tr><td></td><td></td><td>Dinas Tenaga Kerja dan Transmigrasi Propisi Sumatera Barat</td></tr>
-<tr><td></td><td></td><td>Jl. Ujung Gurun No. 7 Padang</td></tr>
-<tr><td></td><td></td><td>( 0751 ) 27430 - 37430</td></tr>
 <tr><td></td><td></td><td></td></tr>
 
 <tr><th rowspan="3">No</th><th rowspan="3">Kabupaten / Kota</th><th rowspan="1" colspan="3">Pencari Kerja Terdaftar</th><th rowspan="1" colspan="3">Lowongan Kerja Terdaftar</th><th rowspan="1" colspan="3">PencariKerja Ditempatkan</th></tr>

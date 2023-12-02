@@ -4,16 +4,28 @@
 
 <body>
 <table>
-<tr><td></td><td></td><td></td></tr>
-<tr><td></td><td></td><td>{{$title}}</td></tr>
-@if($disnaker->email_lembaga == 'disnaker@gmail.com')
-<tr><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td></tr>
+    @if($disnaker->email_lembaga == 'disnaker@gmail.com' || $semester->type == 'Lampiran')
+    <tr><td></td><td></td><td colspan="10" style="text-align: center;">{{$title}}</td></tr>
+    <tr><td></td><td></td><td colspan="10" style="text-align: center;">IPK III/10 : PENCARI KERJA YANG TERDAFTAR, DITEMPATKAN DAN DIHAPUSKAN</td></tr>
+    <tr><td></td><td></td><td colspan="10" style="text-align: center;">DIRINCI MENURUT GOLONGAN JABATAN</td></tr>
+    @if($disnaker->email_lembaga == 'disnaker@gmail.com')
+    <tr><td></td><td></td><td></td></tr>
+    @else
+    <tr><td></td><td></td><td colspan="10" style="text-align: center;">SEMESTER : {{$semester->tgl_1}} S/D {{$semester->tgl_2}}</td></tr>
+    @endif
+    <tr><td></td><td></td><td></td></tr>
 @else
-<tr><td></td><td></td><td>{{$semester->tgl_1}} S/D {{$semester->tgl_2}}</td></tr>
+    <tr><td></td><td></td><td>{{$title}}</td></tr>
+    @if($disnaker->email_lembaga == 'disnaker@gmail.com')
+        <tr><td></td><td></td><td></td></tr>
+    @else
+        <tr><td></td><td></td><td>{{$semester->tgl_1}} S/D {{$semester->tgl_2}}</td></tr>
+    @endif
+    <tr><td></td><td></td><td>Dinas Tenaga Kerja dan Transmigrasi Propisi Sumatera Barat</td></tr>
+    <tr><td></td><td></td><td>Jl. Ujung Gurun No. 7 Padang</td></tr>
+    <tr><td></td><td></td><td>( 0751 ) 27430 - 37430</td></tr>
 @endif
-<tr><td></td><td></td><td>Dinas Tenaga Kerja dan Transmigrasi Propisi Sumatera Barat</td></tr>
-<tr><td></td><td></td><td>Jl. Ujung Gurun No. 7 Padang</td></tr>
-<tr><td></td><td></td><td>( 0751 ) 27430 - 37430</td></tr>
 <tr><td></td><td></td><td></td></tr>
 <tr><th rowspan="3">No</th><th rowspan="3">Kelompok Jabatan</th><th rowspan="2" colspan="2">Sisa Smtr Lalu</th><th rowspan="2" colspan="2">Yang terdaftar Smtr ini</th><th rowspan="2" colspan="2">Penempatan Smtr ini</th><th rowspan="2" colspan="2">Dihapuskan Smtr ini</th><th rowspan="2" colspan="2">Sisa Akhir Smtr ini</th></tr> 
 <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>

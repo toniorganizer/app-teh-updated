@@ -175,9 +175,15 @@ class CetakLaporanIIC implements WithDrawings, WithStyles, WithTitle, FromView, 
 
     public function view(): View
     {
-        $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
         $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->where('type','Laporan')->first();
+        if($disnaker->status_lembaga == 0){
+            $title = 'LAPORAN IPK III/2 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
+        }elseif($semester->type == 'Lampiran'){
+            $title = 'TABEL 4. 1';
+        }else{
+            $title = 'LAPORAN IPK III/2 - IKHTISAR STATISTIK ANTAR KERJA KAB/KOTA' . strtoupper(substr($disnaker->nama_lembaga, 18));
+        }
         $start = 4200;
         $end = 5208;
         $data = DB::table('data_jenis_pendidikans')

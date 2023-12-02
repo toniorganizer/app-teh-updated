@@ -147,9 +147,15 @@ class CetakLampiranIIIF implements WithDrawings, WithStyles, WithTitle, FromView
 
     public function view(): View
     {
-        $title = 'LAPORAN IPK III/5 - LOWONGAN DIRINCI MENURUT GOL.JABATAN PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
         $semester = DataLowonganJabatan::where('id_disnaker', $this->id)->where('type','Lampiran')->first();
+        if($disnaker->status_lembaga == 0){
+            $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
+        }elseif($semester->type == 'Lampiran'){
+            $title = 'TABEL. 12';
+        }else{
+            $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA KAB/KOTA' . strtoupper(substr($disnaker->nama_lembaga, 18));
+        }
         $start = 0;
         $end = 9;
         $data = DB::table('data_lowongan_jabatans')

@@ -223,9 +223,15 @@ class CetakLaporanIVC implements WithDrawings, WithStyles, WithTitle, FromView, 
 
     public function view(): View
     {
-        $title = 'LAPORAN IPK III/4 - LOWONGAN DIRINCI MENURUT PENDIDIKAN PROPINSI SUMATERA BARAT';
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
         $semester = DataLowonganPendidikan::where('id_disnaker', $this->id)->where('type','Laporan')->first();
+        if($disnaker->status_lembaga == 0){
+            $title = 'LAPORAN IPK III/4 - LOWONGAN DIRINCI MENURUT PENDIDIKAN PROPINSI SUMATERA BARAT';
+        }elseif($semester->type == 'Lampiran'){
+            $title = 'TABEL 4. 1';
+        }else{
+            $title = 'LAPORAN IPK III/4 - LOWONGAN DIRINCI MENURUT PENDIDIKAN KAB/KOTA' . strtoupper(substr($disnaker->nama_lembaga, 18));
+        }
         $start = 4129;
         $end = 5208;
         $data = DB::table('data_lowongan_pendidikans')
