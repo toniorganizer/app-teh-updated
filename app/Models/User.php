@@ -23,6 +23,7 @@ class User extends Authenticatable
         'username',
         'password',
         'level',
+        'status_tracer',
         'icon',
         'foto_user',
         'status_tracer',

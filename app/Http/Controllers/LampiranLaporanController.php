@@ -20,6 +20,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\DataLowonganPendidikan;
+use Illuminate\Support\Facades\Redirect;
 
 class LampiranLaporanController extends Controller
 {
@@ -276,12 +277,20 @@ class LampiranLaporanController extends Controller
     }
 
     public function importLampiran(Request $request){
+        $role_importlaporan = DataKabKota::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->first();
+        $role_importlampiran = DataKabKota::where('id_disnaker', Auth::user()->email)->where('type','Lampiran')->first();
+        if($role_importlaporan){
+            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }elseif($role_importlampiran){
+            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }else{
         $bulan1 = $request->input('tgl1');
         $bulan2 = $request->input('tgl2');   
 
         Excel::import(new LampiranImport($bulan1, $bulan2), $request->file('file'));
         
         return redirect('/lampiran')->with('success', 'Import data berhasil dilakukan!');
+        }
     }
 
     public function CetakLampiran($id){

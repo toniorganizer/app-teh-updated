@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header" role="document">
-                <h5 class="modal-title" id="exampleModalLabel">Verifikasi lowongan </h5><p class="font-weight-bold"> </p>
+                <h5 class="modal-title" id="exampleModalLabel">Verifikasi laporan </h5><p class="font-weight-bold"> </p>
             </div>
             <div class="modal-body">
                 <form class="row g-3" action="/verifikasi-laporan" method="POST" enctype="multipart/form-data">

@@ -31,7 +31,7 @@
               <h5 class="card-title">LAPORAN-IPK-III-1 | IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT</h5>
               <div class="activity overflow-scroll">
                 <table class="table datatable table-bordered center">
-                    <tr><th rowspan="3">Pencari Kerja</th><th colspan="10">Kelompok umur</th><th colspan="3" rowspan="2">Jumlah</th><th rowspan="3">Lowongan</th><th rowspan="3">L</th><th rowspan="3">P</th><th rowspan="3">JML</th><th rowspan="3">Action</th></tr> 
+                    <tr><th rowspan="3">Pencari Kerja</th><th colspan="10">Kelompok umur</th><th colspan="3" rowspan="2">Jumlah</th><th rowspan="3">Lowongan</th><th rowspan="3">L</th><th rowspan="3">P</th><th rowspan="3">JML</th></tr> 
                     <tr><td colspan="2">15-19</td><td colspan="2">20-29</td><td colspan="2">30-44</td><td colspan="2">45-54</td><td colspan="2">55+</td></tr> <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>JML</th></tr> 
                     <tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
 
@@ -56,7 +56,7 @@
                             <td>{{ $laporan->lowongan_L }}</td>
                             <td>{{ $laporan->lowongan_P }}</td>
                             <td>{{ $laporan->lowongan_L + $laporan->lowongan_P }}</td>
-                            <td><a href="/edit-laporan-i/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                            {{-- <td><a href="/edit-laporan-i/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td> --}}
                         </tr>
                         @endforeach
                     @elseif($aturan->status_lembaga == 3)

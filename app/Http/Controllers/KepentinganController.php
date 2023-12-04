@@ -183,6 +183,9 @@ class KepentinganController extends Controller
         PemangkuKepentingan::where('email_lembaga', $request->email)->where('id_disnaker_kab', $request->id_disnaker_kab)->update([
             'role_acc' => $request->role_acc,
         ]);
-        return Redirect::back()->with('success', 'Laporan berhasil diverifikasi!');
+        PemangkuKepentingan::where('email_lembaga', $request->id_disnaker_kab)->update([
+            'role_acc' => $request->role_acc,
+        ]);
+        return Redirect::back()->with('success', 'Proses verifikasi laporan telah dilakukan!');
     }
 }

@@ -39,6 +39,7 @@
                     <h6>Jenis Pendidikan | {{$data->judul_lj}}</h6>
                     <div class="col-md-6">
                       <input type="hidden" value="{{$data->id_disnaker}}" name="id_disnaker" id="">
+                      <input type="hidden" value="{{$data->type}}" name="type" id="">
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-7 col-form-label">Sisa Smstr Lalu (Laki-laki)</label>
                             <div class="col-sm-5">

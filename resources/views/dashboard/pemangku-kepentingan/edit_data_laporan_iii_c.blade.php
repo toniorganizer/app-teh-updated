@@ -11,7 +11,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Laporan IPK-III-1</li>
+                <li class="breadcrumb-item active">Laporan IPK-III-3</li>
             </ol>
             @if (session('success'))
             <div class="alert alert-primary">
@@ -29,7 +29,7 @@
                 <!-- Recent Activity -->
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Edit data Laporan-IPK-III-1</h5>
+              <h5 class="card-title">Edit data Laporan-IPK-III-3</h5>
               <div class="activity">
                 <p style="text-align: justify">Perhatikan data sebelum melakukan perubahan. Fitur ini berfungsi untuk mengubah data jika aa kesalahan berdasarkan baris. Jika ingin mengubah data yang berada di baris empat, maka tekan action baris keempat.</p>
 
@@ -39,6 +39,7 @@
                     <h6>Jenis Pendidikan | {{$data->judul_kj}}</h6>
                     <div class="col-md-6">
                       <input type="hidden" value="{{$data->id_disnaker}}" name="id_disnaker" id="">
+                      <input type="hidden" value="{{$data->type}}" name="type" id="">
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-7 col-form-label">Sisa Smstr Lalu (Laki-laki)</label>
                             <div class="col-sm-5">

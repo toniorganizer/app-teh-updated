@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Imports\GolonganUsahaImport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Redirect;
 
 class GolonganUsahaController extends Controller
 {
@@ -43,12 +44,20 @@ class GolonganUsahaController extends Controller
     }
 
     public function importDataIPK6(Request $request){
-        $bulan1 = $request->input('tgl1');
-        $bulan2 = $request->input('tgl2');   
+        $role_importlaporan = DataGolonganUsaha::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->first();
+        $role_importlampiran = DataGolonganUsaha::where('id_disnaker', Auth::user()->email)->where('type','Lampiran')->first();
+        if($role_importlaporan){
+            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }elseif($role_importlampiran){
+            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }else{
+            $bulan1 = $request->input('tgl1');
+            $bulan2 = $request->input('tgl2');   
 
-        Excel::import(new GolonganUsahaImport($bulan1, $bulan2), $request->file('file'));
-        
-        return redirect('/laporan-ipk-6')->with('success', 'Import data berhasil dilakukan!');
+            Excel::import(new GolonganUsahaImport($bulan1, $bulan2), $request->file('file'));
+            
+            return redirect('/laporan-ipk-6')->with('success', 'Import data berhasil dilakukan!');
+        }
     }
 
     public function deleteLaporanVI($id){

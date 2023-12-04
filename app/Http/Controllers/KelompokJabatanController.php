@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\CetakLaporanIIIPusat;
 use App\Imports\KelompokJabatanImport;
+use Illuminate\Support\Facades\Redirect;
 
 class KelompokJabatanController extends Controller
 {
@@ -54,6 +55,13 @@ class KelompokJabatanController extends Controller
 
     
     public function importDataIPK3(Request $request){
+        $role_importlaporan = DataKelompokJabatan::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->first();
+        $role_importlampiran = DataKelompokJabatan::where('id_disnaker', Auth::user()->email)->where('type','Lampiran')->first();
+        if($role_importlaporan){
+            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }elseif($role_importlampiran){
+            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }else{
 
             $bulan1 = $request->input('tgl1');
             $bulan2 = $request->input('tgl2');   
@@ -61,6 +69,7 @@ class KelompokJabatanController extends Controller
             Excel::import(new KelompokJabatanImport($bulan1, $bulan2), $request->file('file'));
             
             return redirect('/laporan-ipk-3')->with('success', 'Import data berhasil dilakukan!');
+        }
         
      }
 

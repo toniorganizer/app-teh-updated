@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\DataPencariKerjaImport;
+use Illuminate\Support\Facades\Redirect;
 use App\Imports\DataIPK1 as ImportsDataIPK1;
 
 class DataPencariKerjaController extends Controller
@@ -172,16 +173,20 @@ class DataPencariKerjaController extends Controller
      }
 
      public function importDataIPK1(Request $request){
-
-        // $data = DataPencariKerja::where('id_disnaker', Auth::user()->email)->first();
-
-        // if($data == null){
+        $role_importlaporan = DataPencariKerja::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->first();
+        $role_importlampiran = DataPencariKerja::where('id_disnaker', Auth::user()->email)->where('type','Lampiran')->first();
+        if($role_importlaporan){
+            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }elseif($role_importlampiran){
+            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }else{
             $bulan1 = $request->input('tgl1');
             $bulan2 = $request->input('tgl2');      
-    
+
             Excel::import(new DataPencariKerjaImport($bulan1, $bulan2), $request->file('file'));
             
             return redirect('/laporan-ipk-1')->with('success', 'Import data berhasil dilakukan!');
+        }
         
      }
 

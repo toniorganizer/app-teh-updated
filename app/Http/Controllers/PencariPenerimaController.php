@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\CetakPencariPenerima;
 use App\Imports\PencariPenerimaImport;
+use Illuminate\Support\Facades\Redirect;
 
 class PencariPenerimaController extends Controller
 {
@@ -46,12 +47,20 @@ class PencariPenerimaController extends Controller
 
     
     public function importDataIPK8(Request $request){
+        $role_importlaporan = DataPencariPenerima::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->first();
+        $role_importlampiran = DataPencariPenerima::where('id_disnaker', Auth::user()->email)->where('type','Lampiran')->first();
+        if($role_importlaporan){
+            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }elseif($role_importlampiran){
+            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }else{
         $bulan1 = $request->input('tgl1');
         $bulan2 = $request->input('tgl2');   
 
         Excel::import(new PencariPenerimaImport($bulan1, $bulan2), $request->file('file'));
         
         return redirect('/laporan-ipk-8')->with('success', 'Import data berhasil dilakukan!');
+        }
     }
 
     public function deleteLaporanVIII($id){

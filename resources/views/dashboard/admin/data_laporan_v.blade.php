@@ -34,7 +34,7 @@
                         <h5 class="card-title">LAPORAN-IPK-III-V | LOWONGAN DIRINCI MENURUT GOL.JABATAN PROPINSI SUMATERA BARAT</h5>
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
-                                <tr><th rowspan="2">No</th><th rowspan="2">Jenis Jabatan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>@if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif</tr> 
+                                <tr><th rowspan="2">No</th><th rowspan="2">Jenis Jabatan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th></tr> 
                                 <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
                             <?php $no = ($dataLaporan->currentPage() - 1) * $dataLaporan->perPage() + 1; ?>
                             @if($aturan->status_lembaga == 1)
@@ -55,9 +55,9 @@
                                 <td>{{$laporan->penempatan_p_lj}}</td>
                                 <td>{{$laporan->hapus_l_lj}}</td>
                                 <td>{{$laporan->hapus_p_lj}}</td>
-                                @if($laporan->sisa_l_lj != '-')
+                                {{-- @if($laporan->sisa_l_lj != '-')
                                 <td><a href="/edit-laporan-v/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
-                                @endif
+                                @endif --}}
                             </tr>
                             @endforeach
                             @else

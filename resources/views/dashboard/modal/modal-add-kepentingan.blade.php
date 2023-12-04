@@ -53,25 +53,25 @@
                         <label for="yourEmail" class="form-label">Disnaker Kab/Kota</label>
                         <select name="id_disnaker_kab" class="form-control" id="exampleFormControlSelect1">
                             <option>--Pilih Disnaker Kab/Kota--</option>
-                            <option value="1">Kab. Agam</option>
-                            <option value="2">Kab. Dharmasraya</option>
-                            <option value="3">Kab. Kepulauan Mentawai</option>
-                            <option value="4">Kab. Limapuluh Kota</option>
-                            <option value="5">Kab. Padang Pariaman</option>
-                            <option value="6">Kab. Pasaman</option>
-                            <option value="7">Kab. Pasaman Barat</option>
-                            <option value="8">Kab. Pesisir Selatan</option>
-                            <option value="9">Kab. Sijunjung</option>
-                            <option value="10">Kab. Solok</option>
-                            <option value="11">Kab. Solok Selatan</option>
-                            <option value="12">Kab. Tanah Datar</option>
-                            <option value="13">Kota Bukittinggi</option>
-                            <option value="14">Kota Padang</option>
-                            <option value="15">Kota Padang Panjang</option>
-                            <option value="16">Kota Pariaman</option>
-                            <option value="17">Kota Payakumbuh</option>
-                            <option value="18">Kota Sawahlunto</option>
-                            <option value="19">Kota Solok</option>
+                            <option value="disnaker_agam@gmail.com">Kab. Agam</option>
+                            <option value="disnaker_dharmasraya@gmail.com">Kab. Dharmasraya</option>
+                            <option value="disnaker_mentawai@gmail.com">Kab. Kepulauan Mentawai</option>
+                            <option value="disnaker_limapuluhkota@gmail.com">Kab. Limapuluh Kota</option>
+                            <option value="disnaker_padangpariaman@gmail.com">Kab. Padang Pariaman</option>
+                            <option value="disnaker_pasaman@gmail.com">Kab. Pasaman</option>
+                            <option value="disnaker_pasbar@gmail.com">Kab. Pasaman Barat</option>
+                            <option value="disnaker_pesel@gmail.com">Kab. Pesisir Selatan</option>
+                            <option value="disnaker_sijunjung@gmail.com">Kab. Sijunjung</option>
+                            <option value="disnaker_kabsolok@gmail.com">Kab. Solok</option>
+                            <option value="disnaker_solsel@gmail.com">Kab. Solok Selatan</option>
+                            <option value="disnaker_tananhdatar@gmail.com">Kab. Tanah Datar</option>
+                            <option value="disnaker_bukittinggi@gmail.com">Kota Bukittinggi</option>
+                            <option value="disnaker_padang@gmail.com">Kota Padang</option>
+                            <option value="disnaker_pp@gmail.com">Kota Padang Panjang</option>
+                            <option value="disnaker_pariaman@gmail.com">Kota Pariaman</option>
+                            <option value="disnaker_payakumbuh@gmail.com">Kota Payakumbuh</option>
+                            <option value="disnaker_sawahlunto@gmail.com">Kota Sawahlunto</option>
+                            <option value="disnaker_solok@gmail.com">Kota Solok</option>
                         </select>
                         @error('status_lembaga')
                         <small id="emailHelp" class="form-text text-muted">

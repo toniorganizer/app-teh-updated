@@ -9,9 +9,11 @@ use App\Models\PemangkuKepentingan;
 use App\Exports\CetakLaporanIVPusat;
 use App\Http\Controllers\Controller;
 use App\Imports\JenisLowonganImport;
+use App\Models\DataLowonganJabatan;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\DataLowonganPendidikan;
+use Illuminate\Support\Facades\Redirect;
 
 class lowonganPendidikanController extends Controller
 {
@@ -47,12 +49,20 @@ class lowonganPendidikanController extends Controller
     }
 
     public function importDataIPK4(Request $request){
+        $role_importlaporan = DataLowonganPendidikan::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->first();
+        $role_importlampiran = DataLowonganPendidikan::where('id_disnaker', Auth::user()->email)->where('type','Lampiran')->first();
+        if($role_importlaporan){
+            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }elseif($role_importlampiran){
+            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }else{
             $bulan1 = $request->input('tgl1');
             $bulan2 = $request->input('tgl2');   
     
             Excel::import(new JenisLowonganImport($bulan1, $bulan2), $request->file('file'));
             
             return redirect('/laporan-ipk-4')->with('success', 'Import data berhasil dilakukan!');
+        }
      }
 
      public function deleteLaporanIV($id){

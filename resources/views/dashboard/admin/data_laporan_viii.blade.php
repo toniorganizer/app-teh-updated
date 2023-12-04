@@ -34,7 +34,7 @@
                         <h5 class="card-title">LAPORAN-IPK-III-VIII | PENEMPATAN PENCARI KRJ MENURUT JEN. ANTAR KERJA PROPINSI SUMATERA BARAT</h5>
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
-                            <tr><th colspan="2" rowspan="3">TINGKAT PENDIDIKAN PENCARI KERJA DAN PENERIMA TENAGA KERJA</th><th colspan="6">Jenis Antar Kerja</th>@if($aturan->status_lembaga == 1)<th rowspan="3" colspan="2">Action</th>@endif</tr>
+                            <tr><th colspan="2" rowspan="3">TINGKAT PENDIDIKAN PENCARI KERJA DAN PENERIMA TENAGA KERJA</th><th colspan="6">Jenis Antar Kerja</th></tr>
                             <tr><th colspan="2">AKL</th><th colspan="2">AKAD</th><th colspan="2">AKAN</th></tr>
                             <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
                             <?php $no = ($dataLaporan->currentPage() - 1) * $dataLaporan->perPage() + 1; ?>
@@ -54,9 +54,9 @@
                                 <td>{{$laporan->akadp}}</td>
                                 <td>{{$laporan->akanl}}</td>
                                 <td>{{$laporan->akanp}}</td>
-                                @if($laporan->akanl != '-')
+                                {{-- @if($laporan->akanl != '-')
                                 <td><a href="/edit-laporan-viii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
-                                @endif
+                                @endif --}}
                             </tr>
                             @endforeach
                             @else

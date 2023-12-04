@@ -70,7 +70,9 @@
                         <h5 class="card-title">Tabel 4.1</h5>
                         <div class="activity overflow-scroll">
                             <table class="table datatable table-bordered center">
-                                <tr><th rowspan="3">Pencari Kerja</th><th colspan="10">Kelompok umur</th><th colspan="3" rowspan="2">Jumlah</th><th rowspan="3">Lowongan</th><th rowspan="3">L</th><th rowspan="3">P</th><th rowspan="3">JML</th><th rowspan="3">Action</th></tr> 
+                                <tr><th rowspan="3">Pencari Kerja</th><th colspan="10">Kelompok umur</th><th colspan="3" rowspan="2">Jumlah</th><th rowspan="3">Lowongan</th><th rowspan="3">L</th><th rowspan="3">P</th><th rowspan="3">JML</th>
+                                    {{-- <th rowspan="3">Action</th> --}}
+                                </tr> 
                                 <tr><td colspan="2">15-19</td><td colspan="2">20-29</td><td colspan="2">30-44</td><td colspan="2">45-54</td><td colspan="2">55+</td></tr> <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>JML</th></tr> 
                                 <tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
 
@@ -95,13 +97,13 @@
                                     <td>{{ $laporan->lowongan_L }}</td>
                                     <td>{{ $laporan->lowongan_P }}</td>
                                     <td>{{ $laporan->lowongan_L + $laporan->lowongan_P }}</td>
-                                    <td>
+                                    {{-- <td>
                                         <form action="edit-laporan-i/{{$laporan->nmr}}">
                                             @csrf
                                             <input type="hidden" value="{{$laporan->type}}" name="type">
                                             <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
                                         </form>
-                                    </td>
+                                    </td> --}}
 
                                 </tr>
                                 @endforeach
@@ -199,7 +201,9 @@
                         <h5 class="card-title">Tabel 4.8</h5>
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
-                            <tr><th colspan="2" rowspan="3">TINGKAT PENDIDIKAN PENCARI KERJA DAN PENERIMA TENAGA KERJA</th><th colspan="6">Jenis Antar Kerja</th>@if($aturan->status_lembaga == 1)<th rowspan="3" colspan="2">Action</th>@endif</tr>
+                            <tr><th colspan="2" rowspan="3">TINGKAT PENDIDIKAN PENCARI KERJA DAN PENERIMA TENAGA KERJA</th><th colspan="6">Jenis Antar Kerja</th>
+                                {{-- @if($aturan->status_lembaga == 1)<th rowspan="3" colspan="2">Action</th>@endif --}}
+                            </tr>
                             <tr><th colspan="2">AKL</th><th colspan="2">AKAD</th><th colspan="2">AKAN</th></tr>
                             <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
                             <?php $no = ($dataLaporan48->currentPage() - 1) * $dataLaporan48->perPage() + 1; ?>
@@ -219,7 +223,7 @@
                                 <td>{{$laporan->akadp}}</td>
                                 <td>{{$laporan->akanl}}</td>
                                 <td>{{$laporan->akanp}}</td>
-                                @if($laporan->akanl != '-')
+                                {{-- @if($laporan->akanl != '-')
                                 <td>
                                 <form action="edit-laporan-viii/{{$laporan->nmr}}">
                                     @csrf
@@ -227,7 +231,7 @@
                                     <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
                                 </form>
                                 </td>
-                                @endif
+                                @endif --}}
                             </tr>
                             @endforeach
                             @else
@@ -300,7 +304,9 @@
                         <h5 class="card-title">Tabel 4.9</h5>
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
-                                <tr><th rowspan="2">No</th><th rowspan="2">Jenis Pendidikan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>@if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif</tr> 
+                                <tr><th rowspan="2">No</th><th rowspan="2">Jenis Pendidikan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>
+                                    {{-- @if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif --}}
+                                </tr> 
                                 <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
                             <?php $no = ($dataLaporan49->currentPage() - 1) * $dataLaporan49->perPage() + 1; ?>
                             @if($aturan->status_lembaga == 1)
@@ -316,13 +322,13 @@
                                 <td>{{$laporan->penempatan_p}}</td>
                                 <td>{{$laporan->hapus_l}}</td>
                                 <td>{{$laporan->hapus_p}}</td>
-                                <td>
+                                {{-- <td>
                                     <form action="edit-laporan-ii/{{$laporan->nmr}}">
                                         @csrf
                                         <input type="hidden" value="{{$laporan->type}}" name="type">
                                         <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
                                     </form>
-                                </td>
+                                </td> --}}
                             </tr>
                             @endforeach
                             @else
@@ -398,7 +404,9 @@
 
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
-                                <tr><th rowspan="2">No</th><th rowspan="2">Kelompok Jabatan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>@if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif</tr> 
+                                <tr><th rowspan="2">No</th><th rowspan="2">Kelompok Jabatan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>
+                                    {{-- @if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif --}}
+                                </tr> 
                                 <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
                             
                             @if($aturan->status_lembaga == 1)
@@ -415,7 +423,7 @@
                                 <td>{{$laporan->penempatan_p_kj}}</td>
                                 <td>{{$laporan->hapus_l_kj}}</td>
                                 <td>{{$laporan->hapus_p_kj}}</td>
-                                @if($laporan->sisa_l_kj != '-')
+                                {{-- @if($laporan->sisa_l_kj != '-')
                                 <td>
                                     <form action="edit-laporan-iii/{{$laporan->nmr}}">
                                         @csrf
@@ -423,7 +431,7 @@
                                         <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
                                     </form>
                                 </td>
-                                @endif
+                                @endif --}}
                             </tr>
                             @endforeach
                             @else
@@ -453,7 +461,9 @@
 
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
-                                <tr><th rowspan="2">No</th><th rowspan="2">Jenis Pendidikan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>@if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif</tr> 
+                                <tr><th rowspan="2">No</th><th rowspan="2">Jenis Pendidikan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>
+                                    {{-- @if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif --}}
+                                </tr> 
                                 <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
                             <?php $no = ($dataLaporan411->currentPage() - 1) * $dataLaporan411->perPage() + 1; ?>
                             @if($aturan->status_lembaga == 1)
@@ -474,7 +484,7 @@
                                 <td>{{$laporan->penempatan_p_lp}}</td>
                                 <td>{{$laporan->hapus_l_lp}}</td>
                                 <td>{{$laporan->hapus_p_lp}}</td>
-                                @if($laporan->sisa_l_lp != '-')
+                                {{-- @if($laporan->sisa_l_lp != '-')
                                 <td>
                                     <form action="edit-laporan-iv/{{$laporan->nmr}}">
                                         @csrf
@@ -482,7 +492,7 @@
                                         <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
                                     </form>
                                 </td>
-                                @endif
+                                @endif --}}
                             </tr>
                             @endforeach
                             @else
@@ -559,7 +569,9 @@
 
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
-                                <tr><th rowspan="2">No</th><th rowspan="2">Jenis Jabatan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>@if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif</tr> 
+                                <tr><th rowspan="2">No</th><th rowspan="2">Jenis Jabatan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>
+                                    {{-- @if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif --}}
+                                </tr> 
                                 <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
                                 <?php $no=0; ?>
                             @if($aturan->status_lembaga == 1)
@@ -580,7 +592,7 @@
                                 <td>{{$laporan->penempatan_p_lj}}</td>
                                 <td>{{$laporan->hapus_l_lj}}</td>
                                 <td>{{$laporan->hapus_p_lj}}</td>
-                                @if($laporan->sisa_l_lj != '-')
+                                {{-- @if($laporan->sisa_l_lj != '-')
                                 <td>
                                     <form action="edit-laporan-v/{{$laporan->nmr}}">
                                         @csrf
@@ -588,7 +600,7 @@
                                         <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
                                     </form>
                                 </td>
-                                @endif
+                                @endif --}}
                             </tr>
                             @endforeach
                             @else
@@ -618,7 +630,9 @@
 
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
-                                <tr><th rowspan="2">No</th><th rowspan="2">GOLONGAN USAHA & LAPANGAN USAHA</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>@if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif</tr> 
+                                <tr><th rowspan="2">No</th><th rowspan="2">GOLONGAN USAHA & LAPANGAN USAHA</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th>
+                                    {{-- @if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif --}}
+                                </tr> 
                                 <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
                                 <?php $no = 0;?>
                             @if($aturan->status_lembaga == 1)
@@ -639,7 +653,7 @@
                                 <td>{{$laporan->penempatan_p_gu}}</td>
                                 <td>{{$laporan->hapus_l_gu}}</td>
                                 <td>{{$laporan->hapus_p_gu}}</td>
-                                @if($laporan->sisa_l_gu != '-')
+                                {{-- @if($laporan->sisa_l_gu != '-')
                                 <td>
                                     <form action="edit-laporan-vi/{{$laporan->nmr}}">
                                         @csrf
@@ -647,7 +661,7 @@
                                         <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
                                     </form>
                                 </td>
-                                @endif
+                                @endif --}}
                             </tr>
                             @endforeach
                             @else
@@ -677,7 +691,9 @@
 
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
-                            <tr><th rowspan="2">No</th><th rowspan="2">Kab / Kota</th><th colspan="2">Pencari Kerja Terdaftar</th><th colspan="2">Lowongan Kerja Terdaftar</th><th colspan="2">PencariKerja Ditempatkan</th>@if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif</tr> 
+                            <tr><th rowspan="2">No</th><th rowspan="2">Kab / Kota</th><th colspan="2">Pencari Kerja Terdaftar</th><th colspan="2">Lowongan Kerja Terdaftar</th><th colspan="2">PencariKerja Ditempatkan</th>
+                                {{-- @if($aturan->status_lembaga == 1)<th rowspan="2">Action</th>@endif --}}
+                            </tr> 
                             <tr><th>L</th><th>W</th><th>L</th><th>W</th><th>L</th><th>W</th></tr> 
                             <?php $no =0;?>
                             @if($aturan->status_lembaga == 1)
@@ -696,7 +712,7 @@
                               <td>{{$laporan->lktw}}</td>
                               <td>{{$laporan->pkdl}}</td>
                               <td>{{$laporan->pkdw}}</td>
-                              @if($laporan->pktl != '-')
+                              {{-- @if($laporan->pktl != '-')
                               <td>
                                 <form action="edit-lampiran-kab-kota/{{$laporan->nmr}}">
                                     @csrf
@@ -704,7 +720,7 @@
                                     <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
                                 </form>
                             </td>
-                              @endif
+                              @endif --}}
                             </tr>
                             @endforeach
                             @else
