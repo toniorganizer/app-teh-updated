@@ -22,9 +22,13 @@ class PencariPenerimaController extends Controller
         $kab = PemangkuKepentingan::where('status_lembaga', 1)->get();
         $aturan = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         $excludedNumbers = ['Sub Total','Total'];
-        $datalaporan = DataPencariPenerima::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->whereNotIn('judul', $excludedNumbers)->paginate(20);
+        if($aturan->id_disnaker_kab == 0){
+            $datalaporan = DataPencariPenerima::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->whereNotIn('judul', $excludedNumbers)->paginate(20);
+        }else{
+            $datalaporan = DataPencariPenerima::where('id_disnaker', $aturan->id_disnaker_kab)->where('type','Laporan')->whereNotIn('judul', $excludedNumbers)->paginate(20);
+        }
 
-        $lap = DB::table('data_pencari_penerimas')
+        $lap = DB::table('data_pencari_penerimas')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_penerimas.id_disnaker')->where('role_acc', 1)
             ->whereNotIn('judul', $excludedNumbers)->where('type','Laporan')
             ->select('nmr', 'judul', 'jmll', 'jmlp', DB::raw('SUM(akll) as akll'), DB::raw('SUM(aklp) as aklp'), DB::raw('SUM(akadl) as akadl'), DB::raw('SUM(akadp) as akadp'), DB::raw('SUM(akanl) as akanl'), DB::raw('SUM(akanp) as akanp'))
             ->groupBy('nmr', 'judul', 'jmll', 'jmlp')

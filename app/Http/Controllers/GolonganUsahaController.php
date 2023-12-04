@@ -21,9 +21,13 @@ class GolonganUsahaController extends Controller
         $kab = PemangkuKepentingan::where('status_lembaga', 1)->get();
         $aturan = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         $excludedNumbers = ['Sub Total','Total'];
-        $datalaporan = DataGolonganUsaha::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->whereNotIn('judul_gu', $excludedNumbers)->paginate(20);
+        if($aturan->id_disnaker_kab == 0){
+            $datalaporan = DataGolonganUsaha::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->whereNotIn('judul_gu', $excludedNumbers)->paginate(20);
+        }else{
+            $datalaporan = DataGolonganUsaha::where('id_disnaker', $aturan->id_disnaker_kab)->where('type','Laporan')->whereNotIn('judul_gu', $excludedNumbers)->paginate(20);
+        }
 
-        $lap = DB::table('data_golongan_usahas')
+        $lap = DB::table('data_golongan_usahas')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_golongan_usahas.id_disnaker')->where('role_acc', 1)
             ->whereNotIn('judul_gu', $excludedNumbers)->where('type','Laporan')
             ->select('nmr', 'judul_gu', DB::raw('SUM(sisa_l_gu) as sisa_l'), DB::raw('SUM(sisa_p_gu) as sisa_p'), DB::raw('SUM(terdaftar_l_gu) as terdaftar_l'), DB::raw('SUM(terdaftar_p_gu) as terdaftar_p'), DB::raw('SUM(penempatan_l_gu) as penempatan_l'), DB::raw('SUM(penempatan_p_gu) as penempatan_p'), DB::raw('SUM(hapus_l_gu) as hapus_l'), DB::raw('SUM(hapus_p_gu) as hapus_p'))
             ->groupBy('nmr', 'judul_gu')

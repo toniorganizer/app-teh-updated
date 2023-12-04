@@ -26,6 +26,25 @@
 
             <div class="col-xl-12">
 
+                @if($aturan->status_lembaga == 3 && $aturan->role_acc == 2)
+                    <div class="alert alert-warning" role="alert">
+                        Silahkan menunggu di ruangan untuk proses perbaikan laporan.
+                    </div>
+                @elseif($aturan->status_lembaga == 3 && $aturan->role_acc == 1)
+                    <div class="alert alert-primary" role="alert">
+                        Laporan sudah disetujui.
+                    </div>
+                @endif
+                @if($aturan->status_lembaga == 1 && $aturan->role_acc == 2)
+                    <div class="alert alert-warning" role="alert">
+                        Silahkan ke ruangan kadis untuk proses perbaikan laporan.
+                    </div>
+                @elseif($aturan->status_lembaga == 1 && $aturan->role_acc == 1)
+                    <div class="alert alert-primary" role="alert">
+                        Laporan sudah disetujui.
+                    </div>
+                @endif
+
                 <div class="card">
                   <div class="card-body pt-3">
                     <!-- Bordered Tabs -->
@@ -77,6 +96,37 @@
                                 <tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>
 
                                 @if($aturan->status_lembaga == 1)
+                                    @foreach($datalaporan as $laporan)
+                                    <tr>
+                                        <td>{{ $laporan->pencari_kerja }}</td>
+                                        <td>{{ $laporan->{'15_L'} }}</td>
+                                        <td>{{ $laporan->{'15_P'} }}</td>
+                                        <td>{{ $laporan->{'20_L'} }}</td>
+                                        <td>{{ $laporan->{'20_P'} }}</td>
+                                        <td>{{ $laporan->{'30_L'} }}</td>
+                                        <td>{{ $laporan->{'30_P'} }}</td>
+                                        <td>{{ $laporan->{'45_L'} }}</td>
+                                        <td>{{ $laporan->{'45_P'} }}</td>
+                                        <td>{{ $laporan->{'55_L'} }}</td>
+                                        <td>{{ $laporan->{'55_P'} }}</td>
+                                        <td>{{$laporan->{'15_L'} + $laporan->{'20_L'} + $laporan->{'30_L'} + $laporan->{'45_L'} + $laporan->{'55_L'} }}</td>
+                                        <td>{{$laporan->{'15_P'} + $laporan->{'20_P'} + $laporan->{'30_P'} + $laporan->{'45_P'} + $laporan->{'55_P'} }}</td>
+                                        <td>{{$laporan->{'15_L'} + $laporan->{'15_P'} + $laporan->{'20_L'} +  $laporan->{'20_P'} + $laporan->{'30_L'} + $laporan->{'30_P'} + $laporan->{'45_L'} + $laporan->{'45_P'} + $laporan->{'55_L'} + $laporan->{'55_P'} }}</td>
+                                        <td>{{$laporan->lowongan}}</td>
+                                        <td>{{ $laporan->lowongan_L }}</td>
+                                        <td>{{ $laporan->lowongan_P }}</td>
+                                        <td>{{ $laporan->lowongan_L + $laporan->lowongan_P }}</td>
+                                        {{-- <td>
+                                            <form action="edit-laporan-i/{{$laporan->nmr}}">
+                                                @csrf
+                                                <input type="hidden" value="{{$laporan->type}}" name="type">
+                                                <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                            </form>
+                                        </td> --}}
+
+                                    </tr>
+                                    @endforeach
+                                @elseif($aturan->status_lembaga == 3 && ($aturan->role_acc == 2 || $aturan->role_acc == 0))
                                 @foreach($datalaporan as $laporan)
                                 <tr>
                                     <td>{{ $laporan->pencari_kerja }}</td>
@@ -107,90 +157,90 @@
 
                                 </tr>
                                 @endforeach
-                                @else
-                                @if(is_null($pencari_kerja1))
-                                @else
-                                <tr>
-                                    <td>{{ $pencari_kerja1->pencari_kerja }}</td>
-                                    <td>{{ $jumlahL151 }}</td>
-                                    <td>{{ $jumlahP151 }}</td>
-                                    <td>{{ $jumlahL201 }}</td>
-                                    <td>{{ $jumlahP201 }}</td>
-                                    <td>{{ $jumlahL301 }}</td>
-                                    <td>{{ $jumlahP301 }}</td>
-                                    <td>{{ $jumlahL451 }}</td>
-                                    <td>{{ $jumlahP451 }}</td>
-                                    <td>{{ $jumlahL551 }}</td>
-                                    <td>{{ $jumlahP551 }}</td>
-                                    <td>{{ $jumlahL151 + $jumlahL201 + $jumlahL301 + $jumlahL451 + $jumlahL551 }}</td>
-                                    <td>{{ $jumlahP151 + $jumlahP201 + $jumlahP301 + $jumlahP451 + $jumlahP551 }}</td>
-                                    <td>{{ $jumlahL151 + $jumlahL201 + $jumlahL301 + $jumlahL451 + $jumlahL551 + $jumlahP151 + $jumlahP201 + $jumlahP301 + $jumlahP451 + $jumlahP551 }}</td>
-                                    <td>{{ $pencari_kerja1->lowongan }}</td>
-                                    <td>{{ $jumlahLowonganL1 }}</td>
-                                    <td>{{ $jumlahLowonganP1 }}</td>
-                                    <td>{{ $jumlahLowonganL1 + $jumlahLowonganP1 }}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ $pencari_kerja2->pencari_kerja }}</td>
-                                    <td>{{ $jumlahL152 }}</td>
-                                    <td>{{ $jumlahP152 }}</td>
-                                    <td>{{ $jumlahL202 }}</td>
-                                    <td>{{ $jumlahP202 }}</td>
-                                    <td>{{ $jumlahL302 }}</td>
-                                    <td>{{ $jumlahP302 }}</td>
-                                    <td>{{ $jumlahL452 }}</td>
-                                    <td>{{ $jumlahP452 }}</td>
-                                    <td>{{ $jumlahL552 }}</td>
-                                    <td>{{ $jumlahP552 }}</td>
-                                    <td>{{ $jumlahL152 + $jumlahL202 + $jumlahL302 + $jumlahL452 + $jumlahL552 }}</td>
-                                    <td>{{ $jumlahP152 + $jumlahP202 + $jumlahP302 + $jumlahP452 + $jumlahP552 }}</td>
-                                    <td>{{ $jumlahL152 + $jumlahL202 + $jumlahL302 + $jumlahL452 + $jumlahL552 + $jumlahP152 + $jumlahP202 + $jumlahP302 + $jumlahP452 + $jumlahP552 }}</td>
-                                    <td>{{ $pencari_kerja2->lowongan }}</td>
-                                    <td>{{ $jumlahLowonganL2 }}</td>
-                                    <td>{{ $jumlahLowonganP2 }}</td>
-                                    <td>{{ $jumlahLowonganL2 + $jumlahLowonganP2 }}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ $pencari_kerja3->pencari_kerja }}</td>
-                                    <td>{{ $jumlahL153 }}</td>
-                                    <td>{{ $jumlahP153 }}</td>
-                                    <td>{{ $jumlahL203 }}</td>
-                                    <td>{{ $jumlahP203 }}</td>
-                                    <td>{{ $jumlahL303 }}</td>
-                                    <td>{{ $jumlahP303 }}</td>
-                                    <td>{{ $jumlahL453 }}</td>
-                                    <td>{{ $jumlahP453 }}</td>
-                                    <td>{{ $jumlahL553 }}</td>
-                                    <td>{{ $jumlahP553 }}</td>
-                                    <td>{{ $jumlahL153 + $jumlahL203 + $jumlahL303 + $jumlahL453 + $jumlahL553 }}</td>
-                                    <td>{{ $jumlahP153 + $jumlahP203 + $jumlahP303 + $jumlahP453 + $jumlahP553 }}</td>
-                                    <td>{{ $jumlahL153 + $jumlahL203 + $jumlahL303 + $jumlahL453 + $jumlahL553 + $jumlahP153 + $jumlahP203 + $jumlahP303 + $jumlahP453 + $jumlahP553 }}</td>
-                                    <td>{{ $pencari_kerja3->lowongan }}</td>
-                                    <td>{{ $jumlahLowonganL3 }}</td>
-                                    <td>{{ $jumlahLowonganP3 }}</td>
-                                    <td>{{ $jumlahLowonganL3 + $jumlahLowonganP3 }}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ $pencari_kerja4->pencari_kerja }}</td>
-                                    <td>{{ $jumlahL154 }}</td>
-                                    <td>{{ $jumlahP154 }}</td>
-                                    <td>{{ $jumlahL204 }}</td>
-                                    <td>{{ $jumlahP204 }}</td>
-                                    <td>{{ $jumlahL304 }}</td>
-                                    <td>{{ $jumlahP304 }}</td>
-                                    <td>{{ $jumlahL454 }}</td>
-                                    <td>{{ $jumlahP454 }}</td>
-                                    <td>{{ $jumlahL554 }}</td>
-                                    <td>{{ $jumlahP554 }}</td>
-                                    <td>{{ $jumlahL154 + $jumlahL204 + $jumlahL304 + $jumlahL454 + $jumlahL554 }}</td>
-                                    <td>{{ $jumlahP154 + $jumlahP204 + $jumlahP304 + $jumlahP454 + $jumlahP554 }}</td>
-                                    <td>{{ $jumlahL154 + $jumlahL204 + $jumlahL304 + $jumlahL454 + $jumlahL554 + $jumlahP154 + $jumlahP204 + $jumlahP304 + $jumlahP454 + $jumlahP554 }}</td>
-                                    <td>{{ $pencari_kerja4->lowongan }}</td>
-                                    <td>{{ $jumlahLowonganL4 }}</td>
-                                    <td>{{ $jumlahLowonganP4 }}</td>
-                                    <td>{{ $jumlahLowonganL4 + $jumlahLowonganP4 }}</td>
-                                </tr>
-                                @endif
+                                @elseif($aturan->status_lembaga == 0)
+                                    @if(is_null($pencari_kerja1))
+                                    @else
+                                    <tr>
+                                        <td>{{ $pencari_kerja1->pencari_kerja }}</td>
+                                        <td>{{ $jumlahL151 }}</td>
+                                        <td>{{ $jumlahP151 }}</td>
+                                        <td>{{ $jumlahL201 }}</td>
+                                        <td>{{ $jumlahP201 }}</td>
+                                        <td>{{ $jumlahL301 }}</td>
+                                        <td>{{ $jumlahP301 }}</td>
+                                        <td>{{ $jumlahL451 }}</td>
+                                        <td>{{ $jumlahP451 }}</td>
+                                        <td>{{ $jumlahL551 }}</td>
+                                        <td>{{ $jumlahP551 }}</td>
+                                        <td>{{ $jumlahL151 + $jumlahL201 + $jumlahL301 + $jumlahL451 + $jumlahL551 }}</td>
+                                        <td>{{ $jumlahP151 + $jumlahP201 + $jumlahP301 + $jumlahP451 + $jumlahP551 }}</td>
+                                        <td>{{ $jumlahL151 + $jumlahL201 + $jumlahL301 + $jumlahL451 + $jumlahL551 + $jumlahP151 + $jumlahP201 + $jumlahP301 + $jumlahP451 + $jumlahP551 }}</td>
+                                        <td>{{ $pencari_kerja1->lowongan }}</td>
+                                        <td>{{ $jumlahLowonganL1 }}</td>
+                                        <td>{{ $jumlahLowonganP1 }}</td>
+                                        <td>{{ $jumlahLowonganL1 + $jumlahLowonganP1 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ $pencari_kerja2->pencari_kerja }}</td>
+                                        <td>{{ $jumlahL152 }}</td>
+                                        <td>{{ $jumlahP152 }}</td>
+                                        <td>{{ $jumlahL202 }}</td>
+                                        <td>{{ $jumlahP202 }}</td>
+                                        <td>{{ $jumlahL302 }}</td>
+                                        <td>{{ $jumlahP302 }}</td>
+                                        <td>{{ $jumlahL452 }}</td>
+                                        <td>{{ $jumlahP452 }}</td>
+                                        <td>{{ $jumlahL552 }}</td>
+                                        <td>{{ $jumlahP552 }}</td>
+                                        <td>{{ $jumlahL152 + $jumlahL202 + $jumlahL302 + $jumlahL452 + $jumlahL552 }}</td>
+                                        <td>{{ $jumlahP152 + $jumlahP202 + $jumlahP302 + $jumlahP452 + $jumlahP552 }}</td>
+                                        <td>{{ $jumlahL152 + $jumlahL202 + $jumlahL302 + $jumlahL452 + $jumlahL552 + $jumlahP152 + $jumlahP202 + $jumlahP302 + $jumlahP452 + $jumlahP552 }}</td>
+                                        <td>{{ $pencari_kerja2->lowongan }}</td>
+                                        <td>{{ $jumlahLowonganL2 }}</td>
+                                        <td>{{ $jumlahLowonganP2 }}</td>
+                                        <td>{{ $jumlahLowonganL2 + $jumlahLowonganP2 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ $pencari_kerja3->pencari_kerja }}</td>
+                                        <td>{{ $jumlahL153 }}</td>
+                                        <td>{{ $jumlahP153 }}</td>
+                                        <td>{{ $jumlahL203 }}</td>
+                                        <td>{{ $jumlahP203 }}</td>
+                                        <td>{{ $jumlahL303 }}</td>
+                                        <td>{{ $jumlahP303 }}</td>
+                                        <td>{{ $jumlahL453 }}</td>
+                                        <td>{{ $jumlahP453 }}</td>
+                                        <td>{{ $jumlahL553 }}</td>
+                                        <td>{{ $jumlahP553 }}</td>
+                                        <td>{{ $jumlahL153 + $jumlahL203 + $jumlahL303 + $jumlahL453 + $jumlahL553 }}</td>
+                                        <td>{{ $jumlahP153 + $jumlahP203 + $jumlahP303 + $jumlahP453 + $jumlahP553 }}</td>
+                                        <td>{{ $jumlahL153 + $jumlahL203 + $jumlahL303 + $jumlahL453 + $jumlahL553 + $jumlahP153 + $jumlahP203 + $jumlahP303 + $jumlahP453 + $jumlahP553 }}</td>
+                                        <td>{{ $pencari_kerja3->lowongan }}</td>
+                                        <td>{{ $jumlahLowonganL3 }}</td>
+                                        <td>{{ $jumlahLowonganP3 }}</td>
+                                        <td>{{ $jumlahLowonganL3 + $jumlahLowonganP3 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ $pencari_kerja4->pencari_kerja }}</td>
+                                        <td>{{ $jumlahL154 }}</td>
+                                        <td>{{ $jumlahP154 }}</td>
+                                        <td>{{ $jumlahL204 }}</td>
+                                        <td>{{ $jumlahP204 }}</td>
+                                        <td>{{ $jumlahL304 }}</td>
+                                        <td>{{ $jumlahP304 }}</td>
+                                        <td>{{ $jumlahL454 }}</td>
+                                        <td>{{ $jumlahP454 }}</td>
+                                        <td>{{ $jumlahL554 }}</td>
+                                        <td>{{ $jumlahP554 }}</td>
+                                        <td>{{ $jumlahL154 + $jumlahL204 + $jumlahL304 + $jumlahL454 + $jumlahL554 }}</td>
+                                        <td>{{ $jumlahP154 + $jumlahP204 + $jumlahP304 + $jumlahP454 + $jumlahP554 }}</td>
+                                        <td>{{ $jumlahL154 + $jumlahL204 + $jumlahL304 + $jumlahL454 + $jumlahL554 + $jumlahP154 + $jumlahP204 + $jumlahP304 + $jumlahP454 + $jumlahP554 }}</td>
+                                        <td>{{ $pencari_kerja4->lowongan }}</td>
+                                        <td>{{ $jumlahLowonganL4 }}</td>
+                                        <td>{{ $jumlahLowonganP4 }}</td>
+                                        <td>{{ $jumlahLowonganL4 + $jumlahLowonganP4 }}</td>
+                                    </tr>
+                                    @endif
                                 @endif
                             </table>
                             
@@ -234,7 +284,34 @@
                                 @endif --}}
                             </tr>
                             @endforeach
-                            @else
+                            @elseif($aturan->status_lembaga == 3 && ($aturan->role_acc == 2 || $aturan->role_acc == 0))
+                            @foreach ($dataLaporanKab48 as $laporan)
+                            <tr>
+                                @if($laporan->akll != '-')
+                                <td>{{$no++}}</td>
+                                <td>{{$laporan->judul}}</td>
+                                @else
+                                <th>{{$no++}}</th>
+                                <th>{{$laporan->judul}}</th>
+                                @endif
+                                <td>{{$laporan->akll}}</td>
+                                <td>{{$laporan->aklp}}</td>
+                                <td>{{$laporan->akadl}}</td>
+                                <td>{{$laporan->akadp}}</td>
+                                <td>{{$laporan->akanl}}</td>
+                                <td>{{$laporan->akanp}}</td>
+                                {{-- @if($laporan->akanl != '-')
+                                <td>
+                                <form action="edit-laporan-viii/{{$laporan->nmr}}">
+                                    @csrf
+                                    <input type="hidden" value="{{$laporan->type}}" name="type">
+                                    <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                </form>
+                                </td>
+                                @endif --}}
+                            </tr>
+                            @endforeach
+                            @elseif($aturan->status_lembaga == 0)
                                 @foreach($dataLaporan48 as $lap)
                                 <tr>
                                     <td>{{$no++}}</td>
@@ -250,7 +327,7 @@
                             @endif
                             
                             </table>
-                            @if($aturan->status_lembaga == 1)
+                            @if($aturan->status_lembaga == 1 || $aturan->status_lembaga == 3)
                             <div class="blog-pagination"> 
                                 <nav aria-label="Page navigation">
                                   <ul class="pagination">
@@ -331,7 +408,29 @@
                                 </td> --}}
                             </tr>
                             @endforeach
-                            @else
+                            @elseif($aturan->status_lembaga == 3 && ($aturan->role_acc == 2 || $aturan->role_acc == 0))
+                            @foreach ($dataLaporanKab49 as $laporan)
+                            <tr>
+                              <td>{{$no++}}</td>
+                                <td>{{$laporan->judul}}</td>
+                                <td>{{$laporan->sisa_l}}</td>
+                                <td>{{$laporan->sisa_p}}</td>
+                                <td>{{$laporan->terdaftar_l}}</td>
+                                <td>{{$laporan->terdaftar_p}}</td>
+                                <td>{{$laporan->penempatan_l}}</td>
+                                <td>{{$laporan->penempatan_p}}</td>
+                                <td>{{$laporan->hapus_l}}</td>
+                                <td>{{$laporan->hapus_p}}</td>
+                                {{-- <td>
+                                    <form action="edit-laporan-ii/{{$laporan->nmr}}">
+                                        @csrf
+                                        <input type="hidden" value="{{$laporan->type}}" name="type">
+                                        <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                    </form>
+                                </td> --}}
+                            </tr>
+                            @endforeach
+                            @elseif($aturan->status_lembaga == 0)
                                 @foreach($dataLaporan49 as $lap)
                                     <tr>
                                         <td>{{$no++}}</td>
@@ -349,7 +448,7 @@
                             @endif
                             
                             </table>
-                            @if($aturan->status_lembaga == 1)
+                            @if($aturan->status_lembaga == 1 || $aturan->status_lembaga == 3)
                             <div class="blog-pagination"> 
                                 <nav aria-label="Page navigation">
                                   <ul class="pagination">
@@ -434,7 +533,32 @@
                                 @endif --}}
                             </tr>
                             @endforeach
-                            @else
+                            @elseif($aturan->status_lembaga == 3 && ($aturan->role_acc == 2 || $aturan->role_acc == 0))
+                            <?php $no=0; ?>
+                            @foreach ($dataLaporanKab410 as $laporan)
+                            <tr>
+                              <td>{{$no++}}</td>
+                                <td>{{$laporan->judul_kj}}</td>
+                                <td>{{$laporan->sisa_l_kj}}</td>
+                                <td>{{$laporan->sisa_p_kj}}</td>
+                                <td>{{$laporan->terdaftar_l_kj}}</td>
+                                <td>{{$laporan->terdaftar_p_kj}}</td>
+                                <td>{{$laporan->penempatan_l_kj}}</td>
+                                <td>{{$laporan->penempatan_p_kj}}</td>
+                                <td>{{$laporan->hapus_l_kj}}</td>
+                                <td>{{$laporan->hapus_p_kj}}</td>
+                                {{-- @if($laporan->sisa_l_kj != '-')
+                                <td>
+                                    <form action="edit-laporan-iii/{{$laporan->nmr}}">
+                                        @csrf
+                                        <input type="hidden" value="{{$laporan->type}}" name="type">
+                                        <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                    </form>
+                                </td>
+                                @endif --}}
+                            </tr>
+                            @endforeach
+                            @elseif($aturan->status_lembaga == 0)
                                 @foreach($dataLaporan410 as $lap)
                                     <tr>
                                         <td>{{$no++}}</td>
@@ -495,7 +619,36 @@
                                 @endif --}}
                             </tr>
                             @endforeach
-                            @else
+                            @elseif($aturan->status_lembaga == 3 && ($aturan->role_acc == 2 || $aturan->role_acc == 0))
+                            @foreach ($dataLaporanKab411 as $laporan)
+                            <tr>
+                                @if($laporan->sisa_l_lp == '-')
+                                <th>{{$no++}}</th>
+                                <th>{{$laporan->judul_lp}}</th>
+                                @else
+                                <td>{{$no++}}</td>
+                                <td>{{$laporan->judul_lp}}</td>
+                                @endif
+                                <td>{{$laporan->sisa_l_lp}}</td>
+                                <td>{{$laporan->sisa_p_lp}}</td>
+                                <td>{{$laporan->terdaftar_l_lp}}</td>
+                                <td>{{$laporan->terdaftar_p_lp}}</td>
+                                <td>{{$laporan->penempatan_l_lp}}</td>
+                                <td>{{$laporan->penempatan_p_lp}}</td>
+                                <td>{{$laporan->hapus_l_lp}}</td>
+                                <td>{{$laporan->hapus_p_lp}}</td>
+                                {{-- @if($laporan->sisa_l_lp != '-')
+                                <td>
+                                    <form action="edit-laporan-iv/{{$laporan->nmr}}">
+                                        @csrf
+                                        <input type="hidden" value="{{$laporan->type}}" name="type">
+                                        <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                    </form>
+                                </td>
+                                @endif --}}
+                            </tr>
+                            @endforeach
+                            @elseif($aturan->status_lembaga == 0)
                                 @foreach($dataLaporan411 as $lap)
                                     <tr>
                                         <td>{{$no++}}</td>
@@ -513,7 +666,7 @@
                             @endif
                             
                             </table>
-                            @if($aturan->status_lembaga == 1)
+                            @if($aturan->status_lembaga == 1 || $aturan->status_lembaga == 1)
                             <div class="blog-pagination"> 
                                 <nav aria-label="Page navigation">
                                   <ul class="pagination">
@@ -603,7 +756,36 @@
                                 @endif --}}
                             </tr>
                             @endforeach
-                            @else
+                            @elseif($aturan->status_lembaga == 3 && ($aturan->role_acc == 2 || $aturan->role_acc == 0))
+                            @foreach ($dataLaporanKab412 as $laporan)
+                            <tr>
+                                @if($laporan->sisa_l_lj == '-')
+                                <th>{{$no++}}</th>
+                                <th>{{$laporan->judul_lj}}</th>
+                                @else
+                                <td>{{$no++}}</td>
+                                <td>{{$laporan->judul_lj}}</td>
+                                @endif
+                                <td>{{$laporan->sisa_l_lj}}</td>
+                                <td>{{$laporan->sisa_p_lj}}</td>
+                                <td>{{$laporan->terdaftar_l_lj}}</td>
+                                <td>{{$laporan->terdaftar_p_lj}}</td>
+                                <td>{{$laporan->penempatan_l_lj}}</td>
+                                <td>{{$laporan->penempatan_p_lj}}</td>
+                                <td>{{$laporan->hapus_l_lj}}</td>
+                                <td>{{$laporan->hapus_p_lj}}</td>
+                                {{-- @if($laporan->sisa_l_lj != '-')
+                                <td>
+                                    <form action="edit-laporan-v/{{$laporan->nmr}}">
+                                        @csrf
+                                        <input type="hidden" value="{{$laporan->type}}" name="type">
+                                        <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                    </form>
+                                </td>
+                                @endif --}}
+                            </tr>
+                            @endforeach
+                            @elseif($aturan->status_lembaga == 0)
                                 @foreach($dataLaporan412 as $lap)
                                     <tr>
                                         <td>{{$no++}}</td>
@@ -664,7 +846,36 @@
                                 @endif --}}
                             </tr>
                             @endforeach
-                            @else
+                            @elseif($aturan->status_lembaga == 3 && ($aturan->role_acc == 2 || $aturan->role_acc == 0))
+                            @foreach ($dataLaporanKab413 as $laporan)
+                            <tr>
+                                @if($laporan->sisa_l_gu == '-')
+                                <th>{{$no++}}</th>
+                                <th>{{$laporan->judul_gu}}</th>
+                                @else
+                                <td>{{$no++}}</td>
+                                <td>{{$laporan->judul_gu}}</td>
+                                @endif
+                                <td>{{$laporan->sisa_l_gu}}</td>
+                                <td>{{$laporan->sisa_p_gu}}</td>
+                                <td>{{$laporan->terdaftar_l_gu}}</td>
+                                <td>{{$laporan->terdaftar_p_gu}}</td>
+                                <td>{{$laporan->penempatan_l_gu}}</td>
+                                <td>{{$laporan->penempatan_p_gu}}</td>
+                                <td>{{$laporan->hapus_l_gu}}</td>
+                                <td>{{$laporan->hapus_p_gu}}</td>
+                                {{-- @if($laporan->sisa_l_gu != '-')
+                                <td>
+                                    <form action="edit-laporan-vi/{{$laporan->nmr}}">
+                                        @csrf
+                                        <input type="hidden" value="{{$laporan->type}}" name="type">
+                                        <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                    </form>
+                                </td>
+                                @endif --}}
+                            </tr>
+                            @endforeach
+                            @elseif($aturan->status_lembaga == 0)
                                 @foreach($dataLaporan413 as $lap)
                                     <tr>
                                         <td>{{$no++}}</td>
@@ -723,7 +934,34 @@
                               @endif --}}
                             </tr>
                             @endforeach
+                            @elseif($aturan->status_lembaga == 3 && ($aturan->role_acc == 2 || $aturan->role_acc == 0))
+                            @foreach ($dataLaporanKab414 as $laporan)
+                            <tr>
+                            @if($laporan->pktl == '-')
+                              <th>{{$no++}}</th>
+                              <th>{{$laporan->judul}}</th>
                             @else
+                                <td>{{$no++}}</td>
+                                <td>{{$laporan->judul}}</td>
+                            @endif
+                              <td>{{$laporan->pktl}}</td>
+                              <td>{{$laporan->pktw}}</td>
+                              <td>{{$laporan->lktl}}</td>
+                              <td>{{$laporan->lktw}}</td>
+                              <td>{{$laporan->pkdl}}</td>
+                              <td>{{$laporan->pkdw}}</td>
+                              {{-- @if($laporan->pktl != '-')
+                              <td>
+                                <form action="edit-lampiran-kab-kota/{{$laporan->nmr}}">
+                                    @csrf
+                                    <input type="hidden" value="{{$laporan->type}}" name="type">
+                                    <button type="submit" class="badge badge-primary"><i class="bi bi-pencil-square"></i></button>
+                                </form>
+                            </td>
+                              @endif --}}
+                            </tr>
+                            @endforeach
+                            @elseif($aturan->status_lembaga == 0)
                             @foreach($dataLaporan414 as $lap)
                                 @if($lap->pktl == '-')
                                     <th>{{$no++}}</th>

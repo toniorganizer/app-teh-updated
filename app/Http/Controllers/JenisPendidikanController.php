@@ -76,10 +76,6 @@ class JenisPendidikanController extends Controller
      }
 
      public function deleteLaporanII($id){
-        // dd($id);
-        User::where('email', Auth::user()->email)->update([
-            'role_import' => 0
-        ]);
         DataJenisPendidikan::where('id_disnaker', $id)->where('type','Laporan')->delete();
         return redirect('/laporan-ipk-2')->with('success', 'Hapus data berhasil dilakukan');
      } 

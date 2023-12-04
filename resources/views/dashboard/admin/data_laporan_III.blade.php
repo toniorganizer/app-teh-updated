@@ -32,30 +32,66 @@
                     <div class="tab-content pt-2">
                       {{-- <div class="tab-pane fade show active profile-overview"> --}}
                         <h5 class="card-title">LAPORAN-IPK-III-3 | IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT</h5>
+                        @if($aturan->status_lembaga == 3 && $aturan->role_acc == 2)
+                            <div class="alert alert-warning" role="alert">
+                                Silahkan menunggu di ruangan untuk proses perbaikan laporan.
+                            </div>
+                        @elseif($aturan->status_lembaga == 3 && $aturan->role_acc == 1)
+                            <div class="alert alert-primary" role="alert">
+                                Laporan sudah disetujui.
+                            </div>
+                        @endif
+                        @if($aturan->status_lembaga == 1 && $aturan->role_acc == 2)
+                            <div class="alert alert-warning" role="alert">
+                                Silahkan ke ruangan kadis untuk proses perbaikan laporan.
+                            </div>
+                        @elseif($aturan->status_lembaga == 1 && $aturan->role_acc == 1)
+                            <div class="alert alert-primary" role="alert">
+                                Laporan sudah disetujui.
+                            </div>
+                        @endif
                         <div class="activity overflow-scroll">
                         <table class="table datatable table-bordered">
                                 <tr><th rowspan="2">No</th><th rowspan="2">Kelompok Jabatan</th><th colspan="2">Sisa Smtr Lalu</th><th colspan="2">Yang terdaftar Smtr ini</th><th colspan="2">Penempatan Smtr ini</th><th colspan="2">Dihapuskan Smtr ini</th></tr> 
                                 <tr><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th><th>L</th><th>P</th></tr> 
                             <?php $no = ($dataLaporan->currentPage() - 1) * $dataLaporan->perPage() + 1; ?>
                             @if($aturan->status_lembaga == 1)
-                            @foreach ($dataLaporanKab as $laporan)
-                            <tr>
-                              <td>{{$no++}}</td>
-                                <td>{{$laporan->judul_kj}}</td>
-                                <td>{{$laporan->sisa_l_kj}}</td>
-                                <td>{{$laporan->sisa_p_kj}}</td>
-                                <td>{{$laporan->terdaftar_l_kj}}</td>
-                                <td>{{$laporan->terdaftar_p_kj}}</td>
-                                <td>{{$laporan->penempatan_l_kj}}</td>
-                                <td>{{$laporan->penempatan_p_kj}}</td>
-                                <td>{{$laporan->hapus_l_kj}}</td>
-                                <td>{{$laporan->hapus_p_kj}}</td>
-                                {{-- @if($laporan->sisa_l_kj != '-')
-                                <td><a href="/edit-laporan-iii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
-                                @endif --}}
-                            </tr>
-                            @endforeach
-                            @else
+                                @foreach ($dataLaporanKab as $laporan)
+                                <tr>
+                                <td>{{$no++}}</td>
+                                    <td>{{$laporan->judul_kj}}</td>
+                                    <td>{{$laporan->sisa_l_kj}}</td>
+                                    <td>{{$laporan->sisa_p_kj}}</td>
+                                    <td>{{$laporan->terdaftar_l_kj}}</td>
+                                    <td>{{$laporan->terdaftar_p_kj}}</td>
+                                    <td>{{$laporan->penempatan_l_kj}}</td>
+                                    <td>{{$laporan->penempatan_p_kj}}</td>
+                                    <td>{{$laporan->hapus_l_kj}}</td>
+                                    <td>{{$laporan->hapus_p_kj}}</td>
+                                    {{-- @if($laporan->sisa_l_kj != '-')
+                                    <td><a href="/edit-laporan-iii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                    @endif --}}
+                                </tr>
+                                @endforeach
+                            @elseif($aturan->status_lembaga == 3 && ($aturan->role_acc == 2 || $aturan->role_acc == 0))
+                                @foreach ($dataLaporanKab as $laporan)
+                                <tr>
+                                <td>{{$no++}}</td>
+                                    <td>{{$laporan->judul_kj}}</td>
+                                    <td>{{$laporan->sisa_l_kj}}</td>
+                                    <td>{{$laporan->sisa_p_kj}}</td>
+                                    <td>{{$laporan->terdaftar_l_kj}}</td>
+                                    <td>{{$laporan->terdaftar_p_kj}}</td>
+                                    <td>{{$laporan->penempatan_l_kj}}</td>
+                                    <td>{{$laporan->penempatan_p_kj}}</td>
+                                    <td>{{$laporan->hapus_l_kj}}</td>
+                                    <td>{{$laporan->hapus_p_kj}}</td>
+                                    {{-- @if($laporan->sisa_l_kj != '-')
+                                    <td><a href="/edit-laporan-iii/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td>
+                                    @endif --}}
+                                </tr>
+                                @endforeach
+                            @elseif($aturan->status_lembaga == 0)
                                 @foreach($dataLaporan as $lap)
                                     <tr>
                                         <td>{{$no++}}</td>
@@ -73,7 +109,7 @@
                             @endif
                             
                             </table>
-                            @if($aturan->status_lembaga == 1)
+                            @if($aturan->status_lembaga == 1 || $aturan->status_lembaga == 3)
                             <div class="blog-pagination"> 
                                 <nav aria-label="Page navigation">
                                   <ul class="pagination">

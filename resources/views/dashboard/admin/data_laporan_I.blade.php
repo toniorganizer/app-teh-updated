@@ -29,6 +29,24 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">LAPORAN-IPK-III-1 | IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT</h5>
+              @if($aturan->status_lembaga == 3 && $aturan->role_acc == 2)
+                <div class="alert alert-warning" role="alert">
+                    Silahkan menunggu di ruangan untuk proses perbaikan laporan.
+                </div>
+            @elseif($aturan->status_lembaga == 3 && $aturan->role_acc == 1)
+                <div class="alert alert-primary" role="alert">
+                    Laporan sudah disetujui.
+                </div>
+            @endif
+            @if($aturan->status_lembaga == 1 && $aturan->role_acc == 2)
+                <div class="alert alert-warning" role="alert">
+                    Silahkan ke ruangan kadis untuk proses perbaikan laporan.
+                </div>
+            @elseif($aturan->status_lembaga == 1 && $aturan->role_acc == 1)
+                <div class="alert alert-primary" role="alert">
+                    Laporan sudah disetujui.
+                </div>
+            @endif
               <div class="activity overflow-scroll">
                 <table class="table datatable table-bordered center">
                     <tr><th rowspan="3">Pencari Kerja</th><th colspan="10">Kelompok umur</th><th colspan="3" rowspan="2">Jumlah</th><th rowspan="3">Lowongan</th><th rowspan="3">L</th><th rowspan="3">P</th><th rowspan="3">JML</th></tr> 
@@ -59,8 +77,31 @@
                             {{-- <td><a href="/edit-laporan-i/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td> --}}
                         </tr>
                         @endforeach
-                    @elseif($aturan->status_lembaga == 3)
-                    @else
+                    @elseif($aturan->status_lembaga == 3 && ($aturan->role_acc == 2 || $aturan->role_acc == 0))
+                        @foreach($datalaporan as $laporan)
+                        <tr>
+                            <td>{{ $laporan->pencari_kerja }}</td>
+                            <td>{{ $laporan->{'15_L'} }}</td>
+                            <td>{{ $laporan->{'15_P'} }}</td>
+                            <td>{{ $laporan->{'20_L'} }}</td>
+                            <td>{{ $laporan->{'20_P'} }}</td>
+                            <td>{{ $laporan->{'30_L'} }}</td>
+                            <td>{{ $laporan->{'30_P'} }}</td>
+                            <td>{{ $laporan->{'45_L'} }}</td>
+                            <td>{{ $laporan->{'45_P'} }}</td>
+                            <td>{{ $laporan->{'55_L'} }}</td>
+                            <td>{{ $laporan->{'55_P'} }}</td>
+                            <td>{{$laporan->{'15_L'} + $laporan->{'20_L'} + $laporan->{'30_L'} + $laporan->{'45_L'} + $laporan->{'55_L'} }}</td>
+                            <td>{{$laporan->{'15_P'} + $laporan->{'20_P'} + $laporan->{'30_P'} + $laporan->{'45_P'} + $laporan->{'55_P'} }}</td>
+                            <td>{{$laporan->{'15_L'} + $laporan->{'15_P'} + $laporan->{'20_L'} +  $laporan->{'20_P'} + $laporan->{'30_L'} + $laporan->{'30_P'} + $laporan->{'45_L'} + $laporan->{'45_P'} + $laporan->{'55_L'} + $laporan->{'55_P'} }}</td>
+                            <td>{{$laporan->lowongan}}</td>
+                            <td>{{ $laporan->lowongan_L }}</td>
+                            <td>{{ $laporan->lowongan_P }}</td>
+                            <td>{{ $laporan->lowongan_L + $laporan->lowongan_P }}</td>
+                            {{-- <td><a href="/edit-laporan-i/{{$laporan->nmr}}" class="badge badge-primary"><i class="bi bi-pencil-square"></i></a></td> --}}
+                        </tr>
+                        @endforeach
+                    @elseif($aturan->status_lembaga == 0)
                         @if(is_null($pencari_kerja1))
                         @else
                             <tr>
