@@ -48,6 +48,39 @@
                         @enderror
                     </div>
 
+                    <!-- Form untuk level 3 -->
+                    <div class="col-12" id="formLevel3" style="display: none;">
+                        <label for="yourEmail" class="form-label">Disnaker Kab/Kota</label>
+                        <select name="id_disnaker_kab" class="form-control" id="exampleFormControlSelect1">
+                            <option>--Pilih Disnaker Kab/Kota--</option>
+                            <option value="1">Kab. Agam</option>
+                            <option value="2">Kab. Dharmasraya</option>
+                            <option value="3">Kab. Kepulauan Mentawai</option>
+                            <option value="4">Kab. Limapuluh Kota</option>
+                            <option value="5">Kab. Padang Pariaman</option>
+                            <option value="6">Kab. Pasaman</option>
+                            <option value="7">Kab. Pasaman Barat</option>
+                            <option value="8">Kab. Pesisir Selatan</option>
+                            <option value="9">Kab. Sijunjung</option>
+                            <option value="10">Kab. Solok</option>
+                            <option value="11">Kab. Solok Selatan</option>
+                            <option value="12">Kab. Tanah Datar</option>
+                            <option value="13">Kota Bukittinggi</option>
+                            <option value="14">Kota Padang</option>
+                            <option value="15">Kota Padang Panjang</option>
+                            <option value="16">Kota Pariaman</option>
+                            <option value="17">Kota Payakumbuh</option>
+                            <option value="18">Kota Sawahlunto</option>
+                            <option value="19">Kota Solok</option>
+                        </select>
+                        @error('status_lembaga')
+                        <small id="emailHelp" class="form-text text-muted">
+                            {{$message}}
+                        </small>
+                        @enderror
+                    </div>
+
+
                     <div class="col-12">
                         <label for="yourEmail" class="form-label">Username</label>
                         <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="validationServer03" required value="{{old('username')}}">

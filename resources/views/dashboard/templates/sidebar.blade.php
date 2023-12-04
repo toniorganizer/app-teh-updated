@@ -223,6 +223,13 @@
                       <i class="bi bi-circle"></i><span>Lampiran</span>
                     </a>
                 </li>
+                @if (stripos(Auth::user()->name, 'kadis') !== false)
+                <li>
+                    <a href="" @if($sub_title == 'Verifikasi') class="active" @endif data-toggle="modal" data-target="#verifikasi-laporan{{$sidebar_data->id_pemangku_kepentingan}}">
+                      <i class="bi bi-circle"></i><span>Verifikasi</span>
+                    </a>
+                </li>
+                @endif
             </ul>
           </li><!-- End Components Nav -->
         @endif
@@ -371,4 +378,7 @@
     </ul>
 
 </aside><!-- End Sidebar-->
+@if (stripos(Auth::user()->name, 'kadis') !== false)
+@include('dashboard/modal/modal-verifikasi-laporan')
+@endif
 @include('dashboard/modal/modal-add-lowongan')

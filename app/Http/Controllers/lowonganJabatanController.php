@@ -32,10 +32,13 @@ class lowonganJabatanController extends Controller
             ->oldest('id')
             ->paginate(20);
 
+        $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
+
         return view('Dashboard.admin.data_laporan_V', [
             'data' => $data,
             'kab' => $kab,
             'aturan' => $aturan,
+            'sidebar_data' => $sidebar_data,
             'dataLaporanKab' => $datalaporan,
             'sub_title' => 'Laporan IPK-III-5',
             'title' => 'DataIPK',

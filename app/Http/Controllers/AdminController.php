@@ -44,6 +44,7 @@ class AdminController extends Controller
             $user = User::count();
             $pencari_kerja = PencariKerja::count();
             $ak1 = PencariKerja::where('email_pk', Auth::user()->email)->first();
+            $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         }else{
             echo 'Silahkan lakukan login terlebih dahulu';
         }
@@ -79,6 +80,7 @@ class AdminController extends Controller
                 'user' => $user,
                 'pencari_kerja' => $pencari_kerja,
                 'jumlah_lamaran' => $lamar,
+                'sidebar_data' => $sidebar_data,
                 'status_ak1' => $ak1
             ]);
         }
@@ -101,8 +103,10 @@ class AdminController extends Controller
 
     public function tenagaKerjaData(){
         $data = PencariKerja::get();
+        $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         return view('Dashboard.admin.tenaga_kerja_data', [
             'sub_title' => 'Data Tenaga Kerja',
+            'sidebar_data' => $sidebar_data,
             'title' => 'Data',
             'data' => $data
         ]);
@@ -120,8 +124,10 @@ class AdminController extends Controller
     // Yang diuji coba
     public function pekerjaanData(){
         $data = InformasiLowongan::get();
+        $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         return view('Dashboard.admin.pekerjaan_data', [
             'sub_title' => 'Data Pekerjaan',
+            'sidebar_data' => $sidebar_data,
             'title' => 'Data',
             'data' => $data
         ]);
@@ -259,6 +265,7 @@ class AdminController extends Controller
             'bidang_lembaga' => '-',
             'status_lembaga' => $request->status_lembaga,
             'role_acc' => 0,
+            'id_disnaker_kab' => $request->id_disnaker_kab,
             'email_lembaga' =>  $request->email,
             'website_lembaga' => '-',
             'instagram_lembaga' => '-',
@@ -341,6 +348,7 @@ class AdminController extends Controller
                 'bidang_lembaga' => '-',
                 'status_lembaga' => 0,
                 'role_acc' => 0,
+                'id_disnaker_kab' =>  $request->id_disnaker_kab,
                 'email_lembaga' =>  $request->email,
                 'website_lembaga' => '-',
                 'instagram_lembaga' => '-',
@@ -708,8 +716,10 @@ class AdminController extends Controller
         $jumlahInformasiMaleFemale = $jumlahInformasiMaleFemaleA - $jumlahInformasiMaleFemaleB;
 
         $jumlahInformasi = $jumlahInformasiMale + $jumlahInformasiFemale + $jumlahInformasiMaleFemale;
+        $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
 
         return view('Dashboard.admin.laporan', [
+            'sidebar_data' => $sidebar_data,
             'genderAgeCounts' => $genderAgeCounts,
             'jmlPSebelumnya' => $jmlPSebelumnya,
             'jmlLSebelumnya' => $jmlLSebelumnya,

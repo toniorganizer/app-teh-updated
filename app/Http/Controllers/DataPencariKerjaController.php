@@ -95,6 +95,9 @@ class DataPencariKerjaController extends Controller
         $jumlahP554 = DataPencariKerja::where('nmr', 4)->where('type','Laporan')->whereNotIn('nmr', $excludedNumbers)->sum('55_P');
 
         // dd($jumlahL15);
+
+        // sidebar data
+        $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         return view('Dashboard.admin.data_laporan_I', [
             'sub_title' => 'Laporan IPK-III-1',
             'title' => 'DataIPK',
@@ -103,6 +106,7 @@ class DataPencariKerjaController extends Controller
             'kab' => $kab,
             'data' => $data,
             'aturan' => $aturan,
+            'sidebar_data' => $sidebar_data,
             'jumlahL151' => $jumlahL151,
             'jumlahL152' => $jumlahL152,
             'jumlahL153' => $jumlahL153,

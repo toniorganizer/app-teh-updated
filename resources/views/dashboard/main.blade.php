@@ -103,6 +103,45 @@
 
   </script>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      // Ambil elemen dropdown
+      var levelDropdown = document.getElementById("exampleFormControlSelect1");
+      var levelDropdownn = document.getElementById("exampleFormControlSelect2");
+
+      // Ambil elemen form untuk level 3
+      var formLevel3 = document.getElementById("formLevel3");
+      var formLevel1 = document.getElementById("formLevel1");
+
+      // Tambahkan event listener untuk mendeteksi perubahan pada dropdown
+      levelDropdown.addEventListener("change", function () {
+          // Periksa apakah nilai dropdown adalah 3
+          if (levelDropdown.value === "3") {
+              // Jika ya, tampilkan form level 3
+              formLevel3.style.display = "block";
+          } else {
+              // Jika tidak, sembunyikan form level 3
+              formLevel3.style.display = "none";
+          }
+      });
+
+      // Tambahkan event listener untuk mendeteksi perubahan pada dropdown
+      levelDropdownn.addEventListener("change", function () {
+          // Periksa apakah nilai dropdown adalah 3
+          if (levelDropdownn.value === "2") {
+              // Jika ya, tampilkan form level 3
+              formLevel1.style.display = "block";
+          } else {
+              // Jika tidak, sembunyikan form level 3
+              formLevel1.style.display = "none";
+          }
+      });
+  });
+</script>
+
+
+
+
   {{-- <script type="text/javascript">
     $(document).ready(function () {
       var table = $('.datatable').DataTable();

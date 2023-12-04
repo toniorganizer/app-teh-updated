@@ -30,11 +30,14 @@ class PencariPenerimaController extends Controller
             ->oldest('id')
             ->paginate(20);
 
+        $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
+
         return view('Dashboard.admin.data_laporan_viii', [
             'data' => $data,
             'kab' => $kab,
             'aturan' => $aturan,
             'dataLaporanKab' => $datalaporan,
+            'sidebar_data' => $sidebar_data,
             'sub_title' => 'Laporan IPK-III-8',
             'title' => 'DataIPK',
             'dataLaporan' => $lap

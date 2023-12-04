@@ -102,6 +102,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('/pemerintah', KepentinganController::class);
         Route::controller(KepentinganController::class)->group(function (){
             Route::get('/deletePemangkuKepentingan/{id}', 'destroy');
+            Route::post('/verifikasi-laporan', 'verifikasiLaporan');
         });
     });
 

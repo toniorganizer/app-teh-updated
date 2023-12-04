@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\PemangkuKepentingan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 
 class KepentinganController extends Controller
 {
@@ -27,10 +28,12 @@ class KepentinganController extends Controller
     {
         
         $data = InformasiLowongan::select('bidang', DB::raw('count(bidang) as jumlah'))->groupBy('bidang')->orderBy('jumlah', 'desc')->get();
+        $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         
         return view('dashboard.pemangku-kepentingan.rekomendasi', 
         ['sub_title' => 'Data Rekomendasi',
             'title' => 'Data Rekomendasi',
+            'sidebar_data' => $sidebar_data,
             'chart' => $chart->build(), 
             'jobcount' => $jobcount->build(),
             'data' => $data
@@ -68,8 +71,10 @@ class KepentinganController extends Controller
     {
         // dd(Auth::user()->foto_user);
         $data = PemangkuKepentingan::join('users','users.email','=','pemangku_kepentingans.email_lembaga')->where('email_lembaga', $id)->first();
+        $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         return view('Dashboard.pemangku-kepentingan.profile-pemangku', [
             'sub_title' => 'Profile',
+            'sidebar_data' => $sidebar_data,
             'title' => 'Profile',
             'data' => $data
         ]);
@@ -172,5 +177,12 @@ class KepentinganController extends Controller
         PemangkuKepentingan::where('email_lembaga',$id)->delete();
 
         return redirect('/pemangku-kepentingan-data')->with('success', 'Data Berhasil Dihapus!');
+    }
+
+    public function verifikasiLaporan(Request $request){
+        PemangkuKepentingan::where('email_lembaga', $request->email)->where('id_disnaker_kab', $request->id_disnaker_kab)->update([
+            'role_acc' => $request->role_acc,
+        ]);
+        return Redirect::back()->with('success', 'Laporan berhasil diverifikasi!');
     }
 }

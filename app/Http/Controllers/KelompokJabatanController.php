@@ -38,11 +38,13 @@ class KelompokJabatanController extends Controller
             ->paginate(20);
 
         // dd($lap);
+        $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
 
         return view('Dashboard.admin.data_laporan_III', [
             'data' => $data,
             'kab' => $kab,
             'aturan' => $aturan,
+            'sidebar_data' => $sidebar_data,
             'dataLaporanKab' => $datalaporan,
             'sub_title' => 'Laporan IPK-III-3',
             'title' => 'DataIPK',

@@ -194,10 +194,13 @@ class LampiranLaporanController extends Controller
                 ->oldest('id')
                 ->get();
 
+                
+        $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
 
         return view('Dashboard.admin.data_lampiran', [
             'sub_title' => 'Lampiran',
             'title' => 'DataIPK',
+            'sidebar_data' => $sidebar_data,
             'dataLaporan414' => $lap414,
             'dataLaporanKab414' => $datalaporan414,
             'dataLaporan413' => $lap413,
