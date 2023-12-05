@@ -461,16 +461,31 @@ class CetakLaporanVID implements WithDrawings, WithStyles, WithTitle, FromView, 
         }
         $start = 771;
         $end = 990;
-        $data = DB::table('data_golongan_usahas')
-        ->where('id_disnaker', $this->id)->where('type','Laporan')
-        ->where(function ($query) use ($start, $end) {
-            $query->whereBetween('nmr', [771, 990])
-                ->orWhere('nmr', '04')
-                ->orWhereIn('nmr', ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U']);
-        })
-        ->skip(5) 
-        ->take(52)
-        ->get();
+        $id_kadis = DataGolonganUsaha::where('id_disnaker', $this->id)->where('type', 'Laporan')->first();
+
+        if(is_null($id_kadis)){
+            $data = DB::table('data_golongan_usahas')->join('pemangku_kepentingans', 'pemangku_kepentingans.id_disnaker_kab','=','data_golongan_usahas.id_disnaker')->where('email_lembaga', $this->id)->where('type','Laporan')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [771, 990])
+                    ->orWhere('nmr', '04')
+                    ->orWhereIn('nmr', ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U']);
+            })
+            ->skip(5) 
+            ->take(52)
+            ->get();
+        }else{
+            $data = DB::table('data_golongan_usahas')
+            ->where('id_disnaker', $this->id)->where('type','Laporan')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [771, 990])
+                    ->orWhere('nmr', '04')
+                    ->orWhereIn('nmr', ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U']);
+            })
+            ->skip(5) 
+            ->take(52)
+            ->get();
+        }
+        
             
 
         $results = DB::table('data_golongan_usahas')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_golongan_usahas.id_disnaker')->where('role_acc', 1)

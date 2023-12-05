@@ -150,16 +150,19 @@ class lowonganJabatanController extends Controller
 
     public function CetakLaporanV($id){
         $item = DataLowonganJabatan::where('id_disnaker', $id)->first();
-        $data = User::where('email', $id)->first();
-        $lambang= $data->icon;
-        if($id == 'disnaker@gmail.com'){
-            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+        $data_user = User::where('email', $id)->first();
+        $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+        if($data_user->icon == 0){
+            return redirect('/laporan-ipk-5')->with('success', 'Mohon maaf, silahkan lakukan upload lambang lembaga terlebih dahulu pada menu profile!!!');
+        }else{
+            $lambang= $data_user->icon;
+        }
+        if($id == 'disnaker@gmail.com' || $data->status_lembaga == 3){
             $fileName = 'Laporan-IPK-5-'. $data->nama_lembaga .'.xlsx';
             return Excel::download(new CetakLaporanVPusat($id, $lambang), $fileName);
         }elseif($item == null){
             return redirect('/laporan-ipk-5')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
         }else{
-            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
             $fileName = 'Laporan-IPK-5-'. $data->nama_lembaga .'.xlsx';
             return Excel::download(new CetakLaporanVPusat($id, $lambang), $fileName);
         }

@@ -232,13 +232,24 @@ class CetakLaporanIVD implements WithDrawings, WithStyles, WithTitle, FromView, 
         }
         $start = 5209;
         $end = 5532;
-        $data = DB::table('data_lowongan_pendidikans')
-        ->where('id_disnaker', $this->id)->where('type','Laporan')
-        ->where(function ($query) use ($start, $end) {
-            $query->whereBetween('nmr', [$start, $end])
-                    ->orWhere('nmr', 04);
-        })
-        ->get();
+        $id_kadis = DataLowonganPendidikan::where('id_disnaker', $this->id)->where('type', 'Laporan')->first();
+
+        if(is_null($id_kadis)){
+            $data = DB::table('data_lowongan_pendidikans')->join('pemangku_kepentingans', 'pemangku_kepentingans.id_disnaker_kab','=','data_lowongan_pendidikans.id_disnaker')->where('email_lembaga', $this->id)->where('type','Laporan')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [$start, $end])
+                        ->orWhere('nmr', 04);
+            })
+            ->get();
+        }else{
+            $data = DB::table('data_lowongan_pendidikans')
+            ->where('id_disnaker', $this->id)->where('type','Laporan')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [$start, $end])
+                        ->orWhere('nmr', 04);
+            })
+            ->get();
+        }
 
         $results = DB::table('data_lowongan_pendidikans')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_lowongan_pendidikans.id_disnaker')->where('role_acc', 1)
         ->select('judul_lp', 'nmr', 'akhir_l_lp', 'akhir_p_lp')->where('type','Laporan')

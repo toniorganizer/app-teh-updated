@@ -330,16 +330,19 @@ class LampiranLaporanController extends Controller
 
     public function CetakLampiran($id){
         $item = DataPencariKerja::where('id_disnaker', $id)->where('type', 'Lampiran')->first();
-        $data = User::where('email', $id)->first();
-        $lambang= $data->icon;
-        if($id == 'disnaker@gmail.com'){
-            $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+        $data_user = User::where('email', $id)->first();
+        $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
+        if($data_user->icon == 0){
+            return redirect('/lampiran')->with('success', 'Mohon maaf, silahkan lakukan upload lambang lembaga terlebih dahulu pada menu profile!!!');
+        }else{
+            $lambang= $data_user->icon;
+        }
+        if($id == 'disnaker@gmail.com' || $data->status_lembaga == 3){
             $fileName = 'Lampiran-Laporan ('. $data->nama_lembaga .').xlsx';
             return Excel::download(new CetakLampiran($id, $lambang), $fileName);
         }elseif($item == null){
             return redirect('/lampiran')->with('success', 'Mohon maaf, silahkan lakukan upload data terlebih dahulu!!!');
         }else{
-        $data = PemangkuKepentingan::where('email_lembaga', $id)->first();
         $fileName = 'Lampiran-Laporan ('. $data->nama_lembaga .').xlsx';
         return Excel::download(new CetakLampiran($id, $lambang), $fileName);
         }

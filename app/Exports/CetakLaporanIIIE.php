@@ -189,15 +189,28 @@ class CetakLaporanIIIE implements WithDrawings, WithStyles, WithTitle, FromView,
         }
         $start = 6111;
         $end = 7245;
-        $data = DB::table('data_kelompok_jabatans')
-        ->where('id_disnaker', $this->id)->where('type','Laporan')
-        ->where(function ($query) use ($start, $end) {
-            $query->whereBetween('nmr', [$start, $end])
-                ->orWhere('nmr', '05')
-                ->orWhereIn('nmr', [6, 7])
-                ->whereNotIn('nmr', ['06', '5', '07']);
-        })
-        ->get();
+        $id_kadis = DataKelompokJabatan::where('id_disnaker', $this->id)->where('type', 'Laporan')->first();
+        if(is_null($id_kadis)){
+            $data = DB::table('data_kelompok_jabatans')->join('pemangku_kepentingans', 'pemangku_kepentingans.id_disnaker_kab','=','data_kelompok_jabatans.id_disnaker')
+            ->where('email_lembaga', $this->id)->where('type','Laporan')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [$start, $end])
+                    ->orWhere('nmr', '05')
+                    ->orWhereIn('nmr', [6, 7])
+                    ->whereNotIn('nmr', ['06', '5', '07']);
+            })
+            ->get();
+        }else{
+            $data = DB::table('data_kelompok_jabatans')
+            ->where('id_disnaker', $this->id)->where('type','Laporan')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [$start, $end])
+                    ->orWhere('nmr', '05')
+                    ->orWhereIn('nmr', [6, 7])
+                    ->whereNotIn('nmr', ['06', '5', '07']);
+            })
+            ->get();
+        }
 
 
         // dd($data);

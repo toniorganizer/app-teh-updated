@@ -291,16 +291,30 @@ class CetakLaporanIIA implements WithDrawings, WithStyles, WithTitle, FromView, 
         }else{
             $title = 'LAPORAN IPK III/2 - IKHTISAR STATISTIK ANTAR KERJA KAB/KOTA' . strtoupper(substr($disnaker->nama_lembaga, 18));
         }
+
         $start = 1000;
         $end = 3203;
-        $data = DB::table('data_jenis_pendidikans')
-        ->where('id_disnaker', $this->id)->where('type','Laporan')
-        ->where(function ($query) use ($start, $end) {
-            $query->whereBetween('nmr', [$start, $end])
-                    ->orWhere('nmr', 01)
-                    ->orWhere('nmr', 3801)->orWhere('nmr', 3802);
-        })
-        ->get();
+
+        $id_kadis = DataJenisPendidikan::where('id_disnaker', $this->id)->where('type', 'Laporan')->first();
+        if(is_null($id_kadis)){
+            $data = DB::table('data_jenis_pendidikans')->join('pemangku_kepentingans', 'pemangku_kepentingans.id_disnaker_kab','=','data_jenis_pendidikans.id_disnaker')
+            ->where('email_lembaga', $this->id)->where('type','Laporan')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [$start, $end])
+                        ->orWhere('nmr', 01)
+                        ->orWhere('nmr', 3801)->orWhere('nmr', 3802);
+            })
+            ->get();
+        }else{
+            $data = DB::table('data_jenis_pendidikans')
+            ->where('id_disnaker', $this->id)->where('type','Laporan')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [$start, $end])
+                        ->orWhere('nmr', 01)
+                        ->orWhere('nmr', 3801)->orWhere('nmr', 3802);
+            })
+            ->get();
+        }
 
         $results = DB::table('data_jenis_pendidikans')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_jenis_pendidikans.id_disnaker')->where('role_acc', 1)
         ->select('judul', 'nmr', 'akhir_l', 'akhir_p', 'type')

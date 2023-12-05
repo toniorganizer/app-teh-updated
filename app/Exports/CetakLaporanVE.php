@@ -159,14 +159,26 @@ class CetakLaporanVE implements WithDrawings, WithStyles, WithTitle, FromView, W
         }
         $start = 7111;
         $end = 7424;
-        $data = DB::table('data_lowongan_jabatans')
-        ->where('id_disnaker', $this->id)->where('type','Laporan')
-        ->where(function ($query) use ($start, $end) {
-            $query->whereBetween('nmr', [$start, $end])
-                    ->orWhere('nmr', '05')
-                    ->orWhere('nmr', '7');
-        })
-        ->get();
+        $id_kadis = DataLowonganJabatan::where('id_disnaker', $this->id)->where('type', 'Laporan')->first();
+
+        if(is_null($id_kadis)){
+            $data = DB::table('data_lowongan_jabatans')->join('pemangku_kepentingans', 'pemangku_kepentingans.id_disnaker_kab','=','data_lowongan_jabatans.id_disnaker')->where('email_lembaga', $this->id)->where('type','Laporan')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [$start, $end])
+                        ->orWhere('nmr', '05')
+                        ->orWhere('nmr', '7');
+            })
+            ->get();
+        }else{
+            $data = DB::table('data_lowongan_jabatans')
+            ->where('id_disnaker', $this->id)->where('type','Laporan')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [$start, $end])
+                        ->orWhere('nmr', '05')
+                        ->orWhere('nmr', '7');
+            })
+            ->get();
+        }
 
         $results = DB::table('data_lowongan_jabatans')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_lowongan_jabatans.id_disnaker')->where('role_acc', 1)
         ->select('judul_lj', 'nmr', 'akhir_l_lj', 'akhir_p_lj')->where('type','Laporan')

@@ -292,16 +292,30 @@ class CetakLaporanVIC implements WithDrawings, WithStyles, WithTitle, FromView, 
         }
         $start = 581;
         $end = 722;
-        $data = DB::table('data_golongan_usahas')
-        ->where('id_disnaker', $this->id)->where('type','Laporan')
-        ->where(function ($query) use ($start, $end) {
-            $query->whereBetween('nmr', [$start, $end])
-                ->orWhere('nmr', '03')
-                ->orWhereIn('nmr', ['J','K','L','M'])
-                ->orWhereIn('nmr', [741, 749, 742, 749, 781, 801, 812, 821, 829]);
-        })
-        ->take(48)
-        ->get();
+        $id_kadis = DataGolonganUsaha::where('id_disnaker', $this->id)->where('type', 'Laporan')->first();
+
+        if(is_null($id_kadis)){
+            $data = DB::table('data_golongan_usahas')->join('pemangku_kepentingans', 'pemangku_kepentingans.id_disnaker_kab','=','data_golongan_usahas.id_disnaker')->where('email_lembaga', $this->id)->where('type','Laporan')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [$start, $end])
+                    ->orWhere('nmr', '03')
+                    ->orWhereIn('nmr', ['J','K','L','M'])
+                    ->orWhereIn('nmr', [741, 749, 742, 749, 781, 801, 812, 821, 829]);
+            })
+            ->take(48)
+            ->get();
+        }else{
+            $data = DB::table('data_golongan_usahas')
+            ->where('id_disnaker', $this->id)->where('type','Laporan')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [$start, $end])
+                    ->orWhere('nmr', '03')
+                    ->orWhereIn('nmr', ['J','K','L','M'])
+                    ->orWhereIn('nmr', [741, 749, 742, 749, 781, 801, 812, 821, 829]);
+            })
+            ->take(48)
+            ->get();
+        }
 
         $results = DB::table('data_golongan_usahas')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_golongan_usahas.id_disnaker')->where('role_acc', 1)
         ->select('judul_gu', 'nmr', 'akhir_l_gu', 'akhir_p_gu')->where('type','Laporan')

@@ -195,14 +195,25 @@ class CetakLampiranIIIH implements WithDrawings, WithStyles, WithTitle, FromView
         }
         $start = 1;
         $end = 20;
-        $data = DB::table('data_kab_kotas')
-        ->where('id_disnaker', $this->id)->where('type','Lampiran')
-        ->where(function ($query) use ($start, $end) {
-            $query->whereBetween('nmr', [$start, $end])
-                    ->orWhere('nmr', ['I','4.14'])
-                    ->orWhere('nmr', 'II');
-        })
-        ->get();
+        $id_kadis = DataKabKota::where('id_disnaker', $this->id)->where('type', 'Lampiran')->first();
+        if(is_null($id_kadis)){
+            $data = DB::table('data_kab_kotas')->join('pemangku_kepentingans', 'pemangku_kepentingans.id_disnaker_kab','=','data_kab_kotas.id_disnaker')->where('email_lembaga', $this->id)->where('type','Lampiran')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [$start, $end])
+                        ->orWhere('nmr', ['I','4.14'])
+                        ->orWhere('nmr', 'II');
+            })
+            ->get();
+        }else{
+            $data = DB::table('data_kab_kotas')
+            ->where('id_disnaker', $this->id)->where('type','Lampiran')
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('nmr', [$start, $end])
+                        ->orWhere('nmr', ['I','4.14'])
+                        ->orWhere('nmr', 'II');
+            })
+            ->get();
+        }
 
 
         $results = DB::table('data_kab_kotas')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_kab_kotas.id_disnaker')->where('role_acc', 1)

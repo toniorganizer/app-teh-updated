@@ -191,7 +191,13 @@ class CetakLampiranIIIA implements WithDrawings, WithStyles, WithTitle, FromView
             $semester = DataPencariKerja::where('id_disnaker', $this->id)->where('type','Lampiran')->first();
         }
 
-        $data = DataPencariKerja::where('id_disnaker', $this->id)->where('type','Lampiran')->get();
+        $id_kadis = DataPencariKerja::where('id_disnaker', $this->id)->where('type', 'Lampiran')->first();
+
+        if(is_null($id_kadis)){
+            $data = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.id_disnaker_kab','=','data_pencari_kerjas.id_disnaker')->where('email_lembaga', $this->id)->where('type','Lampiran')->get();
+        }else{
+            $data = DataPencariKerja::where('id_disnaker', $this->id)->where('type','Lampiran')->get();
+        }
 
         if($disnaker->status_lembaga == 0){
             $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';

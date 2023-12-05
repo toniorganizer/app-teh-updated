@@ -183,7 +183,8 @@
             <div class="card-body">
               <h5 class="card-title">Laporan-IPK-III-6</h5>
               <div class="activity">
-                <p style="text-align: justify">  @if($aturan->status_lembaga == 1)<span class="fw-bold text-dark">Edit data dapat dilakukan dengan menekan tombol pada kolom action. Tombol hapus, digunakan untuk menghapus keseluruhan data yang sudah di import, hal ini bisa dilakukan jika ingin melakukan import ulang.</span>@endif</p>
+                @if($aturan->status_lembaga == 1)
+                <p style="text-align: justify"><span class="fw-bold text-dark">Edit data dapat dilakukan dengan menekan tombol pada kolom action. Tombol hapus, digunakan untuk menghapus keseluruhan data yang sudah di import, hal ini bisa dilakukan jika ingin melakukan import ulang.</span></p>
 
                 <p style="text-align: justify">Pelaksanaan pembuatan laporan dapat dilakukan dengan download template terlebih dahulu, kemudian isi template berdasarkan data laporan yang ada. Pastikan setiap kolom terisi dengan benar sebelum melakukan import data.</p>
 
@@ -206,6 +207,11 @@
                     </div>
                 </div>
                 </form>
+                @elseif($aturan->status_lembaga == 0)
+                <p style="text-align: justify">Pelaksanaan pembuatan laporan dapat dilakukan oleh Dinas Tenaga Kerja Kabupaten/Kota. Data Laporan yang ditampilkan pada tabel merupakan hasil kalkulasi dari masing-masing laporan yang di import oleh Dinas Kabupaten/Kota dan sudah disetujui oleh Kadis Dinas Kabupaten/Kota. Dinas Tenaga Kerja Provinsi dapat melihat detail laporan dari Kab/Kota dengan memilih menu Laporan Kab/Kota.</p>
+                @else
+                <p style="text-align: justify">Pelaksanaan pembuatan laporan dapat dilakukan oleh Dinas Tenaga Kerja Kabupaten/Kota. Data Laporan yang ditampilkan pada tabel merupakan data laporan yang di import oleh Dinas Kabupaten/Kota. Kadis Dinas Kab/Kota dapat melakukan verifikasi laporan dengan memilih menu varifikasi pada menu sidebar dan juga dapat melakukan download laporan. Verifikasi dapat dilakukan setelah semua laporan sudah di import oleh Dinas Kab/Kota terkait, verifikasi berlaku untuk semua data laporan dan lampiran. Data tidak akan ditampilkan jika laporan sudah disetujui.</p>
+                @endif
                 
             </div>
           </div><!-- End Recent Activity -->
