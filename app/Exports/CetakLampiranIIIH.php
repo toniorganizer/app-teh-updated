@@ -7,6 +7,7 @@ use App\Models\Laporan;
 use App\Models\DataPencariKerja;
 use Illuminate\Support\Facades\DB;
 use App\Models\DataJenisPendidikan;
+use App\Models\DataKabKota;
 use App\Models\DataLowonganJabatan;
 use App\Models\DataLowonganPendidikan;
 use App\Models\PemangkuKepentingan;
@@ -179,7 +180,12 @@ class CetakLampiranIIIH implements WithDrawings, WithStyles, WithTitle, FromView
     public function view(): View
     {
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataGolonganUsaha::where('id_disnaker', $this->id)->where('type','Lampiran')->first();
+        $semester = DataKabKota::where('id_disnaker', $this->id)->first();
+        if(is_null($semester)){
+            $semester = DataKabKota::where('type','Lampiran')->first();
+        }else{
+            $semester = DataKabKota::where('id_disnaker', $this->id)->where('type','Lampiran')->first();
+        }
         if($disnaker->status_lembaga == 0){
             $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
         }elseif($semester->type == 'Lampiran'){
@@ -199,7 +205,7 @@ class CetakLampiranIIIH implements WithDrawings, WithStyles, WithTitle, FromView
         ->get();
 
 
-        $results = DB::table('data_kab_kotas')
+        $results = DB::table('data_kab_kotas')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_kab_kotas.id_disnaker')->where('role_acc', 1)
         ->select('judul', 'nmr', 'jpkt', 'jlkt', 'jpkd')
         ->whereBetween('nmr', [$start, $end])->where('type','Lampiran')
         ->orWhere('nmr', ['I','4.14'])

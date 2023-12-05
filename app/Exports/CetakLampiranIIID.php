@@ -147,7 +147,12 @@ class CetakLampiranIIID implements WithDrawings, WithStyles, WithTitle, FromView
     public function view(): View
     {
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataKelompokJabatan::where('id_disnaker', $this->id)->where('type','Lampiran')->first();
+        $semester = DataKelompokJabatan::where('id_disnaker', $this->id)->first();
+        if(is_null($semester)){
+            $semester = DataKelompokJabatan::where('type','Lampiran')->first();
+        }else{
+            $semester = DataKelompokJabatan::where('id_disnaker', $this->id)->where('type','Lampiran')->first();
+        }
         if($disnaker->status_lembaga == 0){
             $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
         }elseif($semester->type == 'Lampiran'){
@@ -165,7 +170,7 @@ class CetakLampiranIIID implements WithDrawings, WithStyles, WithTitle, FromView
         })
         ->get();
 
-        $results = DB::table('data_kelompok_jabatans')
+        $results = DB::table('data_kelompok_jabatans')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_kelompok_jabatans.id_disnaker')->where('role_acc', 1)
         ->select('judul_kj', 'nmr', 'akhir_l_kj', 'akhir_p_kj')
         ->where('type','Lampiran')
         ->where(function ($query) use ($start, $end) {

@@ -210,7 +210,12 @@ class CetakLaporanIIH implements WithDrawings, WithStyles, WithTitle, FromView, 
     public function view(): View
     {
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->where('type','Laporan')->first();
+        $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->first();
+        if(is_null($semester)){
+            $semester = DataJenisPendidikan::where('type','Laporan')->first();
+        }else{
+            $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->where('type','Laporan')->first();
+        }
         if($disnaker->status_lembaga == 0){
             $title = 'LAPORAN IPK III/2 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
         }elseif($semester->type == 'Lampiran'){
@@ -228,7 +233,7 @@ class CetakLaporanIIH implements WithDrawings, WithStyles, WithTitle, FromView, 
         })
         ->get();
 
-        $results = DB::table('data_jenis_pendidikans')
+        $results = DB::table('data_jenis_pendidikans')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_jenis_pendidikans.id_disnaker')->where('role_acc', 1)
         ->select('judul', 'nmr', 'akhir_l', 'akhir_p')
         ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
         ->orWhere('nmr', '08')
@@ -240,9 +245,18 @@ class CetakLaporanIIH implements WithDrawings, WithStyles, WithTitle, FromView, 
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN penempatan_p ELSE SUM(penempatan_p) END AS penempatan_p')
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_l ELSE SUM(hapus_l) END AS hapus_l')
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN hapus_p ELSE SUM(hapus_p) END AS hapus_p')
+        ->selectRaw('CASE WHEN judul = "0" THEN sisa_l ELSE SUM(sisa_l) END AS sisa_l_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN sisa_p ELSE SUM(sisa_p) END AS sisa_p_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN terdaftar_l ELSE SUM(terdaftar_l) END AS terdaftar_l_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN terdaftar_p ELSE SUM(terdaftar_p) END AS terdaftar_p_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN penempatan_l ELSE SUM(penempatan_l) END AS penempatan_l_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN penempatan_p ELSE SUM(penempatan_p) END AS penempatan_p_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN hapus_l ELSE SUM(hapus_l) END AS hapus_l_s')
+        ->selectRaw('CASE WHEN judul = "0" THEN hapus_p ELSE SUM(hapus_p) END AS hapus_p_s')
         ->groupBy('judul', 'nmr', 'akhir_l', 'akhir_p')
         ->oldest('id')
         ->get();
+
         
         return view('Dashboard.admin.cetak-laporan-iii-ii')->with([
             'data' => $data,

@@ -184,7 +184,13 @@ class CetakLampiranIIIA implements WithDrawings, WithStyles, WithTitle, FromView
     {
         // dd($this->id)
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataPencariKerja::where('id_disnaker', $this->id)->where('type','Lampiran')->first();
+        $semester = DataPencariKerja::where('id_disnaker', $this->id)->first();
+        if(is_null($semester)){
+            $semester = DataPencariKerja::where('type','Lampiran')->first();
+        }else{
+            $semester = DataPencariKerja::where('id_disnaker', $this->id)->where('type','Lampiran')->first();
+        }
+
         $data = DataPencariKerja::where('id_disnaker', $this->id)->where('type','Lampiran')->get();
 
         if($disnaker->status_lembaga == 0){
@@ -196,68 +202,68 @@ class CetakLampiranIIIA implements WithDrawings, WithStyles, WithTitle, FromView
         }
 
         // Cetak data pada id disnaker provinsi
-        $pencari_kerja1 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->first();
-        $pencari_kerja2 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->first();
-        $pencari_kerjaA = DataPencariKerja::where('nmr', 'A.')->where('type','Lampiran')->first();
-        $pencari_kerja3 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->first();
-        $pencari_kerja4 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->first();
-        $pencari_kerjaB = DataPencariKerja::where('nmr', 'B.')->where('type','Lampiran')->first();
-        $pencari_kerja5 = DataPencariKerja::where('nmr', 5)->where('type','Lampiran')->first();
+        $pencari_kerja1 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->first();
+        $pencari_kerja2 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->first();
+        $pencari_kerjaA = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 'A.')->where('type','Lampiran')->first();
+        $pencari_kerja3 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->first();
+        $pencari_kerja4 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->first();
+        $pencari_kerjaB = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 'B.')->where('type','Lampiran')->first();
+        $pencari_kerja5 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 5)->where('type','Lampiran')->first();
 
         // dd($pencari_kerja1->L);
 
-        $jumlahL151 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->sum('15_L');
-        $jumlahL152 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->sum('15_L');
-        $jumlahL153 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->sum('15_L');
-        $jumlahL154 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->sum('15_L');
-        $jumlahP151 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->sum('15_P');
-        $jumlahP152 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->sum('15_P');
-        $jumlahP153 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->sum('15_P');
-        $jumlahP154 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->sum('15_P');
-        $jumlahLowonganL1 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->sum('lowongan_L');
-        $jumlahLowonganP1 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->sum('lowongan_P');
+        $jumlahL151 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->sum('15_L');
+        $jumlahL152 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->sum('15_L');
+        $jumlahL153 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->sum('15_L');
+        $jumlahL154 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->sum('15_L');
+        $jumlahP151 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->sum('15_P');
+        $jumlahP152 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->sum('15_P');
+        $jumlahP153 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->sum('15_P');
+        $jumlahP154 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->sum('15_P');
+        $jumlahLowonganL1 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->sum('lowongan_L');
+        $jumlahLowonganP1 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->sum('lowongan_P');
 
-        $jumlahL201 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->sum('20_L');
-        $jumlahL202 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->sum('20_L');
-        $jumlahL203 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->sum('20_L');
-        $jumlahL204 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->sum('20_L');
-        $jumlahP201 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->sum('20_P');
-        $jumlahP202 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->sum('20_P');
-        $jumlahP203 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->sum('20_P');
-        $jumlahP204 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->sum('20_P');
-        $jumlahLowonganL2 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->sum('lowongan_L');
-        $jumlahLowonganP2 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->sum('lowongan_P');
+        $jumlahL201 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->sum('20_L');
+        $jumlahL202 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->sum('20_L');
+        $jumlahL203 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->sum('20_L');
+        $jumlahL204 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->sum('20_L');
+        $jumlahP201 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->sum('20_P');
+        $jumlahP202 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->sum('20_P');
+        $jumlahP203 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->sum('20_P');
+        $jumlahP204 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->sum('20_P');
+        $jumlahLowonganL2 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->sum('lowongan_L');
+        $jumlahLowonganP2 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->sum('lowongan_P');
 
-        $jumlahL301 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->sum('30_L');
-        $jumlahL302 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->sum('30_L');
-        $jumlahL303 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->sum('30_L');
-        $jumlahL304 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->sum('30_L');
-        $jumlahP301 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->sum('30_P');
-        $jumlahP302 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->sum('30_P');
-        $jumlahP303 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->sum('30_P');
-        $jumlahP304 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->sum('30_P');
-        $jumlahLowonganL3 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->sum('lowongan_L');
-        $jumlahLowonganP3 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->sum('lowongan_P');
+        $jumlahL301 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->sum('30_L');
+        $jumlahL302 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->sum('30_L');
+        $jumlahL303 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->sum('30_L');
+        $jumlahL304 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->sum('30_L');
+        $jumlahP301 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->sum('30_P');
+        $jumlahP302 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->sum('30_P');
+        $jumlahP303 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->sum('30_P');
+        $jumlahP304 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->sum('30_P');
+        $jumlahLowonganL3 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->sum('lowongan_L');
+        $jumlahLowonganP3 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->sum('lowongan_P');
 
-        $jumlahL451 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->sum('45_L');
-        $jumlahL452 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->sum('45_L');
-        $jumlahL453 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->sum('45_L');
-        $jumlahL454 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->sum('45_L');
-        $jumlahP451 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->sum('45_P');
-        $jumlahP452 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->sum('45_P');
-        $jumlahP453 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->sum('45_P');
-        $jumlahP454 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->sum('45_P');
-        $jumlahLowonganL4 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->sum('lowongan_L');
-        $jumlahLowonganP4 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->sum('lowongan_P');
+        $jumlahL451 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->sum('45_L');
+        $jumlahL452 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->sum('45_L');
+        $jumlahL453 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->sum('45_L');
+        $jumlahL454 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->sum('45_L');
+        $jumlahP451 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->sum('45_P');
+        $jumlahP452 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->sum('45_P');
+        $jumlahP453 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->sum('45_P');
+        $jumlahP454 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->sum('45_P');
+        $jumlahLowonganL4 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->sum('lowongan_L');
+        $jumlahLowonganP4 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->sum('lowongan_P');
 
-        $jumlahL551 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->sum('55_L');
-        $jumlahL552 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->sum('55_L');
-        $jumlahL553 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->sum('55_L');
-        $jumlahL554 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->sum('55_L');
-        $jumlahP551 = DataPencariKerja::where('nmr', 1)->where('type','Lampiran')->sum('55_P');
-        $jumlahP552 = DataPencariKerja::where('nmr', 2)->where('type','Lampiran')->sum('55_P');
-        $jumlahP553 = DataPencariKerja::where('nmr', 3)->where('type','Lampiran')->sum('55_P');
-        $jumlahP554 = DataPencariKerja::where('nmr', 4)->where('type','Lampiran')->sum('55_P');
+        $jumlahL551 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->sum('55_L');
+        $jumlahL552 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->sum('55_L');
+        $jumlahL553 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->sum('55_L');
+        $jumlahL554 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->sum('55_L');
+        $jumlahP551 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 1)->where('type','Lampiran')->sum('55_P');
+        $jumlahP552 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 2)->where('type','Lampiran')->sum('55_P');
+        $jumlahP553 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Lampiran')->sum('55_P');
+        $jumlahP554 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Lampiran')->sum('55_P');
 
         return view('Dashboard.admin.cetak-laporan-iii-i')->with([
             'data' => $data,

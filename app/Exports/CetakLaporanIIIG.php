@@ -151,7 +151,12 @@ class CetakLaporanIIIG implements WithDrawings, WithStyles, WithTitle, FromView,
     public function view(): View
     {
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataKelompokJabatan::where('id_disnaker', $this->id)->where('type','Laporan')->first();
+        $semester = DataKelompokJabatan::where('id_disnaker', $this->id)->first();
+        if(is_null($semester)){
+            $semester = DataKelompokJabatan::where('type','Laporan')->first();
+        }else{
+            $semester = DataKelompokJabatan::where('id_disnaker', $this->id)->where('type','Laporan')->first();
+        }
         if($disnaker->status_lembaga == 0){
             $title = 'LAPORAN IPK III/3 - PENCARI KERJA MENURUT GOL.JABATAN PROPINSI SUMATERA BARAT';
         }elseif($semester->type == 'Lampiran'){
@@ -169,7 +174,7 @@ class CetakLaporanIIIG implements WithDrawings, WithStyles, WithTitle, FromView,
         })
         ->get();
 
-        $results = DB::table('data_kelompok_jabatans')
+        $results = DB::table('data_kelompok_jabatans')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_kelompok_jabatans.id_disnaker')->where('role_acc', 1)
         ->select('judul_kj', 'nmr', 'akhir_l_kj', 'akhir_p_kj')
         ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
         ->orWhere('nmr', '07')

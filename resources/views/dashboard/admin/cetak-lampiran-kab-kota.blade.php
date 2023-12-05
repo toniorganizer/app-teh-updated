@@ -5,7 +5,7 @@
 <body>
 <table>
 <tr><td></td><td></td><td></td></tr>
-@if($disnaker->email_lembaga == 'disnaker@gmail.com' || $semester->type == 'Lampiran')
+@if($semester->type == 'Lampiran')
     <tr><td></td><td></td><td colspan="9" style="text-align: center;">{{$title}}</td></tr>
     <tr><td></td><td></td><td colspan="9" style="text-align: center;">PENCARI KERJA TERDAFTAR, LOWONGAN TERDAFTAR DAN PENEMPATAN / PEMENUHAN</td></tr>
     <tr><td></td><td></td><td colspan="9" style="text-align: center;">DI PROVINSI SUMATERA BARAT</td></tr>

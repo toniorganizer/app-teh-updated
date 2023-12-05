@@ -5,7 +5,7 @@
 <body>
 <table>
     <tr><td></td><td></td><td></td></tr>
-    @if($disnaker->email_lembaga == 'disnaker@gmail.com' || $semester->type == 'Lampiran')
+    @if($semester->type == 'Lampiran')
     <tr><td></td><td></td><td colspan="10" style="text-align: center;">{{$title}}</td></tr>
     <tr><td></td><td></td><td colspan="10" style="text-align: center;">IPK III/10 : PENCARI KERJA YANG TERDAFTAR, DITEMPATKAN DAN DIHAPUSKAN</td></tr>
     <tr><td></td><td></td><td colspan="10" style="text-align: center;">DIRINCI MENURUT GOLONGAN JABATAN</td></tr>

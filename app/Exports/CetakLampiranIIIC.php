@@ -207,7 +207,12 @@ class CetakLampiranIIIC implements WithDrawings, WithStyles, WithTitle, FromView
     public function view(): View
     {
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
-        $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->where('type','Lampiran')->first();
+        $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->first();
+        if(is_null($semester)){
+            $semester = DataJenisPendidikan::where('type','Lampiran')->first();
+        }else{
+            $semester = DataJenisPendidikan::where('id_disnaker', $this->id)->where('type','Lampiran')->first();
+        }
         if($disnaker->status_lembaga == 0){
             $title = 'LAPORAN IPK III/1 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
         }elseif($semester->type == 'Lampiran'){
@@ -226,7 +231,7 @@ class CetakLampiranIIIC implements WithDrawings, WithStyles, WithTitle, FromView
         })
         ->get();
 
-        $results = DB::table('data_jenis_pendidikans')
+        $results = DB::table('data_jenis_pendidikans')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_jenis_pendidikans.id_disnaker')->where('role_acc', 1)
         ->select('judul', 'nmr', 'akhir_l', 'akhir_p')
         ->whereBetween('nmr', [$start, $end])->where('type','Lampiran')
         ->orWhere('nmr', '4.9')
