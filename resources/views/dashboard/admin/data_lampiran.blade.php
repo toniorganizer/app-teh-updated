@@ -559,6 +559,7 @@
                             </tr>
                             @endforeach
                             @elseif($aturan->status_lembaga == 0)
+                            <?php $no=0; ?>
                                 @foreach($dataLaporan410 as $lap)
                                     <tr>
                                         <td>{{$no++}}</td>

@@ -139,40 +139,40 @@ class CetakLaporanVIA implements WithDrawings, WithStyles, WithTitle, FromView, 
                 // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
                 'font' => ['bold' => true],
             ],
-            'B29:L29' => [
+            'B28:L28' => [
                 'font' => [
                     'color' => ['rgb' => '4472C4'], // Mengatur warna huruf menjadi merah (misalnya)
                 ],
             ],
-            'C29:L29' => [
+            'C28:L28' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'A29' => [
+            'A28' => [
                 'font' => [
                     'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
                 ],
             ],
-            'B29' => [
+            'B28' => [
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
                     'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
             ],
-            'A30:B30' => [
+            'A29:B29' => [
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'D9E1F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-            'C30:L30' => [
+            'C29:L29' => [
                 'font' => [
                     'color' => ['rgb' => 'FFFFFF'], // Mengatur warna huruf menjadi merah (misalnya)
                 ],
             ],
-            'A30:B30' => [
+            'A29:B29' => [
                 // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
                 'font' => ['bold' => true],
             ],
@@ -304,10 +304,12 @@ class CetakLaporanVIA implements WithDrawings, WithStyles, WithTitle, FromView, 
 
 
         $results = DB::table('data_golongan_usahas')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_golongan_usahas.id_disnaker')->where('role_acc', 1)
-        ->select('judul_gu', 'nmr', 'akhir_l_gu', 'akhir_p_gu')
-        ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
-        ->orWhere('nmr', '01')
-        ->orWhereIn('nmr', ['A','B','C','D'])
+        ->select('judul_gu', 'nmr', 'akhir_l_gu', 'akhir_p_gu')->where('type','Laporan')
+        ->where(function ($query) use ($start, $end) {
+            $query->whereBetween('nmr', [$start, $end])
+                    ->orWhere('nmr', '01')
+                    ->orWhereIn('nmr', ['A','B','C','D']);
+        })
         ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN sisa_l_gu ELSE SUM(sisa_l_gu) END AS sisa_l')
         ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN sisa_p_gu ELSE SUM(sisa_p_gu) END AS sisa_p')
         ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN terdaftar_l_gu ELSE SUM(terdaftar_l_gu) END AS terdaftar_l')

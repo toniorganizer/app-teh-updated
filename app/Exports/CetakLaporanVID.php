@@ -474,10 +474,12 @@ class CetakLaporanVID implements WithDrawings, WithStyles, WithTitle, FromView, 
             
 
         $results = DB::table('data_golongan_usahas')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_golongan_usahas.id_disnaker')->where('role_acc', 1)
-        ->select('judul_gu', 'nmr', 'akhir_l_gu', 'akhir_p_gu')
-        ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
-        ->orWhere('nmr', '04')
-        ->orWhereIn('nmr', ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U'])
+        ->select('judul_gu', 'nmr', 'akhir_l_gu', 'akhir_p_gu')->where('type','Laporan')
+        ->where(function ($query) use ($start, $end) {
+            $query->whereBetween('nmr', [771, 990])
+                ->orWhere('nmr', '04')
+                ->orWhereIn('nmr', ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U']);
+        })
         ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN sisa_l_gu ELSE SUM(sisa_l_gu) END AS sisa_l')
         ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN sisa_p_gu ELSE SUM(sisa_p_gu) END AS sisa_p')
         ->selectRaw('CASE WHEN judul_gu = "Sub Total" THEN terdaftar_l_gu ELSE SUM(terdaftar_l_gu) END AS terdaftar_l')

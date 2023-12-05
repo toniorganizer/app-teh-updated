@@ -191,10 +191,12 @@ class CetakLaporanVB implements WithDrawings, WithStyles, WithTitle, FromView, W
         ->get();
 
         $results = DB::table('data_lowongan_jabatans')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_lowongan_jabatans.id_disnaker')->where('role_acc', 1)
-        ->select('judul_lj', 'nmr', 'akhir_l_lj', 'akhir_p_lj')
-        ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
-        ->orWhere('nmr', '02')
-        ->orWhere('nmr', '3')
+        ->select('judul_lj', 'nmr', 'akhir_l_lj', 'akhir_p_lj')->where('type','Laporan')
+        ->where(function ($query) use ($start, $end) {
+            $query->whereBetween('nmr', [$start, $end])
+                    ->orWhere('nmr', '02')
+                    ->orWhere('nmr', '3');
+        })
         ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN sisa_l_lj ELSE SUM(sisa_l_lj) END AS sisa_l')
         ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN sisa_p_lj ELSE SUM(sisa_p_lj) END AS sisa_p')
         ->selectRaw('CASE WHEN judul_lj = "Sub Total" THEN terdaftar_l_lj ELSE SUM(terdaftar_l_lj) END AS terdaftar_l')

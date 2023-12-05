@@ -215,9 +215,11 @@ class CetakLampiranIIIE implements WithDrawings, WithStyles, WithTitle, FromView
         ->get();
 
         $results = DB::table('data_lowongan_pendidikans')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_lowongan_pendidikans.id_disnaker')->where('role_acc', 1)
-        ->select('judul_lp', 'nmr', 'akhir_l_lp', 'akhir_p_lp')
-        ->whereBetween('nmr', [$start, $end])->where('type','Lampiran')
-        ->orWhere('nmr', '4.11')
+        ->select('judul_lp', 'nmr', 'akhir_l_lp', 'akhir_p_lp')->where('type','Lampiran')
+        ->where(function ($query) use ($start, $end) {
+            $query->whereBetween('nmr', [$start, $end])
+                    ->orWhere('nmr', '4.11');
+        })
         ->selectRaw('CASE WHEN judul_lp = "PENDIDIKAN MENENGAH ATAS" THEN sisa_l_lp ELSE SUM(sisa_l_lp) END AS sisa_l')
         ->selectRaw('CASE WHEN judul_lp = "PENDIDIKAN MENENGAH ATAS" THEN sisa_p_lp ELSE SUM(sisa_p_lp) END AS sisa_p')
         ->selectRaw('CASE WHEN judul_lp = "PENDIDIKAN MENENGAH ATAS" THEN terdaftar_l_lp ELSE SUM(terdaftar_l_lp) END AS terdaftar_l')

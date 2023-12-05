@@ -42,7 +42,6 @@ class KelompokJabatanController extends Controller
             ->oldest('id')
             ->paginate(20);
 
-        // dd($lap);
         $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
 
         return view('Dashboard.admin.data_laporan_III', [

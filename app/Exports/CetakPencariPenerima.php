@@ -268,9 +268,11 @@ class CetakPencariPenerima implements WithDrawings, WithStyles, WithTitle, FromV
             
 
         $results = DB::table('data_pencari_penerimas')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_penerimas.id_disnaker')->where('role_acc', 1)
-        ->select('judul', 'nmr', 'jmll', 'jmlp')
-        ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
-        ->orWhere('nmr', '08')
+        ->select('judul', 'nmr', 'jmll', 'jmlp')->where('type','Laporan')
+        ->where(function ($query) use ($start, $end) {
+            $query->whereBetween('nmr', [$start, $end])
+                ->orWhere('nmr', '08');
+        })
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN akll ELSE SUM(akll) END AS akll_s')
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN aklp ELSE SUM(aklp) END AS aklp_s')
         ->selectRaw('CASE WHEN judul = "Sub Total" THEN akadl ELSE SUM(akadl) END AS akadl_s')

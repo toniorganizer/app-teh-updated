@@ -232,10 +232,12 @@ class CetakLampiranIIIC implements WithDrawings, WithStyles, WithTitle, FromView
         ->get();
 
         $results = DB::table('data_jenis_pendidikans')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_jenis_pendidikans.id_disnaker')->where('role_acc', 1)
-        ->select('judul', 'nmr', 'akhir_l', 'akhir_p')
-        ->whereBetween('nmr', [$start, $end])->where('type','Lampiran')
-        ->orWhere('nmr', '4.9')
-        ->orWhere('nmr', '300')
+        ->select('judul', 'nmr', 'akhir_l', 'akhir_p')->where('type','Lampiran')
+        ->where(function ($query) use ($start, $end) {
+            $query->whereBetween('nmr', [$start, $end])
+                    ->orWhere('nmr', '4.9')
+                    ->orWhere('nmr', '300');
+        })
         ->selectRaw('CASE WHEN judul = " TOTAL : SLTA /SMK /D.I/D.II " THEN sisa_l ELSE SUM(sisa_l) END AS sisa_l')
         ->selectRaw('CASE WHEN judul = " TOTAL : SLTA /SMK /D.I/D.II " THEN sisa_p ELSE SUM(sisa_p) END AS sisa_p')
         ->selectRaw('CASE WHEN judul = " TOTAL : SLTA /SMK /D.I/D.II " THEN terdaftar_l ELSE SUM(terdaftar_l) END AS terdaftar_l')

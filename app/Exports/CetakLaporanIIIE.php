@@ -111,11 +111,6 @@ class CetakLaporanIIIE implements WithDrawings, WithStyles, WithTitle, FromView,
                     'startColor' => ['rgb' => 'F2F2F2'], // Mengatur latar belakang menjadi kuning
                 ],
             ],
-
-            'A19:B19' => [
-                // Mengatur jenis huruf (font) untuk baris pertama (baris judul kolom)
-                'font' => ['bold' => true],
-            ],
             
             'C12:L12' => [
                 'font' => [
@@ -208,11 +203,13 @@ class CetakLaporanIIIE implements WithDrawings, WithStyles, WithTitle, FromView,
         // dd($data);
 
         $results = DB::table('data_kelompok_jabatans')->join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_kelompok_jabatans.id_disnaker')->where('role_acc', 1)
-        ->select('judul_kj', 'nmr', 'akhir_l_kj', 'akhir_p_kj')
-        ->whereBetween('nmr', [$start, $end])->where('type','Laporan')
-        ->orWhere('nmr', '05')
-        ->orWhereIn('nmr', [6, 7])
-        ->whereNotIn('nmr', ['06', '5', '07'])
+        ->select('judul_kj', 'nmr', 'akhir_l_kj', 'akhir_p_kj')->where('type','Laporan')
+        ->where(function ($query) use ($start, $end) {
+            $query->whereBetween('nmr', [$start, $end])
+                ->orWhere('nmr', '05')
+                ->orWhereIn('nmr', [6, 7])
+                ->whereNotIn('nmr', ['06', '5', '07']);
+        })
         ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN sisa_l_kj ELSE SUM(sisa_l_kj) END AS sisa_l')
         ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN sisa_p_kj ELSE SUM(sisa_p_kj) END AS sisa_p')
         ->selectRaw('CASE WHEN judul_kj = "Sub Total" THEN terdaftar_l_kj ELSE SUM(terdaftar_l_kj) END AS terdaftar_l')
