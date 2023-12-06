@@ -32,8 +32,37 @@
                         <form action="/lamar-lowongan-pekerjaan" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <div class="col-lg-1"></div>
-                                <div class="col-lg-10">
+                                <div class="ml-5 col-lg-10">
+                                    <label for="inputCity" class="form-label">Curriculum Vitae</label>
+                                    <input class="form-control @error('cv') is-invalid @enderror" name="cv" type="file" id="formFile">
+                                    @error('cv')
+                                      <div class="alert alert-danger mt-2">
+                                          {{ $message }}
+                                      </div>
+                                  @enderror
+                                    <small id="emailHelp" class="form-text text-muted">File max. 150 KB</small>
+                                  </div>
+                                  <div class="mt-2 ml-5 col-lg-10">
+                                    <label for="inputCity" class="form-label">Ijazah</label>
+                                    <input class="form-control @error('ijazah') is-invalid @enderror" name="ijazah" type="file" id="formFile">
+                                    @error('ijazah')
+                                      <div class="alert alert-danger mt-2">
+                                          {{ $message }}
+                                      </div>
+                                  @enderror
+                                    <small id="emailHelp" class="form-text text-muted">File max. 150 KB</small>
+                                  </div>
+                                  <div class="mt-2 ml-5 col-lg-10">
+                                    <label for="inputCity" class="form-label">Portofolio</label>
+                                    <input class="form-control @error('portofolio') is-invalid @enderror" name="portofolio" type="file" id="formFile">
+                                    @error('portofolio')
+                                      <div class="alert alert-danger mt-2">
+                                          {{ $message }}
+                                      </div>
+                                  @enderror
+                                    <small id="emailHelp" class="form-text text-muted">File max. 150 KB</small>
+                                  </div>
+                                <div class="mt-5 ml-5 col-lg-10">
                                     <input type="hidden" name="id_informasi" value="{{$data->id_informasi_lowongan}}">
                                     <input type="hidden" name="id_pelamar" value="{{auth::user()->email}}">
                                     <label for="exampleInputEmail1">Jelaskan megenai diri anda</label>

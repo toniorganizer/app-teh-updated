@@ -14,7 +14,7 @@
                       <label for="inputName5" class="form-label">Lowongan</label>
                       <input type="text" name="informasi" class="form-control @error('informasi') is-invalid @enderror" id="inputName5" value="{{old('informasi')}}">
                       <input type="hidden" name="pemberi_id" class="form-control @error('pemberi_id') is-invalid @enderror" id="inputName5" value="{{Auth::user()->id_user}}">
-                      <input type="hidden" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" id="inputName5" value="-">
+                      <input type="hidden" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" id="inputName5" value="Lorem Ipsum">
                       @error('informasi')
                             <div class="alert alert-danger mt-2">
                                 {{ $message }}

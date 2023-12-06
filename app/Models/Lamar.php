@@ -13,6 +13,9 @@ class Lamar extends Model
     protected $fillable = [
         'id_pelamar',
         'id_informasi',
+        'cv',
+        'ijazah',
+        'portofolio',
         'status',
         'pesan'
     ];

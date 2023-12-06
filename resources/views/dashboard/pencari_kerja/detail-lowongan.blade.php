@@ -165,13 +165,13 @@
                           <h5 class="card-title">Detail Perusahaan</h5>
                             <div class="post-item">
                             <div>
-                              @if($data->pemberi_informasi_id == 2)
-                              <h5>By Admin</h5>
-                                <div class="post-item">
-                                    <div class="sub-judul">
-                                      <p>Pemberi informasi admin Dinas Tenaga Kerja Sumatera Barat</p>
-                                    </div>
-                                </div>
+                              @if($data->pemberi_informasi_id == 13)
+                                <h5>By Admin</h5>
+                                  <div class="post-item">
+                                      <div class="sub-judul">
+                                        <p>Pemberi informasi admin Dinas Tenaga Kerja Sumatera Barat</p>
+                                      </div>
+                                  </div>
                               @else
                                 <h5>{{$data->perusahaan}}</h5>
                                 {{-- <p>{!!$data->deskripsi!!}</p> --}}
@@ -183,7 +183,7 @@
                                 <div class="mb-4">
                                     <div class="meta-bottom">
                                     <ul class="detail-perusahaan">
-                                      <li><a href="{{$item->id_pemberi_informasi}}">Lihat Detail Perusahaan</a></li>
+                                      <li><a href="{{route('sumber.show', $item->email_instansi) }}">Lihat Detail Perusahaan</a></li>
                                     </ul>
                                     </div>
                                 </div>

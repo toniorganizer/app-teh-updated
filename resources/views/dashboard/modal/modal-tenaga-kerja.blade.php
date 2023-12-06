@@ -34,10 +34,34 @@
                         </div>
                     @enderror
                     </div>
+                    <div class="col-lg-12">
+                        <label for="inputAddress2" class="form-label">Jenis Kelamin</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="jenis_kelamin" id="exampleRadios1" value="Laki-laki">
+                            <label class="form-check-label" for="exampleRadios1">
+                              Laki-laki
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="jenis_kelamin" id="exampleRadios2" value="Perempuan">
+                            <label class="form-check-label" for="exampleRadios2">
+                              Perempuan
+                            </label>
+                          </div>
+                    </div>
                     <div class="col-12">
                       <label for="inputAddress2" class="form-label">Alamat</label>
                       <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" id="inputAddress2" value="{{old('alamat')}}">
                       @error('alamat')
+                        <div class="alert alert-danger mt-2">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    </div>
+                    <div class="col-12">
+                      <label for="inputAddress2" class="form-label">Umur</label>
+                      <input type="text" name="umur" class="form-control @error('umur') is-invalid @enderror" id="inputAddress2" value="{{old('umur')}}">
+                      @error('umur')
                         <div class="alert alert-danger mt-2">
                             {{ $message }}
                         </div>
@@ -70,25 +94,6 @@
                           </div>
                       @enderror
                       </div>
-                    <div class="col-md-12">
-                        <label for="inputCity" class="form-label">Tentang</label>
-                        <textarea name="tentang" class="form-control @error('tentang') is-invalid @enderror" id="inputCity" value="{{old('tentang')}}"></textarea>
-                        @error('tentang')
-                          <div class="alert alert-danger mt-2">
-                              {{ $message }}
-                          </div>
-                      @enderror
-                      </div>
-                    <div class="col-md-12">
-                      <label for="inputCity" class="form-label">Foto</label>
-                      <input class="form-control @error('foto') is-invalid @enderror" name="foto" type="file" id="formFile">
-                      @error('foto')
-                        <div class="alert alert-danger mt-2">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                      <small id="emailHelp" class="form-text text-muted">File max. 150 KB</small>
-                    </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">password</label>
                         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="inputCity">

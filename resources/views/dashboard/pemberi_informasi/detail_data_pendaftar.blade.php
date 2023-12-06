@@ -30,10 +30,10 @@
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                         <img src="
-                        @if(Auth::user()->foto_user == 'default.jpg')
-                        {{ Storage::url('public/user/default/').Auth::user()->foto_user}}
+                        @if($data->foto_pencari_kerja == 'default.jpg')
+                        {{ Storage::url('public/user/default/').$data->foto_pencari_kerja}}
                         @else
-                        {{ Storage::url('public/user/').Auth::user()->foto_user}}
+                        {{ Storage::url('public/user/').$data->foto_pencari_kerja}}
                         @endif
                         " alt="Profile" class="rounded-circle">
                         <h2>{{$data->nama_lengkap}}</h2>
@@ -103,13 +103,39 @@
                                         @endif
                                     </div>
                                 </div>
-                                
+
+                            </div>
+                        </div><!-- End Bordered Tabs -->
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <div class="tab-content pt-2">
+
+                            <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                <h5 class="card-title">Permohonan lamaran</h5>
+                                <p class="small fst-italic">{!!$data->pesan!!}</p>
+
+                                <h5 class="card-title">Lampiran</h5>
+
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 label ">File CV</div>
+                                    <div class="col-lg-8 col-md-8"><a href="{{Storage::url('public/syarat/'). $data->cv}}"> Download CV</a></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 label ">Portofolio</div>
+                                    <div class="col-lg-8 col-md-8">{{$data->nama_lengkap}}</div>
+                                </div>
+
                                 <div class="text-right">
                                     <a href="" class="btn btn-primary" data-toggle="modal" data-target="#verifikasi-lamaran{{$data->id_lamar}}">Verfikasi</a>
                                     <a href="/home" class="btn btn-secondary mr-1">Kembali</a>
                                 </div>
+
                             </div>
-                            @include('dashboard/modal/modal-verifikasi-lamaran')
                         </div><!-- End Bordered Tabs -->
 
                     </div>
@@ -118,6 +144,7 @@
             </div>
         </div>
     </section>
+    @include('dashboard/modal/modal-verifikasi-lamaran')
 
 </main><!-- End #main -->
 @include('dashboard/templates/footer')

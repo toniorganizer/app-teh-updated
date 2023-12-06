@@ -88,10 +88,11 @@
                                     <div class="col-lg-3 col-md-4 label">Alamat Instansi</div>
                                     <div class="col-lg-9 col-md-8">{{$data->alamat}}</div>
                                 </div>
-
+                                @if(Auth::user()->level == 4)
                                 <div class="text-right">
                                     <a href="{{ route('sumber.edit', $data->id_pemberi_informasi) }}" class="btn btn-primary">Lengkapi Data</a>
                                 </div>
+                                @endif
                             </div>
 
                             

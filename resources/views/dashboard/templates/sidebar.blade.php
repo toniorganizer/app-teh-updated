@@ -329,6 +329,8 @@
                     /profil-tenaga-kerja/{{Auth::user()->email}}
                 @elseif(Auth::user()->level == 1)
                     /profil-admin/{{Auth::user()->email}}
+                @elseif(Auth::user()->level == 5)
+                        {{route('bursa.show', Auth::user()->email) }}
                 @endif
             ">
             @elseif($sub_title == 'Profile')
@@ -341,6 +343,8 @@
                     /profil-tenaga-kerja/{{Auth::user()->email}}
                 @elseif(Auth::user()->level == 1)
                     /profil-admin/{{Auth::user()->email}}
+                    @elseif(Auth::user()->level == 5)
+                    {{route('bursa.show', Auth::user()->email) }}
                 @endif
             ">
             @else
@@ -353,6 +357,8 @@
                     /profil-tenaga-kerja/{{Auth::user()->email}}
                 @elseif(Auth::user()->level == 1)
                     /profil-admin/{{Auth::user()->email}}
+                @elseif(Auth::user()->level == 5)
+                        {{route('bursa.show', Auth::user()->email) }}
                 @endif
             ">
             @endif

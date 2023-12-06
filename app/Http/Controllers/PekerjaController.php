@@ -155,7 +155,7 @@ class PekerjaController extends Controller
 
     public function DetailLowongan($id){
         $data = InformasiLowongan::where('id_informasi_lowongan',$id)->first();
-        $item = InformasiLowongan::join('users', 'users.id_user','=','informasi_lowongans.pemberi_informasi_id')->join('pemberi_informasis', 'pemberi_informasis.email_instansi','=', 'users.email')->first();
+        $item = InformasiLowongan::join('users', 'users.id_user','=','informasi_lowongans.pemberi_informasi_id')->join('pemberi_informasis', 'pemberi_informasis.email_instansi','=', 'users.email')->where('id_informasi_lowongan', $id)->first();
 
         $exists = DB::table('lamars')
         ->where('id_pelamar', Auth::user()->email)
@@ -183,14 +183,90 @@ class PekerjaController extends Controller
     public function lamarLowonganPekerjaan(Request $request){
         $this->validate($request, [
             'pesan' => 'required|min:15',
+            'cv' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'ijazah' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'portofolio' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        Lamar::create([
-            'id_informasi' => $request->id_informasi,
-            'id_pelamar' => $request->id_pelamar,
-            'status' => 0,
-            'pesan' => $request->pesan
-        ]);
+        if($request->hasFile('cv') && $request->hasFile('portofolio') && $request->hasFile('ijazah')){
+            $foto_cv = $request->file('cv');
+            $foto_cv->storeAs('public/syarat', $foto_cv->hashName());
+
+            $foto_ijazah = $request->file('ijazah');
+            $foto_ijazah->storeAs('public/syarat', $foto_ijazah->hashName());
+
+            $foto_portofolio = $request->file('portofolio');
+            $foto_portofolio->storeAs('public/syarat', $foto_portofolio->hashName());
+
+            Lamar::create([
+                'id_informasi' => $request->id_informasi,
+                'id_pelamar' => $request->id_pelamar,
+                'cv' => $foto_cv->hashName(),
+                'ijazah' => $foto_ijazah->hashName(),
+                'portofolio' => $foto_portofolio->hashName(),
+                'status' => 0,
+                'pesan' => $request->pesan
+            ]);
+
+        }elseif($request->hasFile('cv') && $request->hasFile('ijazah')){
+            $foto_cv = $request->file('cv');
+            $foto_cv->storeAs('public/syarat', $foto_cv->hashName());
+
+            $foto_ijazah = $request->file('ijazah');
+            $foto_ijazah->storeAs('public/syarat', $foto_ijazah->hashName());
+
+
+            Lamar::create([
+                'id_informasi' => $request->id_informasi,
+                'id_pelamar' => $request->id_pelamar,
+                'cv' => $foto_cv->hashName(),
+                'ijazah' => $foto_ijazah->hashName(),
+                'portofolio' => '-',
+                'status' => 0,
+                'pesan' => $request->pesan
+            ]);
+        }elseif($request->hasFile('cv')){
+            $foto_cv = $request->file('cv');
+            $foto_cv->storeAs('public/syarat', $foto_cv->hashName());
+            Lamar::create([
+                'id_informasi' => $request->id_informasi,
+                'id_pelamar' => $request->id_pelamar,
+                'cv' => $foto_cv->hashName(),
+                'ijazah' => '-',
+                'portofolio' => '-',
+                'status' => 0,
+                'pesan' => $request->pesan
+            ]);
+        }elseif($request->hasFile('ijazah')){
+
+            $foto_ijazah = $request->file('ijazah');
+            $foto_ijazah->storeAs('public/syarat', $foto_ijazah->hashName());
+
+
+            Lamar::create([
+                'id_informasi' => $request->id_informasi,
+                'id_pelamar' => $request->id_pelamar,
+                'cv' => '-',
+                'ijazah' => $foto_ijazah->hashName(),
+                'portofolio' => '-',
+                'status' => 0,
+                'pesan' => $request->pesan
+            ]);
+        }else{
+            $foto_portofolio = $request->file('portofolio');
+            $foto_portofolio->storeAs('public/syarat', $foto_portofolio->hashName());
+
+
+            Lamar::create([
+                'id_informasi' => $request->id_informasi,
+                'id_pelamar' => $request->id_pelamar,
+                'cv' => '-',
+                'ijazah' => '-',
+                'portofolio' => $foto_portofolio->hashName(),
+                'status' => 0,
+                'pesan' => $request->pesan
+            ]);
+        }
 
         return redirect('/home')->with('success', 'Selamat anda berhasil melakukan lamaran kerja');
     }

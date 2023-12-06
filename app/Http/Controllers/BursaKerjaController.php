@@ -90,6 +90,7 @@ class BursaKerjaController extends Controller
         ]);
 
         $data = BursaKerja::where('email_sekolah', $id)->first();
+        
         if($request->hasFile('foto')){
             $foto = $request->file('foto');
             $foto->storeAs('public/user', $foto->hashName());

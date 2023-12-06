@@ -141,31 +141,27 @@ class AdminController extends Controller
             'email' => 'required|min:5|unique:users|email',
             'alamat' => 'required|min:5',
             'pendidikan' => 'required|min:5',
+            'umur' => 'required',
             'keterampilan' => 'required|min:5',
-            'tentang' => 'required|min:5',
             'no_hp' => 'required|min:5',
             'password' => 'required|same:password_confirmation|min:6',
             'password_confirmation' => 'required|same:password',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-
-        $foto = $request->file('foto');
-        $foto->storeAs('public/user', $foto->hashName());
 
         PencariKerja::create([
             'nama_lengkap' => $request->nama,
             'email_pk' => $request->email,
             'bkk_id' => 0,
             'alamat' => $request->alamat,
-            'pendidikan' => $request->pendidikan,
+            'pendidikan_terakhir' => $request->pendidikan,
             'keterampilan' => $request->keterampilan,
-            'tentang' => $request->tentang,
+            'tentang' => '-',
             'no_hp' => $request->no_hp,
             'umur' => $request->umur,
             'jenis_kelamin' => $request->jenis_kelamin,
             'tgl_expired' => now()->addMonth(6),
             'status_ak1' => 'Aktif',
-            'foto_pencari_kerja' => $foto->hashName(),
+            'foto_pencari_kerja' =>'default.jpg',
         ]);
 
         User::create([
@@ -176,7 +172,7 @@ class AdminController extends Controller
             'status_tracer' => 0,
             'icon' => 0,
             'password' => Hash::make($request->password),
-            'foto_user' => $foto->hashName(),
+            'foto_user' => 'default.jpg',
         ]);
 
         return redirect('/tenaga-kerja-data')->with('success', 'Data Berhasil Disimpan!');
@@ -186,9 +182,10 @@ class AdminController extends Controller
     public function hapusTenagaKerja($id){
         $id_user = DB::table('pencari_kerjas')->where('email_pk',$id)->first();
         $data = DB::table('pencari_kerjas')->where('id_pencari_kerja', $id_user->id_pencari_kerja)->first();
+        // dd($id_user->id_pencari_kerja);
         Storage::delete('public/user/' . $data->foto_pencari_kerja);
+        PencariKerja::where('id_pencari_kerja', $id_user->id_pencari_kerja)->delete();
         User::where('email',$id)->delete();
-        PencariKerja::where('email_pk',$id)->delete();
 
         return redirect('/tenaga-kerja-data')->with('success', 'Data Berhasil Dihapus!');
 

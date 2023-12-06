@@ -39,10 +39,10 @@
                       <tr>
                         <th scope="row text-center"><a href="#">
                             <img height="50px" src="
-                            @if(Auth::user()->foto_user == 'default.jpg')
-                            {{ Storage::url('public/user/default/').Auth::user()->foto_user}}
+                            @if($item->foto_pencari_kerja == 'default.jpg')
+                            {{ Storage::url('public/user/default/').$item->foto_pencari_kerja}}
                             @else
-                            {{ Storage::url('public/user/').Auth::user()->foto_user}}
+                            {{ Storage::url('public/user/').$item->foto_pencari_kerja}}
                             @endif
                             " alt=""></a></th>
                         <td>{{$item->nama_lengkap}}</td>
