@@ -80,6 +80,8 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/searching-lokasi', 'searchingLokasi');
     Route::get('/search-job', 'searchJob');
     Route::get('/search-bidang', 'searchingBidang');
+    Route::get('/lupa-password', 'lupaPassword');
+    Route::post('/reset_password', 'resetPassword');
 });
 
 Route::group(['middleware' => ['auth']], function () {
