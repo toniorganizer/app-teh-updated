@@ -185,15 +185,19 @@ class PekerjaController extends Controller
             'pesan' => 'required|min:15',
             'cv' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'ijazah' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nilai' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'portofolio' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        if($request->hasFile('cv') && $request->hasFile('portofolio') && $request->hasFile('ijazah')){
+        if($request->hasFile('cv') && $request->hasFile('portofolio') && $request->hasFile('ijazah') && $request->hasFile('nilai')){
             $foto_cv = $request->file('cv');
             $foto_cv->storeAs('public/syarat', $foto_cv->hashName());
 
             $foto_ijazah = $request->file('ijazah');
             $foto_ijazah->storeAs('public/syarat', $foto_ijazah->hashName());
+
+            $foto_nilai = $request->file('nilai');
+            $foto_nilai->storeAs('public/syarat', $foto_nilai->hashName());
 
             $foto_portofolio = $request->file('portofolio');
             $foto_portofolio->storeAs('public/syarat', $foto_portofolio->hashName());
@@ -204,16 +208,20 @@ class PekerjaController extends Controller
                 'cv' => $foto_cv->hashName(),
                 'ijazah' => $foto_ijazah->hashName(),
                 'portofolio' => $foto_portofolio->hashName(),
+                'nilai' => $foto_nilai->hashName(),
                 'status' => 0,
                 'pesan' => $request->pesan
             ]);
 
-        }elseif($request->hasFile('cv') && $request->hasFile('ijazah')){
+        }elseif($request->hasFile('cv') && $request->hasFile('ijazah') && $request->hasFile('nilai')){
             $foto_cv = $request->file('cv');
             $foto_cv->storeAs('public/syarat', $foto_cv->hashName());
 
             $foto_ijazah = $request->file('ijazah');
             $foto_ijazah->storeAs('public/syarat', $foto_ijazah->hashName());
+
+            $foto_nilai = $request->file('nilai');
+            $foto_nilai->storeAs('public/syarat', $foto_nilai->hashName());
 
 
             Lamar::create([
@@ -221,11 +229,30 @@ class PekerjaController extends Controller
                 'id_pelamar' => $request->id_pelamar,
                 'cv' => $foto_cv->hashName(),
                 'ijazah' => $foto_ijazah->hashName(),
+                'nilai' => $foto_nilai->hashName(),
                 'portofolio' => '-',
                 'status' => 0,
                 'pesan' => $request->pesan
             ]);
-        }elseif($request->hasFile('cv')){
+        }elseif($request->hasFile('cv') && $request->hasFile('portofolio')){
+            $foto_cv = $request->file('cv');
+            $foto_cv->storeAs('public/syarat', $foto_cv->hashName());
+
+            $foto_portofolio = $request->file('portofolio');
+            $foto_portofolio->storeAs('public/syarat', $foto_portofolio->hashName());
+
+
+            Lamar::create([
+                'id_informasi' => $request->id_informasi,
+                'id_pelamar' => $request->id_pelamar,
+                'cv' => $foto_cv->hashName(),
+                'portofolio' => $foto_portofolio->hashName(),
+                'ijazah' => '-',
+                'status' => 0,
+                'pesan' => $request->pesan
+            ]);
+        }
+        elseif($request->hasFile('cv')){
             $foto_cv = $request->file('cv');
             $foto_cv->storeAs('public/syarat', $foto_cv->hashName());
             Lamar::create([
@@ -268,7 +295,7 @@ class PekerjaController extends Controller
             ]);
         }
 
-        return redirect('/home')->with('success', 'Selamat anda berhasil melakukan lamaran kerja');
+        return redirect('/pekerja/'.$request->id_pelamar)->with('success', 'Selamat anda berhasil melakukan lamaran kerja');
     }
 
     public function tracerStudy(){

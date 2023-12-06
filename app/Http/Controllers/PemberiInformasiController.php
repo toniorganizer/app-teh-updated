@@ -191,9 +191,11 @@ class PemberiInformasiController extends Controller
             ]);
     }
 
-    public function detail_data_pelamar($id){
+    public function detail_data_pelamar(Request $request, $id){
 
-        $data = PencariKerja::join('lamars','lamars.id_pelamar','=','pencari_kerjas.email_pk')->where('email_pk', $id)->first();
+        // dd($request->id_informasi);
+        $data = PencariKerja::join('lamars','lamars.id_pelamar','=','pencari_kerjas.email_pk')->join('informasi_lowongans','informasi_lowongans.id_informasi_lowongan','=','lamars.id_informasi')->where('email_pk', $id)->where('id_informasi', $request->id_informasi)->first();
+        // dd($data);
   
               return view('Dashboard.pemberi_informasi.detail_data_pendaftar', [
                   'sub_title' => 'Detail Data Pendaftar',
@@ -211,10 +213,10 @@ class PemberiInformasiController extends Controller
          ]);
 
          InformasiLowongan::where('id_informasi_lowongan', $request->id_informasi)->update([
-            'status_lowongan' => 1,
+            'status_lowongan' => $request->status,
          ]);
 
-        return redirect('/detail-data-pendaftar/' . $request->email)->with('success', 'Data Berhasil Diverifikasi!');
+        return redirect('/lowongan-data')->with('success', 'Data Berhasil Diverifikasi!');
     }
 
     public function lengkapi_data_lowongan($id){

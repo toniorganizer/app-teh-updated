@@ -239,7 +239,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::controller(PemberiInformasiController::class)->group(function () {
         Route::get('/lowongan-data', 'data_lowongan');
         Route::get('/detail-pendaftar/{id}', 'data_pelamar');
-        Route::get('/detail-data-pendaftar/{id}', 'detail_data_pelamar');
+        Route::post('/detail-data-pendaftar/{id}', 'detail_data_pelamar');
         Route::get('/lengkapi-data-lowongan/{id}', 'lengkapi_data_lowongan');
         Route::post('/sumber/{id_informasi_lowongan?}/update_informasi', 'updateInformasi')->name('sumber.update_informasi');
         Route::post('/sumber/{id_lamar?}/verifikasi', 'verifikasiPelamar')->name('sumber.verifikasi');

@@ -16,6 +16,7 @@ class Lamar extends Model
         'cv',
         'ijazah',
         'portofolio',
+        'nilai',
         'status',
         'pesan'
     ];

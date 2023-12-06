@@ -86,6 +86,11 @@
             </a>
             <ul id="components-nav" class="nav-content collapse @if($title == 'Data') show @endif" data-bs-parent="#sidebar-nav">
                 <li>
+                    <a href="/tenaga-kerja-data" @if($sub_title == 'Data pencari kerja') class="active" @endif>
+                      <i class="bi bi-circle"></i><span>Data pencari kerja</span>
+                    </a>
+                </li>
+                <li>
                     <a href="/lowongan-data" @if($sub_title == 'Data Lowongan') class="active" @endif>
                       <i class="bi bi-circle"></i><span>Data Lowongan</span>
                     </a>

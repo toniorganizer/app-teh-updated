@@ -7,20 +7,28 @@
             <div class="modal-body">
                 <form class="row g-3" action="{{ route('sumber.verifikasi', $data->id_lamar)}}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    
                     <div class="col-md-12">
-                        <div class="custom-control custom-radio">
-                            <input type="hidden" name="email" value="{{$data->id_pelamar}}">
-                            <input type="hidden" name="id_informasi" value="{{$data->id_informasi}}">
+                        <input type="hidden" name="email" value="{{$data->id_pelamar}}">
+                        <input type="hidden" name="id_informasi" value="{{$data->id_informasi}}">
+                        <label for="yourEmail" class="form-label">Status Lamaran</label>
+                        <select name="status" class="form-control" id="exampleFormControlSelect2">
+                            <option>--Pilih Status Lamaran--</option>
+                            <option value="2" {{ $data->status == 2 ? 'selected' : '' }}>Pelamar masuk kriteria</option>
+                            <option value="1" {{ $data->status == 1 ? 'selected' : '' }}>Proses pemeriksanaan lamaran</option>
+                            <option value="3" {{ $data->status == 3 ? 'selected' : '' }}>Ditolak</option>
+                        </select>
+                        {{-- <div class="custom-control custom-radio">
                             <input type="radio" id="customRadio1" name="status" class="custom-control-input" value="1" {{ $data->status == 1 ? 'checked' : '' }}>
                             <label class="custom-control-label" for="customRadio1">Proses pemeriksanaan lamaran</label>
-                          </div>
+                          </div> --}}
                     </div>
-                    <div class="col-md-12">
+                    {{-- <div class="col-md-12">
                         <div class="custom-control custom-radio">
                             <input type="radio" id="customRadio2" name="status" class="custom-control-input" value="2" {{ $data->status == 2 ? 'checked' : '' }}>
                             <label class="custom-control-label" for="customRadio2">Pelamar masuk kriteria</label>
                           </div>
-                        </div>
+                    </div> --}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

@@ -27,8 +27,10 @@
                             Lamaran terkirim
                         @elseif($item->status == 1)
                             Proses pemeriksanaan lamaran
-                        @else
+                        @elseif($item->status == 2)
                             Selamat, Anda masuk kriteria perusahaan. Anda akan segera dihubungi melalui kontak yang tertera.
+                        @else
+                        Mohon maaf, anda belum memenuhi kriteria
                         @endif
                         <hr>
                         <p class="mb-0">Selalu pantau halaman ini, karena sewaktu-waktu status dapat berubah tanpa pemberitahuan</p>    
