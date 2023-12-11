@@ -102,7 +102,7 @@ class AdminController extends Controller
     }
 
     public function tenagaKerjaData(){
-        $data = PencariKerja::get();
+        $data = PencariKerja::where('status_ak1', 'Aktif')->orWhere('status_ak1', 'Belum Bekerja')->get();
         $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
         return view('Dashboard.admin.tenaga_kerja_data', [
             'sub_title' => 'Data Tenaga Kerja',
@@ -194,7 +194,9 @@ class AdminController extends Controller
     public function profilTenagaKerja($id){
         $data = PencariKerja::join('users','users.email','=','pencari_kerjas.email_pk')->join('alumnis', 'alumnis.pencari_kerja_id','=','pencari_kerjas.email_pk')->where('email_pk', $id)->first();
 
-        // dd($data->foto_pencari_kerja);
+        if(is_null($data)){
+            $data = PencariKerja::join('users','users.email','=','pencari_kerjas.email_pk')->where('email_pk', $id)->first();
+        }
 
         return view('Dashboard.admin.profil_tenaga_kerja', [
             'sub_title' => 'Profile',

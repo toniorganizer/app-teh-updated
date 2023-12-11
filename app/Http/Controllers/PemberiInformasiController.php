@@ -278,4 +278,14 @@ class PemberiInformasiController extends Controller
 
         return redirect('lowongan-data')->with('success', 'Data Berhasil Disimpan!');
     }
+
+    public function tenagaKerjaList(){
+        $data = PencariKerja::where('status_ak1', 'Belum Bekerja')->orWhere('status_ak1', 'Aktif')->get(); 
+        // dd($data);
+        return view('Dashboard.pemberi_informasi.tenaga-kerja-list', [
+            'sub_title' => 'Tenaga Kerja',
+            'title' => 'Tenaga Kerja',
+            'data' => $data
+        ]);
+    }
 }

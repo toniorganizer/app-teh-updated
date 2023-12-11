@@ -252,6 +252,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/tracer-data', 'dataTracer');
     });
 
+    Route::controller(PemberiInformasiController::class)->group(function (){
+        Route::get('/tenaga-kerja-list', 'tenagaKerjaList');
+    });
+
 });
 
 

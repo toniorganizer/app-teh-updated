@@ -97,6 +97,16 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">Jurusan</div>
+                                    @if($data->jurusan == '')
+                                    <div class="col-lg-9 col-md-8">-</div>
+                                    @else
+                                    <div class="col-lg-9 col-md-8">{{$data->jurusan}}</div>
+                                    @endif
+                                </div>
+
+
+                                <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Keterampilan</div>
                                     <div class="col-lg-9 col-md-8">{{$data->keterampilan}}</div>
                                 </div>
@@ -123,7 +133,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Status Bekerja</div>
+                                    @if($data->status_bekerja == '')
+                                    <div class="col-lg-9 col-md-8">-</div>
+                                    @else
                                     <div class="col-lg-9 col-md-8">{{$data->status_bekerja}}</div>
+                                    @endif
                                 </div>
                                 @if($data->status_bekerja == 'Sudah Bekerja')
                                 <div class="row">

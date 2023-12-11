@@ -76,6 +76,20 @@
         @endif
         @if(auth::user()->level == 4)
 
+        </li>
+        <li class="nav-item">
+            @if($title == 'Tenaga Kerja')
+            <a class="nav-link " href="/tenaga-kerja-list">
+            @elseif($sub_title == 'Tenaga Kerja')
+            <a class="nav-link " href="/tenaga-kerja-list">
+            @else
+            <a class="nav-link collapsed" href="/tenaga-kerja-list">
+            @endif
+            <i class="bi bi-people-fill"></i>
+                <span>Tenaga Kerja</span>
+            </a>
+        </li>
+
         <li class="nav-item">
             @if($title == 'Data')
                 <a class="nav-link" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
