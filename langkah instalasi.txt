@@ -1,0 +1,12 @@
+Langkah instalasi
+
+1. Buat file .env pada root (Bisa copy file .env.example)
+2. Buka file .env yang telah dibuat, kemudian ganti nama database pada baris ke 14 sesuai dengan nama database yang ada di phpmyadmin
+3. Jalankan perintan composer update pada terminal (pastikan sudah berada didalam folder project)
+4. Jalankan perintah php artisan key:generate setelah langkah ke tiga selesai
+5. Coba dijalankan menggunakan perintah php artisan serve
+
+Menggunakan :
+Laravel versi 9
+PHP versi 8.2
+Database yang digunakan file .sql dengan nama sipk_updated.sql

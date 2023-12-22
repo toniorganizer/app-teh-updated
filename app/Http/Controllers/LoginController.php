@@ -91,7 +91,7 @@ class LoginController extends Controller
         $user = User::where('email', $email)->first();
         
         if (!$user) {
-            return back()->with('not-registered', 'E-mail yang anda masukan belum terdaftar');
+            return back()->with('not-registered', 'E-mail yang anda masukan belum terdaftar. Gunakan E-mail yang anda gunakan dalam proses registrasi!');
         }
 
         if($user){

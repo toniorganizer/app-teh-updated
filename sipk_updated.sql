@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2023 at 02:30 PM
+-- Generation Time: Dec 22, 2023 at 04:00 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -49,7 +49,8 @@ INSERT INTO `alumnis` (`id_alumni`, `pencari_kerja_id`, `bkk_id`, `jurusan`, `ta
 (3, 'wery@gmail.com', 1, 'Teknik Kimia Industri', 'Tahun 2021', 'Sudah Bekerja', 'PT. Incasi Raya', '2023-08-25 23:11:08', '2023-08-25 23:11:08'),
 (5, 'handijaya@gmail.com', 1, 'Teknik Kimia Industri', 'Tahun 2021', 'Sudah Bekerja', 'PT. Incasi Raya', '2023-08-25 23:24:12', '2023-08-25 23:24:12'),
 (7, 'herman@gmail.com', 3, 'Administrasi Perkantoran', 'Tahun 2021', 'Sudah Bekerja', 'PT DSL', '2023-10-04 05:11:59', '2023-10-07 05:08:40'),
-(8, 'nurhidayah@gmail.com', 4, 'Administrasi Perkantoran', 'Tahun 2020', 'Belum Bekerja', '-', '2023-12-05 20:40:08', '2023-12-05 20:40:08');
+(8, 'nurhidayah@gmail.com', 4, 'Administrasi Perkantoran', 'Tahun 2020', 'Belum Bekerja', '-', '2023-12-05 20:40:08', '2023-12-05 20:40:08'),
+(9, 'ryan_21@gmail.com', 3, 'Administrasi Perkantoran', 'Tahun 2021', 'Belum Bekerja', '-', '2023-12-20 23:23:10', '2023-12-20 23:23:10');
 
 -- --------------------------------------------------------
 
@@ -5069,7 +5070,7 @@ INSERT INTO `pencari_kerjas` (`id_pencari_kerja`, `bkk_id`, `nama_lengkap`, `ema
 (8, 3, 'Hermansyah', 'herman@gmail.com', 'Dharmasraya, Sumatera Barat', 23, 'Perempuan', 'Sekolah Menengah Kejuruan', 'Administrasi perkantoran', '081266255524', 'Saya sangat menyukai bidang administrasi', '2024-04-06', 'Bekerja', 'SHWokBzPgEYzULJ56jw8J7DyRnPKtpJaCu3R4aBp.jpg', '2023-10-03 06:16:27', '2023-10-07 05:08:40', NULL),
 (10, 0, 'Bayu Hajayanto', 'bayu_hajayanto@gmail.com', 'Dharmasraya, Sumatera Barat', 21, 'Laki-laki', 'S1 - Desain Komunikasi Visual', 'Coreldraw, Adobe Photoshop', '081277265590', '-', '2024-06-06', 'Aktif', 'default.jpg', '2023-12-05 19:38:40', '2023-12-05 19:44:35', '2023-12-05 19:44:35'),
 (11, 4, 'Nur hidayah', 'nurhidayah@gmail.com', '-', 21, 'Perempuan', '-', '-', '-', '-', '2024-06-06', 'Belum Bekerja', 'default.jpg', '2023-12-05 20:38:34', '2023-12-05 20:40:08', NULL),
-(12, 0, 'Ryan adiawan', 'ryan_21@gmail.com', '-', 21, 'Laki-laki', '-', '-', '-', '-', '2024-06-06', 'Belum Bekerja', 'default.jpg', '2023-12-05 23:26:09', '2023-12-05 23:26:09', NULL);
+(12, 3, 'Ryan adiawan', 'ryan_21@gmail.com', '-', 21, 'Laki-laki', '-', '-', '-', '-', '2024-06-06', 'Belum Bekerja', 'default.jpg', '2023-12-05 23:26:09', '2023-12-20 23:23:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -5170,7 +5171,7 @@ INSERT INTO `users` (`id_user`, `name`, `email`, `username`, `email_verified_at`
 (28, 'PT Transco Koto Baru', 'transco_kobar@gmail.com', 'transco_kobar', NULL, '$2y$10$lf0IpYlEPlbkjASxp5/bfe2LCqZFVyW2HOddg0chfbT384KiHJMIK', '4', 0, '0', 'default.jpg', NULL, '2023-12-05 19:23:43', '2023-12-05 19:23:43'),
 (29, 'SMKN 1 Padang', 'smkn1padang@gmail.com', 'smkn1padang', NULL, '$2y$10$0ZtQpchIbLjjxqOIRPy/8OfM3XUOhi/J5I8rDB0hjoRQ6n4ImQV0C', '5', 0, '0', 'default.jpg', NULL, '2023-12-05 19:24:26', '2023-12-05 19:24:26'),
 (31, 'Nur hidayah', 'nurhidayah@gmail.com', 'nur_hidayah', NULL, '$2y$10$CthDQ4DQBwq/9JOfAMD7wezoLfqigiSB80LO3I8mjIDpf/.MJ2YQC', '2', 1, '0', 'default.jpg', NULL, '2023-12-05 20:38:35', '2023-12-05 20:40:08'),
-(32, 'Ryan adiawan', 'ryan_21@gmail.com', 'ryan_21', NULL, '$2y$10$ojwU3a2wGvfoiEZT46kPLOOo6yMxmzprvOUNyEiSdMoVMlmyEfkj.', '2', 0, '0', 'default.jpg', NULL, '2023-12-05 23:26:09', '2023-12-05 23:26:09');
+(32, 'Ryan adiawan', 'ryan_21@gmail.com', 'ryan_21', NULL, '$2y$10$ojwU3a2wGvfoiEZT46kPLOOo6yMxmzprvOUNyEiSdMoVMlmyEfkj.', '2', 1, '0', 'default.jpg', NULL, '2023-12-05 23:26:09', '2023-12-20 23:23:10');
 
 --
 -- Indexes for dumped tables
@@ -5323,7 +5324,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `alumnis`
 --
 ALTER TABLE `alumnis`
-  MODIFY `id_alumni` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_alumni` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `bursa_kerjas`
