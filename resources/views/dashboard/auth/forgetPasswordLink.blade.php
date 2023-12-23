@@ -40,7 +40,7 @@
                                     <p class="alert alert-primary">{{session('message')}}</p>
                                 @endif
 
-                                <form class="row g-3 needs-validation" method="post" action="forget-password">
+                                <form class="row g-3 needs-validation" action="{{ route('reset.password.post') }}" method="post">
                                     @csrf
                                     <div class="col-12">
                                         <label for="yourUsername" class="form-label">Masukan E-mail terdaftar</label>
@@ -48,17 +48,34 @@
                                             <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
                                             <input autofocus type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="yourUsername">
                                             @error('email')
-                                            <div class="invalid-feedback">
-                                                {{$message}}
-                                            </div>
-                                            @enderror
+                                                <div class="invalid-feedback">
+                                                    {{$message}}
+                                                </div>
+                                        @enderror
                                         </div>
                                     </div>
+
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100" type="submit">Reset</button>
+                                        <label for="yourPassword" class="form-label">Password Baru</label>
+                                        <input type="password" name="password_baru" class="form-control @error('password_baru') is-invalid @enderror" id="yourPassword">
+                                        @error('password_baru')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="yourPassword" class="form-label">Ulangi Password</label>
+                                        <input type="password" name="ulangi_password" class="form-control @error('ulangi_password') is-invalid @enderror" id="yourPassword">
+                                        @error('ulangi_password')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                        @enderror
                                     </div>
                                     <div class="col-12">
-                                        <p class="small mb-0">Halaman login? <a href="/login">Login</a></p>
+                                        <button class="btn btn-primary w-100" type="submit">Ubah Password</button>
                                     </div>
                                 </form>
 

@@ -17,11 +17,6 @@ class LoginController extends Controller
     public function index()
     {
         if (Auth::user()) {
-            // if ($user->level == 1) {
-            //     return redirect()->intended('dashboard-admin');
-            // } elseif ($user->level == 2) {
-            //     return redirect()->intended('dashboard-pekerja');
-            // }
             return redirect()->intended('/home');
         }
 
@@ -71,39 +66,6 @@ class LoginController extends Controller
     public function lupaPassword(){
         return view('dashboard.auth.lupa-password');
     }
-
-    public function resetPassword(Request $request){
-        $request->validate([
-            'email' => 'required',
-            'password_baru' => 'required|same:ulangi_password',
-            'ulangi_password' => 'required|same:password_baru',
-        ], [
-            'email.required' => 'E-mail tidak boleh kosong',
-            'password_baru.required' => 'Password tidak boleh kosong',
-            'ulangi_password.required' => 'Password tidak boleh kosong',
-            'password_baru.same' => 'Password harus sama dengan ulangi password',
-            'ulangi_password.same' => 'Konfirmasi password harus sama dengan password baru',
-        ]);
-        
-        $email = $request->input('email');
-        $ulangi_password = $request->input('ulangi_password');
-
-        $user = User::where('email', $email)->first();
-        
-        if (!$user) {
-            return back()->with('not-registered', 'E-mail yang anda masukan belum terdaftar. Gunakan E-mail yang anda gunakan dalam proses registrasi!');
-        }
-
-        if($user){
-            User::where('email',$request->email)->update([
-                'password' => Hash::make($ulangi_password)
-            ]);
-            return redirect('/lupa-password')->with('success', 'Reset Password berhasil dilakukan');
-        }
-        
-        return back()->with('error', 'Reset Password gagal');
-    }
-
 
     public function detail_lowongan($id){
 

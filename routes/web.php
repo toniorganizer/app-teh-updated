@@ -11,6 +11,7 @@ use App\Http\Controllers\PekerjaController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\BursaKerjaController;
 use App\Http\Controllers\DataPencariKerjaController;
+use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\GolonganUsahaController;
 use App\Http\Controllers\JenisPendidikanController;
 use App\Http\Controllers\KelompokJabatanController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\PemberiInformasiController;
 use App\Http\Controllers\PencariPenerimaController;
 use App\Models\DataPencariKerja;
 use App\Models\JenisPendidikan;
+use Illuminate\Auth\Notifications\ResetPassword;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
@@ -81,7 +83,12 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/search-job', 'searchJob');
     Route::get('/search-bidang', 'searchingBidang');
     Route::get('/lupa-password', 'lupaPassword');
-    Route::post('/reset_password', 'resetPassword');
+});
+
+Route::controller(ForgetPasswordController::class)->group(function (){
+    Route::post('/forget-password', 'submitForgetPasswordForm');
+    Route::post('reset-password', 'submitResetPasswordForm')->name('reset.password.post');
+    Route::get('reset-password/{token}','showResetPasswordForm')->name('reset.password.get');
 });
 
 Route::group(['middleware' => ['auth']], function () {

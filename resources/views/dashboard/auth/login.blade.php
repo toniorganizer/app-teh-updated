@@ -28,6 +28,10 @@
                                     <p class="alert alert-danger">{{session('error')}}</p>
                                 @endif
 
+                                @if(session('success'))
+                                    <p class="alert alert-primary">{{session('success')}}</p>
+                                @endif
+
                                 @if(session('not-registered'))
                                     <p class="alert alert-danger">{{session('not-registered')}}</p>
                                 @endif
