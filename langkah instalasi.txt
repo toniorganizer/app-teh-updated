@@ -1,7 +1,7 @@
 Langkah instalasi
 
 1. Buat file .env pada root (Bisa copy file .env.example)
-2. Composer install
+2. Buat perintan Composer install pada terminal
 3. Buka file .env yang telah dibuat, kemudian ganti nama database pada baris ke 14 sesuai dengan nama database yang ada di phpmyadmin
 4. Jalankan perintan composer update pada terminal (pastikan sudah berada didalam folder project)
 5. Jalankan perintah php artisan key:generate setelah langkah ke tiga selesai
