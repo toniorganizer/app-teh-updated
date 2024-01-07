@@ -362,7 +362,7 @@
                     /profil-tenaga-kerja/{{Auth::user()->email}}
                 @elseif(Auth::user()->level == 1)
                     /profil-admin/{{Auth::user()->email}}
-                    @elseif(Auth::user()->level == 5)
+                @elseif(Auth::user()->level == 5)
                     {{route('bursa.show', Auth::user()->email) }}
                 @endif
             ">

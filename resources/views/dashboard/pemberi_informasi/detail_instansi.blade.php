@@ -32,13 +32,13 @@
 
                         <img src="
                         @if(Auth::user()->foto_user == 'default.jpg')
-                        {{ Storage::url('public/user/default/').Auth::user()->foto_user}}
+                        {{ Storage::url('public/user/default/').$data->foto_instansi}}
                         @else
-                        {{ Storage::url('public/user/').Auth::user()->foto_user}}
+                        {{ Storage::url('public/user/').$data->foto_instansi}}
                         @endif
                         " alt="Profile" class="rounded-circle">
                         <h2>{{$data->nama_instansi}}</h2>
-                        <h3>{{$data->bidang_instansi}}</h3>
+                        <h3>{{$data->email_instansi}}</h3>
                         <div class="social-links mt-2">
                             @if($data->website_instansi != '-')
                             <a href="{{$data->website_instansi}}" class="twitter" target="_blank"><i class="bi bi-globe2"></i></a>

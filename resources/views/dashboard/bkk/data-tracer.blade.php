@@ -38,7 +38,7 @@
                         <!-- Table with stripped rows -->
                         <div class="row">
                             <div class="col-md-12 overflow-scroll">
-                                <a href="/cetak-alumni/{{Auth::user()->email}}" class="btn btn-success ml-3 mb-1"><i class="bi bi-file-earmark-excel"></i>Cetak</a>
+                                <a href="/cetak-alumni/{{Auth::user()->email}}" class="btn btn-success ml-2 mb-1"><i class="bi bi-file-earmark-excel"></i>Cetak</a>
                                 <table class="table datatable">
                                     <thead>
                                         <tr>

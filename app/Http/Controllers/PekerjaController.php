@@ -24,7 +24,7 @@ class PekerjaController extends Controller
      */
     public function index()
     {
-        $data = InformasiLowongan::leftJoin('lamars','lamars.id_informasi','=','informasi_lowongans.id_informasi_lowongan')->select('id_informasi', 'judul_lowongan','status_lowongan','id_informasi_lowongan','perusahaan','foto_lowongan', 'verifikasi', DB::raw('count(id_informasi) as jumlah_pelamar'))->groupBy('id_informasi', 'judul_lowongan','status_lowongan','id_informasi_lowongan','perusahaan','foto_lowongan', 'verifikasi')->where('status_lowongan', 0)->get();
+        $data = InformasiLowongan::leftJoin('lamars','lamars.id_informasi','=','informasi_lowongans.id_informasi_lowongan')->select('id_informasi', 'judul_lowongan','status_lowongan','id_informasi_lowongan','perusahaan','foto_lowongan', 'verifikasi', DB::raw('count(id_informasi) as jumlah_pelamar'))->groupBy('id_informasi', 'judul_lowongan','status_lowongan','id_informasi_lowongan','perusahaan','foto_lowongan', 'verifikasi')->where('status_lowongan', 1)->orWhere('status_lowongan', 3)->orWhere('status_lowongan', 0)->get();
 
         return view('Dashboard.pencari_kerja.data-lowongan', [
             'sub_title' => 'Data Lowongan',

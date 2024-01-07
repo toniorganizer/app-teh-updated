@@ -36,7 +36,7 @@
                         <div class="social-links mt-2">
                             <span class="text-success small pt-1 fw-bold">{{$item->jumlah_pelamar}}</span> <span class="text-muted small pt-2 ps-1">Pendaftar</span>
                         </div>
-                        @if($item->status_lowongan == 0)
+                        @if($item->status_lowongan == 1 || $item->status_lowongan == 3 || $item->status_lowongan == 0)
                         <div class="social-links mt-2">
                             <a href="/detail-lowongan-pekerja/{{$item->id_informasi_lowongan}}" class="detail-pendaftar">Lihat Detail Lowongan</a>
                         </div>
