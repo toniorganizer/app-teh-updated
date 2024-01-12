@@ -85,6 +85,11 @@
                                               Perempuan
                                             </label>
                                           </div>
+                                          @error('jenis_kelamin')
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
 
                                     <div class="col-12">

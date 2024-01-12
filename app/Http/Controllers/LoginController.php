@@ -83,9 +83,24 @@ class LoginController extends Controller
         $this->validate($request, [
             'username' => 'required|min:5',
             'name' => 'required|min:5',
+            'jenis_kelamin' => 'required',
+            'umur' => 'required',
             'email' => 'required|min:5|unique:users|email',
             'password' => 'required|same:ulangi_password|min:6',
             'ulangi_password' => 'required|same:password'
+        ],
+        [
+            'username.required' => 'Username tidak boleh kosong',
+            'username.min' => 'Username minimal berisi 5 karakter',
+            'username.unique' => 'Username yang anda masukan sudah terdaftar',
+            'name.required' => 'Nama tidak boleh kosong',
+            'umur.required' => 'Umur tidak boleh kosong',
+            'jenis_kelamin.required' => 'Jenis kelamin harus diisi',
+            'email.required' => 'E-mail tidak boleh kosong',
+            'password.required' => 'Password tidak boleh kosong',
+            'password.min' => 'Password minimal berisi 6 karakter',
+            'password.same' => 'Password harus sama dengan konfirmasi password',
+            'ulangi_password.same' => 'Konfirmasi password harus sama dengan password',
         ]);
 
 

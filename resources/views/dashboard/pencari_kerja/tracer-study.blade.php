@@ -60,7 +60,7 @@
                                     <input type="hidden" name="id_user" value="{{Auth::user()->id_user}}" id="">
                                     <input type="hidden" name="email_pk" value="{{Auth::user()->email}}" id="">
                                     <input type="hidden" name="status" value="1" id="">
-                                    <input type="text" name="tahun_lulus" class="form-control @error('tahun_lulus') is-invalid @enderror" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    <input type="text" name="tahun_lulus" value="{{old('tahun_lulus')}}" class="form-control @error('tahun_lulus') is-invalid @enderror" id="exampleInputEmail1" aria-describedby="emailHelp">
                                     <small id="emailHelp" class="form-text text-muted">
                                         Ex : Tahun 2019
                                     </small>
@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="col-lg-11 mt-3">
                                     <label for="inputAddress2" class="form-label">Jurusan</label>
-                                    <input type="text" name="jurusan" id="jurusan" class="form-control @error('jurusan') is-invalid @enderror" id="inputAddress2">
+                                    <input type="text" name="jurusan" id="jurusan" value="{{old('jurusan')}}" class="form-control @error('jurusan') is-invalid @enderror" id="inputAddress2">
                                     <small id="emailHelp" class="form-text text-muted">
                                         Ex : Teknik Kimia Industri 
                                     </small>
@@ -85,7 +85,7 @@
                                 <div class="col-lg-11 mt-3">
                                     <label for="exampleFormControlSelect2">Sekollah Asal</label>
                                     <select name="id_bkk" class="form-control" id="exampleFormControlSelect1">
-                                        <option>Pilih Sekolah</option>
+                                        <option value="0">Pilih Sekolah</option>
                                         @foreach($bkk as $item)
                                         <option value="{{$item->id_bkk}}">{{$item->nama_sekolah}}</option>
                                         @endforeach
@@ -93,7 +93,7 @@
                                     <small id="emailHelp" class="form-text text-muted">
                                         Pilih sesuai dengan sekolah anda. jika belum tersedia, silahkan hubungi BKK untuk register sekolah terlebih dahulu. 
                                     </small>
-                                    @error('judul_lowongan')
+                                    @error('id_bkk')
                                     <small id="emailHelp" class="form-text text-muted">
                                         {{$message}}
                                     </small>
@@ -113,10 +113,15 @@
                                           Belum Bekerja
                                         </label>
                                       </div>
+                                      @error('status_bekerja')
+                                        <small id="emailHelp" class="form-text text-muted">
+                                            {{$message}}
+                                        </small>
+                                        @enderror
                                 </div>
                                 <div class="col-lg-11 mt-3">
                                     <label for="inputAddress2" class="form-label">Tempat Kerja</label>
-                                    <input type="text" name="tempat_kerja" id="tempat_kerja" class="form-control @error('tempat_kerja') is-invalid @enderror" id="inputAddress2" value="-">
+                                    <input type="text" name="tempat_kerja" id="tempat_kerja" value="{{old('tempat_kerja')}}" class="form-control @error('tempat_kerja') is-invalid @enderror" id="inputAddress2" value="-">
                                     <small id="emailHelp" class="form-text text-muted">
                                         Abaikan jika belum bekerja.
                                     </small>

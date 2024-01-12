@@ -80,10 +80,11 @@
                                         <div class="form-group mb-3">
                                             <textarea name="pesan" class="form-control @error('pesan') is-invalid @enderror ckeditor" id="ckeditor" rows="3"></textarea>
                                             @error('pesan')
-                                            <small id="emailHelp" class="form-text text-muted">
-                                                {{$message}}
-                                            </small>
+                                            <div class="alert alert-danger mt-2">
+                                                {{ $message }}
+                                            </div>
                                             @enderror
+                                        </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-1"></div>
