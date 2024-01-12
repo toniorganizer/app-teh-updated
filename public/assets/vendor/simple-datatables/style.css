@@ -223,3 +223,13 @@ table.datatable-table:focus {
 	outline: solid 1px black;
 	outline-offset: -1px;
 }
+
+.img-lowongan{
+	width: auto !important;
+	height: 100px !important;
+	transition: all 1s ease;
+}
+
+.img-lowongan:hover{
+	transform: scale(1.07);
+}

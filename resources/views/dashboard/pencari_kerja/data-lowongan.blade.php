@@ -19,7 +19,7 @@
     <section class="section profile">
         <div class="row">
             @foreach ($data as $item)
-            <div class="col-xl-4">
+            <div class="col-xl-4 col-md-6">
                     
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
@@ -30,7 +30,7 @@
                         @else
                         {{ Storage::url('public/informasi-lowongan/').$item->foto_lowongan}}
                         @endif
-                        " alt="Profile" class="img-fluid">
+                        " alt="Profile" class="img-fluid img-lowongan">
                         <h2>{{$item->judul_lowongan}}</h2>
                         <h3>{{$item->bidang}}</h3>
                         <div class="social-links mt-2">

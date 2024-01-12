@@ -39,9 +39,18 @@
                         <h2>{{$data->nama_sekolah}}</h2>
                         <h3>{{$data->username}}</h3>
                         <div class="social-links mt-2">
+                            @if($data->website_sekolah == '-')
+                            @else
                             <a href="{{$data->website_sekolah}}" class="twitter" target="_blank"><i class="bi bi-globe2"></i></a>
+                            @endif
+                            @if($data->facebook_sekolah == '-')
+                            @else
                             <a href="https://web.facebook.com/{{$data->facebook_sekolah}}" class="facebook" target="_blank"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="instagram" target="_blank"><i class="bi bi-instagram"></i></a>
+                            @endif
+                            @if($data->instagram_sekolah == '-')
+                            @else
+                            <a href="https://www.instagram.com/{{$data->instagram_sekolah}}" class="instagram" target="_blank"><i class="bi bi-instagram"></i></a>
+                            @endif
                         </div>
                     </div>
                 </div>

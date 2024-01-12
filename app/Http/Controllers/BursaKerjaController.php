@@ -57,7 +57,7 @@ class BursaKerjaController extends Controller
 
         return view('Dashboard.bkk.profil-sekolah', [
             'sub_title' => 'Profil Sekolah',
-            'title' => 'Data',
+            'title' => 'Profile',
             'data' => $data,
         ]);
     }

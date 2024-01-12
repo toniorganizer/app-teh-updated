@@ -3,18 +3,10 @@
 namespace App\Exports;
 
 use App\Models\BursaKerja;
-use App\Models\Laporan;
-use App\Models\DataPencariKerja;
-use Illuminate\Support\Facades\DB;
-use App\Models\DataJenisPendidikan;
-use App\Models\PemangkuKepentingan;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\WithDrawings;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -38,7 +30,7 @@ class CetakAlumni implements WithStyles, WithTitle, FromView, WithColumnWidths
                 // Mengatur jenis huruf (font) untuk sel B2 sampai B5
                 'font' => ['name' => 'Tahoma', 'size' => 9, 'normal' => true],
             ],
-            'A6:E20' => [
+            'A6:G20' => [
                 'font' => ['name' => 'Tahoma', 'size' => 8, 'normal' => true],
                 'borders' => [
                     'allBorders' => [
@@ -46,7 +38,7 @@ class CetakAlumni implements WithStyles, WithTitle, FromView, WithColumnWidths
                         'color' => ['rgb' => '000000'], // Mengatur warna garis (hitam dalam format RGB)
                     ]],
             ],
-            'A6:E6' => [
+            'A6:G6' => [
                 'font' => ['bold' => true],
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -74,6 +66,8 @@ class CetakAlumni implements WithStyles, WithTitle, FromView, WithColumnWidths
             'C' => 25,
             'D' => 30,
             'E' => 25,
+            'F' => 25,
+            'G' => 25,
         ];
     }
 

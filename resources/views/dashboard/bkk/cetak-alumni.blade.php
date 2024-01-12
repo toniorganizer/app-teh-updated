@@ -15,6 +15,8 @@
     <th scope="col">Nama Sekolah</th>
     <th scope="col">Jurusan</th>
     <th scope="col">Tahun Lulus</th>
+    <th scope="col">Status Bekerja</th>
+    <th scope="col">Nama Perusahaan</th>
 </tr>
 <?php $no = 1; ?>
 @foreach($data as $item)
@@ -24,6 +26,8 @@
         <td>{{$item->nama_sekolah}}</td>
         <td>{{$item->jurusan}}</td>
         <td>{{$item->tahun_lulus}}</td>
+        <td>{{$item->status_bekerja}}</td>
+        <td>{{$item->tempat_kerja}}</td>
     </tr>     
 @endforeach
 </table>

@@ -58,7 +58,7 @@
                       <div class="col-12">
                         <label for="inputAddress2" class="form-label">Jenis Kelamin</label>
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" name="jenis_kelamin" class="custom-control-input" value="Perempuan" {{ $data->jenis_kelamin == 'Laki-laki' ? 'checked' : '' }}>
+                            <input type="radio" id="customRadio1" name="jenis_kelamin" class="custom-control-input" value="Laki-laki" {{ $data->jenis_kelamin == 'Laki-laki' ? 'checked' : '' }}>
                             <label class="custom-control-label" for="customRadio1">Laki-laki</label>
                           </div>
                           <div class="custom-control custom-radio">
