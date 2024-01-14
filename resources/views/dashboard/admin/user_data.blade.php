@@ -73,8 +73,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="" class="badge badge-primary">Edit</a>
-                                                    <a href="" class="badge badge-info">Detail</a>
+                                                    <a href="/detailUser/{{$user->email}}" class="badge badge-info">Detail</a>
                                                     <a href="/deleteUser/{{$user->email}}" class="badge badge-danger" onclick="return confirm('Yakin ingin menghpus?')">Hapus</a>
                                                 </td>
                                             </tr>

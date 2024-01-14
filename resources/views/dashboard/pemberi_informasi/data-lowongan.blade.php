@@ -36,7 +36,7 @@
                           @else
                           {{ Storage::url('public/informasi-lowongan/').$item->foto_lowongan}}
                           @endif
-                        " alt="Profile" class="rounded-circle">
+                        " alt="Profile" class="rounded-circle img-lowongan">
                         <h2>{{$item->judul_lowongan}}</h2>
                         <h3>{{$item->bidang}}</h3>
                         <div class="social-links mt-2">

@@ -176,7 +176,71 @@ class AdminController extends Controller
         ]);
 
         return redirect('/tenaga-kerja-data')->with('success', 'Data Berhasil Disimpan!');
+        
+    }
+    
+    public function deleteUser($id){
+        $id_user = DB::table('users')->where('email',$id)->first();
+        $data = InformasiLowongan::where('pemberi_informasi_id', $id_user->id_user)->first();
+        User::where('email', $id)->delete();
+        if($id_user->level == 2){
+            Storage::delete('public/user/' . $id_user->foto_user);
+            PencariKerja::where('email_pk', $id)->delete();
+        }elseif($id_user->level == 3){
+            Storage::delete('public/user/' . $id_user->foto_user);
+            PemangkuKepentingan::where('email_lembaga', $id)->delete();
+        }elseif($id_user->level == 4){
+            Storage::delete('public/user/' . $id_user->foto_user);
+            PemberiInformasi::where('email_instansi', $id)->delete();
+            InformasiLowongan::where('pemberi_informasi_id', $id_user->id_user)->delete();
+            if($data->id_informasi_lowongan != null){
+                Lamar::where('id_informasi', $data->id_informasi_lowongan)->delete();
+            }
+            Storage::delete('public/informasi-lowongan/'. $data->foto_lowongan);
+        }else{
+            Storage::delete('public/user/' . $id_user->foto_user);
+            BursaKerja::where('email_sekolah', $id)->delete();
+        }
+        return redirect('/user-data')->with('success', 'Data Berhasil Dihapus!');
+    }
 
+    public function detailUser($id){
+        $id_user = DB::table('users')->where('email',$id)->first();
+        if($id_user->level == 2){
+            $data = PencariKerja::join('users','users.email','=','pencari_kerjas.email_pk')->join('alumnis', 'alumnis.pencari_kerja_id','=','pencari_kerjas.email_pk')->where('email_pk', $id)->first();
+
+            if(is_null($data)){
+                $data = PencariKerja::join('users','users.email','=','pencari_kerjas.email_pk')->where('email_pk', $id)->first();
+            }
+
+            return view('Dashboard.admin.profil_tenaga_kerja', [
+                'sub_title' => 'Profile',
+                'title' => 'Profile',
+                'data' => $data
+            ]);
+        }elseif($id_user->level == 3){
+            $data = PemangkuKepentingan::join('users','users.email','=','pemangku_kepentingans.email_lembaga')->where('email_lembaga', $id)->first();
+            return view('Dashboard.pemangku-kepentingan.profile-pemangku', [
+                'sub_title' => 'Profile',
+                'title' => 'Profile',
+                'data' => $data
+            ]);
+        }elseif($id_user->level == 4){
+           $data = PemberiInformasi::where('email_instansi', $id)->first();
+            return view('Dashboard.pemberi_informasi.detail_instansi', [
+                'sub_title' => 'Data Detail Instansi',
+                'title' => 'Data',
+                'data' => $data
+            ]);
+        }else{
+            $data = BursaKerja::join('users','users.email','=','bursa_kerjas.email_sekolah')->where('email_sekolah', $id)->first();
+
+        return view('Dashboard.bkk.profil-sekolah', [
+            'sub_title' => 'Profil',
+            'title' => 'Data',
+            'data' => $data,
+        ]);
+        }
     }
 
     public function hapusTenagaKerja($id){
@@ -288,6 +352,7 @@ class AdminController extends Controller
         return redirect('/pemangku-kepentingan-data')->with('success', 'Data Berhasil Disimpan!');
 
     }
+
 
 
     public function registerUser(Request $request){

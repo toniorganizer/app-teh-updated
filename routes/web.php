@@ -103,6 +103,8 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::post('/register_user', 'registerUser');
                 Route::post('/register_lembaga', 'registerLembaga');
                 Route::get('/deleteTenagaKerja/{id}', 'hapusTenagaKerja');
+                Route::get('/deleteUser/{id}', 'deleteUser');
+                Route::get('/detailUser/{id}', 'detailUser');
                 Route::get('/uji-laporan', 'testLaporan')->name('uji-laporan');
                 Route::get('/cetak-laporan-semester', 'cetakLaporan')->name('cetak-laporan-semester');
                 Route::get('/laporan', 'Laporan')->name('laporan');

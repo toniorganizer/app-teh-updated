@@ -60,7 +60,7 @@ class LowonganController extends Controller
             'deskripsi' => 'required',
             'tgl_buka' => 'required|date',
             'tgl_tutup' => 'required|date',
-            'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
 
