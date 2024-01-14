@@ -43,8 +43,12 @@
                             @if($data->website_instansi != '-')
                             <a href="{{$data->website_instansi}}" class="twitter" target="_blank"><i class="bi bi-globe2"></i></a>
                             @endif
+                            @if($data->facebook_instansi != '-')
                             <a href="https://web.facebook.com/{{$data->facebook_instansi}}" class="facebook" target="_blank"><i class="bi bi-facebook"></i></a>
+                            @endif
+                            @if($data->instagram_instansi != '-')
                             <a href="https://www.instagram.com/{{$data->instagram_instansi}}" class="instagram" target="_blank"><i class="bi bi-instagram"></i></a>
+                            @endif
                         </div>
                     </div>
                 </div>
