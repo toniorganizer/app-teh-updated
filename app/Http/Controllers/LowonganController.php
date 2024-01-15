@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lamar;
 use App\Models\Sumber;
 use Illuminate\Http\Request;
 use App\Models\InformasiLowongan;
@@ -210,6 +211,9 @@ class LowonganController extends Controller
         $data = InformasiLowongan::where('id_informasi_lowongan', $id)->first();
         Storage::delete('public/informasi-lowongan/'. $data->foto);
         InformasiLowongan::where('id_informasi_lowongan', $id)->delete();
+        if(isset($data->id_informasi_lowongan)){
+            Lamar::where('id_informasi', $data->id_informasi_lowongan)->delete();
+        }
         return redirect('/lowongan')->with('success', 'Data Berhasil Dihapus!');
     }
 

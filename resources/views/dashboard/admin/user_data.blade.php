@@ -70,6 +70,10 @@
                                                     Pencari Kerja
                                                     @elseif($user->level == 3)
                                                     Pemangku kepentingan
+                                                    @elseif($user->level == 4)
+                                                    Industri/Kadin
+                                                    @elseif($user->level == 5)
+                                                    Sekolah
                                                     @endif
                                                 </td>
                                                 <td>

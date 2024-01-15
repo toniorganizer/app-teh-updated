@@ -252,6 +252,25 @@ class PekerjaController extends Controller
                 'cv' => $foto_cv->hashName(),
                 'portofolio' => $foto_portofolio->hashName(),
                 'ijazah' => '-',
+                'nilai' => '-',
+                'status' => 0,
+                'pesan' => $request->pesan
+            ]);
+        }
+        elseif($request->hasFile('cv') && $request->hasFile('ijazah')){
+            $foto_cv = $request->file('cv');
+            $foto_cv->storeAs('public/syarat', $foto_cv->hashName());
+
+            $foto_ijazah = $request->file('ijazah');
+            $foto_ijazah->storeAs('public/syarat', $foto_ijazah->hashName());
+
+            Lamar::create([
+                'id_informasi' => $request->id_informasi,
+                'id_pelamar' => $request->id_pelamar,
+                'cv' => $foto_cv->hashName(),
+                'ijazah' => $foto_ijazah->hashName(),
+                'portofolio' => '-',
+                'nilai' => '-',
                 'status' => 0,
                 'pesan' => $request->pesan
             ]);
@@ -265,6 +284,7 @@ class PekerjaController extends Controller
                 'cv' => $foto_cv->hashName(),
                 'ijazah' => '-',
                 'portofolio' => '-',
+                'nilai' => '-',
                 'status' => 0,
                 'pesan' => $request->pesan
             ]);
@@ -280,6 +300,7 @@ class PekerjaController extends Controller
                 'cv' => '-',
                 'ijazah' => $foto_ijazah->hashName(),
                 'portofolio' => '-',
+                'nilai' => '-',
                 'status' => 0,
                 'pesan' => $request->pesan
             ]);
@@ -293,6 +314,7 @@ class PekerjaController extends Controller
                 'id_pelamar' => $request->id_pelamar,
                 'cv' => '-',
                 'ijazah' => '-',
+                'nilai' => '-',
                 'portofolio' => $foto_portofolio->hashName(),
                 'status' => 0,
                 'pesan' => $request->pesan

@@ -193,7 +193,7 @@ class AdminController extends Controller
             Storage::delete('public/user/' . $id_user->foto_user);
             PemberiInformasi::where('email_instansi', $id)->delete();
             InformasiLowongan::where('pemberi_informasi_id', $id_user->id_user)->delete();
-            if($data->id_informasi_lowongan != null){
+            if(isset($data->id_informasi_lowongan)){
                 Lamar::where('id_informasi', $data->id_informasi_lowongan)->delete();
             }
             Storage::delete('public/informasi-lowongan/'. $data->foto_lowongan);
@@ -488,6 +488,8 @@ class AdminController extends Controller
         // PencariKerja::where('email_pk', 'wery@gmail.com')->restore();
         // PencariKerja::where('email_pk', 'wery@gmail.com')->delete();
 
+       
+
         // mengambil tahun saat ini
         $StartDateYear = date("Y") . "-01-01";
         $endDateYear = date("Y") . "-12-01";
@@ -500,45 +502,53 @@ class AdminController extends Controller
         $jmlPSebelumnya = DB::table('pencari_kerjas')
             ->where('jenis_kelamin', 'Perempuan')
             ->where('status_ak1', 'Belum bekerja')
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
             ->count();
-
-        // dd($jumlahPSebelumya);
 
         $jmlLSebelumnya = DB::table('pencari_kerjas')
             ->where('jenis_kelamin', 'Laki-laki')
             ->where('status_ak1', 'Belum bekerja')
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
             ->count();
 
         $jmlNow = DB::table('pencari_kerjas')
             ->where('status_ak1', 'Belum bekerja')
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
 
         $jmlSebelumnya = DB::table('pencari_kerjas')
             ->where('status_ak1', 'Belum bekerja')
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
             ->count();
 
         $jmlP_terdaftar = DB::table('pencari_kerjas')
             ->where('jenis_kelamin', 'Perempuan')
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
 
         $jmlL_terdaftar = DB::table('pencari_kerjas')
             ->where('jenis_kelamin', 'Laki-laki')
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
         
         $jmlP_ditempatkan = DB::table('pencari_kerjas')
             ->where('jenis_kelamin', 'Perempuan')
+            ->where('deleted_at', null)
             ->where('status_ak1', 'Bekerja')
+            ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
 
         $jmlL_ditempatkan = DB::table('pencari_kerjas')
             ->where('jenis_kelamin', 'Laki-laki')
+            ->where('deleted_at', null)
             ->where('status_ak1', 'Bekerja')
+            ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
         
         $jumlahPA = $jmlPSebelumnya + $jmlP_terdaftar;
@@ -547,6 +557,7 @@ class AdminController extends Controller
         $jmlDitempatkkan = $jmlL_ditempatkan + $jmlP_ditempatkan;
 
         $jml_terdaftar = DB::table('pencari_kerjas')
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
         
@@ -582,12 +593,14 @@ class AdminController extends Controller
     
             $maleCount = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Laki-laki')
+                ->where('deleted_at', null)
                 ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
     
             $femaleCount = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Perempuan')
+                ->where('deleted_at', null)
                 ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
@@ -607,20 +620,23 @@ class AdminController extends Controller
             $maleCountDitempatkan = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Laki-laki')
                 ->where('status_ak1', 'Bekerja')
-                ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
+                ->where('deleted_at', null)
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
+                ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
                 ->count();
     
             $femaleCountDitempatkan = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Perempuan')
                 ->where('status_ak1', 'Bekerja')
-                ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
+                ->where('deleted_at', null)
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
+                ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
                 ->count();
             
             $maleCountSebelumnya = DB::table('pencari_kerjas')
                 ->where('status_ak1', 'Belum Bekerja')
                 ->where('jenis_kelamin', 'Laki-laki')
+                ->where('deleted_at', null)
                 ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
                 ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
                 ->count();
@@ -628,18 +644,21 @@ class AdminController extends Controller
             $femaleCountSebelumnya = DB::table('pencari_kerjas')
             ->where('status_ak1', 'Belum Bekerja')
             ->where('jenis_kelamin', 'Perempuan')
+            ->where('deleted_at', null)
             ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
             ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
             ->count();
 
             $maleCountTerdaftar = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Laki-laki')
+                ->where('deleted_at', null)
                 ->whereBetween('umur', [$startAge, $endAge])
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
     
             $femaleCountTerdaftar = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Perempuan')
+                ->where('deleted_at', null)
                 ->whereBetween('umur', [$startAge, $endAge])
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
@@ -689,39 +708,61 @@ class AdminController extends Controller
         // laporan informasi lowongan
         $maleCountInformasiBelum = DB::table('informasi_lowongans')
                 ->where('jenis_kelamin', 'Laki-laki')
-                ->where('status_lowongan', 0)
+                ->where(function ($query) {
+                    $query->where('status_lowongan', 0)
+                        ->orWhere('status_lowongan', 1);
+                })
+                ->Where('deleted_at', null)
                 ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
                 ->count();
         
         $femaleCountInformasiBelum = DB::table('informasi_lowongans')
                 ->where('jenis_kelamin', 'Perempuan')
-                ->where('status_lowongan', 0)
+                ->where(function ($query) {
+                    $query->where('status_lowongan', 0)
+                        ->orWhere('status_lowongan', 1);
+                })
+                ->where('deleted_at', null)
                 ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
                 ->count();
 
         $malefemaleCountInformasiBelum = DB::table('informasi_lowongans')
                 ->where('jenis_kelamin', 'Laki-laki/Perempuan')
-                ->where('status_lowongan', 0)
+                ->where(function ($query) {
+                    $query->where('status_lowongan', 0)
+                        ->orWhere('status_lowongan', 1);
+                })
+                ->where('deleted_at', null)
                 ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
                 ->count();
         
-            $maleCountInformasiTerdaftar = DB::table('informasi_lowongans')
+            $maleCountInformasiTerdaftar =  DB::table('informasi_lowongans')
                 ->where('jenis_kelamin', 'Laki-laki')
-                ->where('status_lowongan', 0)
+                ->where(function ($query) {
+                    $query->where('status_lowongan', 0)
+                        ->orWhere('status_lowongan', 1);
+                })
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
         
         $femaleCountInformasiTerdaftar = DB::table('informasi_lowongans')
                 ->where('jenis_kelamin', 'Perempuan')
-                ->where('status_lowongan', 0)
+                ->where(function ($query) {
+                    $query->where('status_lowongan', 0)
+                        ->orWhere('status_lowongan', 1);
+                })
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
 
         $malefemaleCountInformasiTerdaftar = DB::table('informasi_lowongans')
                 ->where('jenis_kelamin', 'Laki-laki/Perempuan')
-                ->where('status_lowongan', 0)
+                ->where(function ($query) {
+                    $query->where('status_lowongan', 0)
+                        ->orWhere('status_lowongan', 1);
+                })
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
+        
 
         $jumlahInformasibelumlalu = $maleCountInformasiBelum + $femaleCountInformasiBelum + $malefemaleCountInformasiBelum;
         $jumlahInformasiterdaftarnow = $maleCountInformasiTerdaftar + $femaleCountInformasiTerdaftar + $malefemaleCountInformasiTerdaftar;
@@ -735,34 +776,49 @@ class AdminController extends Controller
 
         $informasiTerpenuhiMale = DB::table('informasi_lowongans')
             ->where('jenis_kelamin', 'Laki-laki')
-            ->where('status_lowongan', 1)
+            ->where('status_lowongan', 2)
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
         
         $informasiTerpenuhiFemale = DB::table('informasi_lowongans')
             ->where('jenis_kelamin', 'Perempuan')
-            ->where('status_lowongan', 1)
+            ->where('status_lowongan', 2)
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
 
         $informasiTerpenuhiMaleFemale = DB::table('informasi_lowongans')
             ->where('jenis_kelamin', 'Laki-laki/Perempuan')
-            ->where('status_lowongan', 1)
+            ->where('status_lowongan', 2)
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
 
         $informasiMaleDelete = DB::table('informasi_lowongans')
             ->where('jenis_kelamin', 'Laki-laki')
+            ->where(function ($query) {
+                $query->where('status_lowongan', 0)
+                    ->orWhere('status_lowongan', 1);
+            })
             ->whereBetween('deleted_at', [$StartDateYear, $endDateYear])
             ->count();
 
         $informasiFemaleDelete = DB::table('informasi_lowongans')
             ->where('jenis_kelamin', 'Perempuan')
+            ->where(function ($query) {
+                $query->where('status_lowongan', 0)
+                    ->orWhere('status_lowongan', 1);
+            })
             ->whereBetween('deleted_at', [$StartDateYear, $endDateYear])
             ->count();
 
         $informasiMaleFemaleDelete = DB::table('informasi_lowongans')
             ->where('jenis_kelamin', 'Laki-laki/Perempuan')
+            ->where(function ($query) {
+                $query->where('status_lowongan', 0)
+                    ->orWhere('status_lowongan', 1);
+            })
             ->whereBetween('deleted_at', [$StartDateYear, $endDateYear])
             ->count();
   
@@ -780,10 +836,8 @@ class AdminController extends Controller
         $jumlahInformasiMaleFemale = $jumlahInformasiMaleFemaleA - $jumlahInformasiMaleFemaleB;
 
         $jumlahInformasi = $jumlahInformasiMale + $jumlahInformasiFemale + $jumlahInformasiMaleFemale;
-        $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
 
         return view('Dashboard.admin.laporan', [
-            'sidebar_data' => $sidebar_data,
             'genderAgeCounts' => $genderAgeCounts,
             'jmlPSebelumnya' => $jmlPSebelumnya,
             'jmlLSebelumnya' => $jmlLSebelumnya,
@@ -837,7 +891,7 @@ class AdminController extends Controller
             'jumlah_informasi_male_female' => $jumlahInformasiMaleFemale,
             'jumlah_informasi' => $jumlahInformasi,
             'sub_title' => 'Laporan',
-            'title' => 'DataIPK'
+            'title' => 'Data Laporan'
         ]);
     }
 
@@ -883,6 +937,7 @@ class AdminController extends Controller
 
         $jmlNow = DB::table('pencari_kerjas')
             ->where('status_ak1', 'Belum bekerja')
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
   
@@ -890,30 +945,38 @@ class AdminController extends Controller
 
         $jmlP_terdaftar = DB::table('pencari_kerjas')
             ->where('jenis_kelamin', 'Perempuan')
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
 
         $jmlL_terdaftar = DB::table('pencari_kerjas')
             ->where('jenis_kelamin', 'Laki-laki')
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
         
         $jmlP_ditempatkan = DB::table('pencari_kerjas')
             ->where('jenis_kelamin', 'Perempuan')
+            ->where('deleted_at', null)
             ->where('status_ak1', 'Bekerja')
+            ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
 
         $jmlL_ditempatkan = DB::table('pencari_kerjas')
             ->where('jenis_kelamin', 'Laki-laki')
+            ->where('deleted_at', null)
             ->where('status_ak1', 'Bekerja')
+            ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
         
         $jumlahPA = $jmlPSebelumnya + $jmlP_terdaftar;
         $jumlahLA = $jmlLSebelumnya + $jmlL_terdaftar;
+        // dd($jumlahPA);
         $jumlahA = $jumlahPA + $jumlahLA;
         $jmlDitempatkkan = $jmlL_ditempatkan + $jmlP_ditempatkan;
 
         $jml_terdaftar = DB::table('pencari_kerjas')
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
         
@@ -949,16 +1012,19 @@ class AdminController extends Controller
     
             $maleCount = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Laki-laki')
+                ->where('deleted_at', null)
                 ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
     
             $femaleCount = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Perempuan')
+                ->where('deleted_at', null)
                 ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
-
+                
+                // dd($femaleCount);
             $maleCountDelete = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Laki-laki')
                 ->whereBetween('deleted_at', [$StartDateYear, $endDateYear])
@@ -974,6 +1040,7 @@ class AdminController extends Controller
             $maleCountDitempatkan = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Laki-laki')
                 ->where('status_ak1', 'Bekerja')
+                ->where('deleted_at', null)
                 ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
@@ -981,6 +1048,7 @@ class AdminController extends Controller
             $femaleCountDitempatkan = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Perempuan')
                 ->where('status_ak1', 'Bekerja')
+                ->where('deleted_at', null)
                 ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
@@ -988,6 +1056,7 @@ class AdminController extends Controller
             $maleCountSebelumnya = DB::table('pencari_kerjas')
                 ->where('status_ak1', 'Belum Bekerja')
                 ->where('jenis_kelamin', 'Laki-laki')
+                ->where('deleted_at', null)
                 ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
                 ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
                 ->count();
@@ -995,18 +1064,21 @@ class AdminController extends Controller
             $femaleCountSebelumnya = DB::table('pencari_kerjas')
             ->where('status_ak1', 'Belum Bekerja')
             ->where('jenis_kelamin', 'Perempuan')
+            ->where('deleted_at', null)
             ->whereBetween(DB::raw('umur'), [$startAge, $endAge])
             ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
             ->count();
 
             $maleCountTerdaftar = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Laki-laki')
+                ->where('deleted_at', null)
                 ->whereBetween('umur', [$startAge, $endAge])
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
     
             $femaleCountTerdaftar = DB::table('pencari_kerjas')
                 ->where('jenis_kelamin', 'Perempuan')
+                ->where('deleted_at', null)
                 ->whereBetween('umur', [$startAge, $endAge])
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
@@ -1049,37 +1121,58 @@ class AdminController extends Controller
         // laporan informasi lowongan
         $maleCountInformasiBelum = DB::table('informasi_lowongans')
                 ->where('jenis_kelamin', 'Laki-laki')
-                ->where('status_lowongan', 0)
-                ->whereBetween('created_at', [$startInformasiDateSebelumnya, $endInformasiDateSebelumnya])
+                ->where(function ($query) {
+                    $query->where('status_lowongan', 0)
+                        ->orWhere('status_lowongan', 1);
+                })
+                ->Where('deleted_at', null)
+                ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
                 ->count();
         
         $femaleCountInformasiBelum = DB::table('informasi_lowongans')
                 ->where('jenis_kelamin', 'Perempuan')
-                ->where('status_lowongan', 0)
-                ->whereBetween('created_at', [$startInformasiDateSebelumnya, $endInformasiDateSebelumnya])
+                ->where(function ($query) {
+                    $query->where('status_lowongan', 0)
+                        ->orWhere('status_lowongan', 1);
+                })
+                ->where('deleted_at', null)
+                ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
                 ->count();
 
         $malefemaleCountInformasiBelum = DB::table('informasi_lowongans')
                 ->where('jenis_kelamin', 'Laki-laki/Perempuan')
-                ->where('status_lowongan', 0)
-                ->whereBetween('created_at', [$startInformasiDateSebelumnya, $endInformasiDateSebelumnya])
+                ->where(function ($query) {
+                    $query->where('status_lowongan', 0)
+                        ->orWhere('status_lowongan', 1);
+                })
+                ->where('deleted_at', null)
+                ->whereBetween('created_at', [$startDateSebelumnya, $endDateSebelumnya])
                 ->count();
         
-        $maleCountInformasiTerdaftar = DB::table('informasi_lowongans')
+            $maleCountInformasiTerdaftar =  DB::table('informasi_lowongans')
                 ->where('jenis_kelamin', 'Laki-laki')
-                ->where('status_lowongan', 0)
+                ->where(function ($query) {
+                    $query->where('status_lowongan', 0)
+                        ->orWhere('status_lowongan', 1);
+                })
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
         
         $femaleCountInformasiTerdaftar = DB::table('informasi_lowongans')
                 ->where('jenis_kelamin', 'Perempuan')
-                ->where('status_lowongan', 0)
+                ->where(function ($query) {
+                    $query->where('status_lowongan', 0)
+                        ->orWhere('status_lowongan', 1);
+                })
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
 
         $malefemaleCountInformasiTerdaftar = DB::table('informasi_lowongans')
                 ->where('jenis_kelamin', 'Laki-laki/Perempuan')
-                ->where('status_lowongan', 0)
+                ->where(function ($query) {
+                    $query->where('status_lowongan', 0)
+                        ->orWhere('status_lowongan', 1);
+                })
                 ->whereBetween('created_at', [$StartDateYear, $endDateYear])
                 ->count();
 
@@ -1094,19 +1187,22 @@ class AdminController extends Controller
 
         $informasiTerpenuhiMale = DB::table('informasi_lowongans')
             ->where('jenis_kelamin', 'Laki-laki')
-            ->where('status_lowongan', 1)
+            ->where('status_lowongan', 2)
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
         
         $informasiTerpenuhiFemale = DB::table('informasi_lowongans')
             ->where('jenis_kelamin', 'Perempuan')
-            ->where('status_lowongan', 1)
+            ->where('status_lowongan', 2)
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
 
         $informasiTerpenuhiMaleFemale = DB::table('informasi_lowongans')
             ->where('jenis_kelamin', 'Laki-laki/Perempuan')
-            ->where('status_lowongan', 1)
+            ->where('status_lowongan', 2)
+            ->where('deleted_at', null)
             ->whereBetween('created_at', [$StartDateYear, $endDateYear])
             ->count();
 

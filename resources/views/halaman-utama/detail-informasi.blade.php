@@ -62,8 +62,11 @@
 
             <h2 class="title">Deskripsi Lowongan</h2>
 
-            <div class="content">
+            <div class="content deskripsi">
               {!!$data->deskripsi!!}
+              <br>
+              <h5>Keterampilan</h5>
+              <p>{{$data->keterampilan}}</p>
             </div><!-- End post content -->
 
             <div class="meta-bottom">
@@ -121,6 +124,16 @@
                     <p>Perusahaan :</p>
                     <div class="sub-judul">
                       <p>{{$data->perusahaan}}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="post-item mt-3">
+                  <i class="bi bi-person-gear"></i>
+                  <div class="judul">
+                    <p>Jurusan :</p>
+                    <div class="sub-judul">
+                      <p>{{$data->jurusan}}</p>
                     </div>
                   </div>
                 </div>

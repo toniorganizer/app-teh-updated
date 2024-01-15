@@ -84,9 +84,12 @@
                     <div class="col-12">
                         <div class="card">
 
-                            <div class="card-body">
+                            <div class="card-body deskripsi">
                                 <h5 class="card-title">Deskripsi Lowongan</h5>
                                 {!!$data->deskripsi!!}
+                                <br>
+                                <h5>Keterampilan</h5>
+                                <p>{{$data->keterampilan}}</p>
                                 <hr />
                                 <div class="meta-bottom">
                                 <i class="bi bi-person-badge-fill"></i>
@@ -132,6 +135,16 @@
                             </div>
                           </div>
           
+                          <div class="post-item mt-3">
+                            <i class="bi bi-person-gear"></i>
+                            <div class="judul">
+                              <p>Jurusan :</p>
+                              <div class="sub-judul">
+                                <p>{{$data->jurusan}}</p>
+                              </div>
+                            </div>
+                          </div>
+                          
                           <div class="post-item mt-3">
                             <i class="bi bi-clock"></i>
                             <div class="judul">

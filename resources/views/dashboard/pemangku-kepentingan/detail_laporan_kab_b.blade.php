@@ -92,6 +92,7 @@
             <div class="card">
                 <div class="card-body">
                 <h5 class="card-title">Laporan-IPK-III-2</h5>
+                <p style="text-align: justify">Pelaksanaan pembuatan laporan dapat dilakukan oleh Dinas Tenaga Kerja Kabupaten/Kota. Data Laporan yang ditampilkan pada tabel merupakan hasil kalkulasi dari masing-masing laporan yang di import oleh Dinas Kabupaten/Kota dan sudah disetujui oleh Kadis Dinas Kabupaten/Kota. Dinas Tenaga Kerja Provinsi dapat melihat detail laporan dari Kab/Kota dengan memilih menu Laporan Kab/Kota.</p>
             </div><!-- End Recent Activity -->
             </div>
         </div>

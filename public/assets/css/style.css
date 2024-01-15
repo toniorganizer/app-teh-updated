@@ -1189,6 +1189,15 @@ hr{
   transition: 0.3s;
 }
 
+.deskripsi h5{
+  font-weight: bold !important;
+  font-size: 14px;
+}
+
+.deskripsi p{
+  font-size: 14px;
+}
+
 .judul a:hover {
   font-weight: 14px;
   color: var(--color-secondary);

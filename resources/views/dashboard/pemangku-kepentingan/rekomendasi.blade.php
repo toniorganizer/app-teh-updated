@@ -46,7 +46,7 @@
             <div class="card-body">
               <h5 class="card-title">Rekomendasi</h5>
               <div class="activity">
-                <p style="text-align: justify">Sehubungan dengan perkembangan terkini di pasar kerja, kami merekomendasikan Dinas Tenaga Kerja dan Dinas Pendidikan untuk mempertimbangkan langkah strategis dalam kebijakan pelaksanaan pendidikan kejuruan terkait dengan pemantauan pasar kerja aktif untuk mengidentifikasi tren dan permintaan tenaga kerja terbaru. Berdasarkan data pasar kerja yang telah ada, saat ini tren pasar kerja didominasi oleh :</p>
+                <p style="text-align: justify">Sehubungan dengan perkembangan terkini di pasar kerja, kami merekomendasikan Dinas Tenaga Kerja dan Dinas Pendidikan untuk mempertimbangkan langkah strategis dalam kebijakan pelaksanaan pendidikan kejuruan terkait dengan pemantauan pasar kerja aktif untuk mengidentifikasi tren dan permintaan tenaga kerja terbaru. Berdasarkan data pasar kerja yang telah ada, saat ini tren pasar kerja didominasi oleh : </p>
                 
                 @foreach($data as $d)
                 <div class="activity-item d-flex">
@@ -73,6 +73,28 @@
                     </div><!-- End Website Traffic -->
                 </div>
             </div>  
+            <div class="col-lg-12">
+                <!-- Recent Activity -->
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title">Keterampilan</h5>
+                    <div class="activity">
+                        <p style="text-align: justify">Berikut merupakan data Keterampilan yang terdata pada sistem berdasarkan informasi kebutuhan tenaga kerja yang terdaftar:</p>
+                        
+                        @foreach($keterampilan as $d)
+                        <div class="activity-item d-flex">
+                        <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                        <div class="activity-content">
+                            Keterampilan <span class="fw-bold text-dark">{{$d->keterampilan}} </span> berjumlah sebanyak <span class="fw-bold text-dark">{{$d->hasil}} informasi lowongan</span>
+                        </div>
+                        </div><!-- End activity item-->
+                        @endforeach
+
+                    </div>
+
+                    </div>
+                </div><!-- End Recent Activity -->
+            </div>
             @endif     
     </section>
 
