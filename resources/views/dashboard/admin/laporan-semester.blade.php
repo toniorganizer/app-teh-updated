@@ -129,9 +129,9 @@
                                           <tr>
                                            <td class="text-center">1.</th>
                                               <td>Pencari kerja yang belum ditempatkan pada semester sebelumnya</td>
-                                              @foreach($laporan as $d)
-                                              <td>{{$d->male_count_terdaftar}}</td>
-                                              <td>{{$d->female_count_terdaftar}}</td>
+                                              @foreach($genderAgeCounts as $data)
+                                              <td>{{$data['male_count_sebelumnya']}}</td>
+                                              <td>{{$data['female_count_sebelumnya']}}</td>
                                               @endforeach
                                               <td>{{$jmlLSebelumnya}}</td>
                                               <td>{{$jmlPSebelumnya}}</td>
