@@ -260,7 +260,7 @@ class CetakLampiranIIIB implements WithDrawings, WithStyles, WithTitle, FromView
         ->get();
 
 
-        return view('Dashboard.admin.cetak-laporan-iii-viii')->with([
+        return view('dashboard.admin.cetak-laporan-iii-viii')->with([
             'data' => $data,
             'title' => $title,
             'semester' => $semester,

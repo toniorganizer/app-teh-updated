@@ -505,7 +505,7 @@ class CetakLaporan implements WithDrawings, WithStyles, WithTitle, FromView, Wit
 
         $jumlahInformasi = $jumlahInformasiMale + $jumlahInformasiFemale + $jumlahInformasiMaleFemale;
     
-        return view('Dashboard.admin.cetak-laporan-semester', [
+        return view('dashboard.admin.cetak-laporan-semester', [
             'genderAgeCounts' => $genderAgeCounts,
             'jmlPSebelumnya' => $jmlPSebelumnya,
             'jmlLSebelumnya' => $jmlLSebelumnya,

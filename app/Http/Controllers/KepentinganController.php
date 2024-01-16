@@ -77,7 +77,7 @@ class KepentinganController extends Controller
         // dd(Auth::user()->foto_user);
         $data = PemangkuKepentingan::join('users','users.email','=','pemangku_kepentingans.email_lembaga')->where('email_lembaga', $id)->first();
         $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
-        return view('Dashboard.pemangku-kepentingan.profile-pemangku', [
+        return view('dashboard.pemangku-kepentingan.profile-pemangku', [
             'sub_title' => 'Profile',
             'sidebar_data' => $sidebar_data,
             'title' => 'Profile',

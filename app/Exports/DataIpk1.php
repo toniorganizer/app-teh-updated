@@ -188,7 +188,7 @@ class DataIpk1 implements WithDrawings, WithStyles, WithTitle, FromView, WithCol
             $title = 'LAPORAN IPK III/2 - IKHTISAR STATISTIK ANTAR KERJA PROPINSI SUMATERA BARAT';
             $semester = strtoupper($tgl1) . ' s/d ' . strtoupper($tgl2);
     
-        return view('Dashboard.admin.uji-cetak-laporan', [
+        return view('dashboard.admin.uji-cetak-laporan', [
             'title' => $title,
             'semester' => $semester
             ]);

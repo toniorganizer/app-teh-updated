@@ -476,7 +476,7 @@ class UjiLaporan implements WithDrawings, WithStyles, WithTitle, FromView, WithC
 
         $jumlahInformasi = $jumlahInformasiMale + $jumlahInformasiFemale + $jumlahInformasiMaleFemale;
 
-        return view('Dashboard.admin.cetak-laporan')->with([
+        return view('dashboard.admin.cetak-laporan')->with([
             'genderAgeCounts' => $genderAgeCounts,
             'jmlPSebelumnya' => $jmlPSebelumnya,
             'jmlLSebelumnya' => $jmlLSebelumnya,

@@ -40,7 +40,7 @@ class lowonganPendidikanController extends Controller
             ->oldest('id')
             ->paginate(20);
 
-        return view('Dashboard.admin.data_laporan_IV', [
+        return view('dashboard.admin.data_laporan_IV', [
             'data' => $data,
             'kab' => $kab,
             'aturan' => $aturan,
@@ -94,13 +94,13 @@ class lowonganPendidikanController extends Controller
         }
 
         if($request->type == "Laporan"){
-        return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_d', [
+        return view('dashboard.pemangku-kepentingan.edit_data_laporan_iii_d', [
             'sub_title' => 'Laporan IPK-III-4',
             'title' => 'DataIPK',
             'data' => $data
         ]);
         }else{
-            return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_d', [
+            return view('dashboard.pemangku-kepentingan.edit_data_laporan_iii_d', [
                 'sub_title' => 'Lampiran',
                 'title' => 'DataIPK',
                 'data' => $data
@@ -173,7 +173,7 @@ class lowonganPendidikanController extends Controller
         $nama = PemangkuKepentingan::where('email_lembaga', $id)->first();
         $excludedNumbers = ['Sub Total','Total', 'BH & TIDAK TAMAT SD', 'SD', 'SLTP UMUM','SLTP KEJURUAN', 'SETINGKAT SLTP','PENDIDIKAN MENENGAH ATAS','SMK - TEKNOLOGI DAN REKAYASA','SMK - TEKNOLOGI INFORMASI DAN KOMUNIKASI','SMK - KESEHATAN','SMK - SENI, KERAJINAN DAN PARIWISATA','SMK - AGRIBISNIS DAN AGROTEKNOLOGI','SMK - BISNIS DAN MANAJEMEN','SETINGKAT SMU LAINNYA','DIPLOMA I / AKTA I / DIPLOMA II / AKTA II','DIPLOMA III / AKTA III/ AKADEMI/S.MUDA','SARJANA ( S1 )','SARJANA ( S2 )', 'SETINGKAT SLTP', '0'];
         $datalaporan = DataLowonganPendidikan::where('id_disnaker', $id)->where('type','Laporan')->whereNotIn('judul_lp', $excludedNumbers)->paginate(20);
-        return view('Dashboard.pemangku-kepentingan.detail_laporan_kab_d', [
+        return view('dashboard.pemangku-kepentingan.detail_laporan_kab_d', [
             'sub_title' => 'Laporan IPK-III-4',
             'title' => 'DataIPK',
             'dataLaporan' => $datalaporan,

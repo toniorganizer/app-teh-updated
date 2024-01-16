@@ -81,7 +81,7 @@ class CetakAlumni implements WithStyles, WithTitle, FromView, WithColumnWidths
        
         $data = BursaKerja::join('alumnis', 'alumnis.bkk_id','=','bursa_kerjas.id_bkk')->join('users','users.email','=','alumnis.pencari_kerja_id')->join('pencari_kerjas', 'pencari_kerjas.email_pk','=','alumnis.pencari_kerja_id')->where('email_sekolah', $this->id)->get();
 
-        return view('Dashboard.bkk.cetak-alumni')->with([
+        return view('dashboard.bkk.cetak-alumni')->with([
             'data' => $data,
             'title' => $title,
             'alamat' => $alamat,

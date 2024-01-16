@@ -301,7 +301,7 @@ class CetakPencariPenerima implements WithDrawings, WithStyles, WithTitle, FromV
         ->get();
 
 
-        return view('Dashboard.admin.cetak-laporan-iii-viii')->with([
+        return view('dashboard.admin.cetak-laporan-iii-viii')->with([
             'data' => $data,
             'title' => $title,
             'semester' => $semester,

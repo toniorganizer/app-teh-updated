@@ -55,7 +55,7 @@ class BursaKerjaController extends Controller
 
         $data = BursaKerja::join('users','users.email','=','bursa_kerjas.email_sekolah')->where('email_sekolah', $id)->first();
 
-        return view('Dashboard.bkk.profil-sekolah', [
+        return view('dashboard.bkk.profil-sekolah', [
             'sub_title' => 'Profil Sekolah',
             'title' => 'Profile',
             'data' => $data,
@@ -71,7 +71,7 @@ class BursaKerjaController extends Controller
     public function edit($id)
     {
         $data = BursaKerja::where('email_sekolah',$id)->first();
-        return view('Dashboard.bkk.edit-profil-sekolah', [
+        return view('dashboard.bkk.edit-profil-sekolah', [
             'sub_title' => 'Edit Profil Sekolah',
             'title' => 'Data',
             'data' => $data,
@@ -146,7 +146,7 @@ class BursaKerjaController extends Controller
     public function dataTracer(){
         
         $data = BursaKerja::join('alumnis', 'alumnis.bkk_id','=','bursa_kerjas.id_bkk')->join('users','users.email','=','alumnis.pencari_kerja_id')->join('pencari_kerjas', 'pencari_kerjas.email_pk','=','alumnis.pencari_kerja_id')->where('email_sekolah', Auth::user()->email)->get();
-        return view('Dashboard.bkk.data-tracer', [
+        return view('dashboard.bkk.data-tracer', [
             'sub_title' => 'Data Tracer',
             'title' => 'Data',
             'data' => $data

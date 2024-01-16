@@ -20,7 +20,7 @@ class LowonganController extends Controller
     public function index()
     {
         $data = InformasiLowongan::get();
-        return view('Dashboard.admin.pekerjaan_data', [
+        return view('dashboard.admin.pekerjaan_data', [
             'sub_title' => 'Data Pekerjaan',
             'title' => 'Data',
             'data' => $data
@@ -114,7 +114,7 @@ class LowonganController extends Controller
     public function show(String $id)
     {
         $data = InformasiLowongan::where('id_informasi_lowongan', $id)->first();
-        return view('Dashboard.admin.detail_informasi_lowongan', [
+        return view('dashboard.admin.detail_informasi_lowongan', [
             'sub_title' => 'Data Informasi Lowongan',
             'title' => 'Data',
             'data' => $data

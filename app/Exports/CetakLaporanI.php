@@ -270,7 +270,7 @@ class CetakLaporanI implements WithDrawings, WithStyles, WithTitle, FromView, Wi
         $jumlahP553 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 3)->where('type','Laporan')->sum('55_P');
         $jumlahP554 = DataPencariKerja::join('pemangku_kepentingans', 'pemangku_kepentingans.email_lembaga','=','data_pencari_kerjas.id_disnaker')->where('role_acc', 1)->where('nmr', 4)->where('type','Laporan')->sum('55_P');
 
-        return view('Dashboard.admin.cetak-laporan-iii-i')->with([
+        return view('dashboard.admin.cetak-laporan-iii-i')->with([
             'data' => $data,
             'title' => $title,
             'semester' => $semester,

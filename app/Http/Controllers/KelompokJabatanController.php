@@ -44,7 +44,7 @@ class KelompokJabatanController extends Controller
 
         $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
 
-        return view('Dashboard.admin.data_laporan_III', [
+        return view('dashboard.admin.data_laporan_III', [
             'data' => $data,
             'kab' => $kab,
             'aturan' => $aturan,
@@ -101,13 +101,13 @@ class KelompokJabatanController extends Controller
         }
 
         if($request->type == 'Laporan'){
-            return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_c', [
+            return view('dashboard.pemangku-kepentingan.edit_data_laporan_iii_c', [
                 'sub_title' => 'Laporan IPK-III-3',
                 'title' => 'DataIPK',
                 'data' => $data
             ]);
         }else{
-            return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_c', [
+            return view('dashboard.pemangku-kepentingan.edit_data_laporan_iii_c', [
                 'sub_title' => 'Lampiran',
                 'title' => 'DataIPK',
                 'data' => $data
@@ -185,7 +185,7 @@ class KelompokJabatanController extends Controller
 
         // dd($datalaporan);
 
-        return view('Dashboard.pemangku-kepentingan.detail_laporan_kab_c', [
+        return view('dashboard.pemangku-kepentingan.detail_laporan_kab_c', [
             'sub_title' => 'Laporan IPK-III-3',
             'title' => 'DataIPK',
             'dataLaporan' => $datalaporan,

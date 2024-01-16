@@ -233,7 +233,7 @@ class CetakLampiranIIIH implements WithDrawings, WithStyles, WithTitle, FromView
         ->oldest('id')
         ->get();
 
-        return view('Dashboard.admin.cetak-lampiran-kab-kota')->with([
+        return view('dashboard.admin.cetak-lampiran-kab-kota')->with([
             'data' => $data,
             'title' => $title,
             'semester' => $semester,

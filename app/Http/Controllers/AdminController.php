@@ -53,7 +53,7 @@ class AdminController extends Controller
             $tglSaatIni = new DateTime();
             $tgldatabase = new DateTime($ak1->tgl_expired);
             $tgl = $tgldatabase->modify('-3 days');
-            return view('Dashboard.admin.index_admin', [
+            return view('dashboard.admin.index_admin', [
                 'chart' => $chart->build(), 
                 'jobcount' => $jobcount->build(),
                 'title' => 'Dashboard',
@@ -69,7 +69,7 @@ class AdminController extends Controller
                 'tglSaatIni' => $tglSaatIni
             ]);
         }else{
-            return view('Dashboard.admin.index_admin', [
+            return view('dashboard.admin.index_admin', [
                 'chart' => $chart->build(), 
                 'jobcount' => $jobcount->build(),
                 'title' => 'Dashboard',
@@ -94,7 +94,7 @@ class AdminController extends Controller
 
     public function userData(){
         $data = User::get();
-        return view('Dashboard.admin.user_data', [
+        return view('dashboard.admin.user_data', [
             'sub_title' => 'Data User',
             'title' => 'Data',
             'data' => $data
@@ -104,7 +104,7 @@ class AdminController extends Controller
     public function tenagaKerjaData(){
         $data = PencariKerja::where('status_ak1', 'Aktif')->orWhere('status_ak1', 'Belum Bekerja')->get();
         $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
-        return view('Dashboard.admin.tenaga_kerja_data', [
+        return view('dashboard.admin.tenaga_kerja_data', [
             'sub_title' => 'Data Tenaga Kerja',
             'sidebar_data' => $sidebar_data,
             'title' => 'Data',
@@ -114,7 +114,7 @@ class AdminController extends Controller
 
     public function pemangkuKepentinganData(){
         $data = PemangkuKepentingan::get();
-        return view('Dashboard.admin.pemangku_kepentingan_data', [
+        return view('dashboard.admin.pemangku_kepentingan_data', [
             'sub_title' => 'Data Pemangku Kepentingan',
             'title' => 'Data',
             'data' => $data
@@ -125,7 +125,7 @@ class AdminController extends Controller
     public function pekerjaanData(){
         $data = InformasiLowongan::get();
         $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
-        return view('Dashboard.admin.pekerjaan_data', [
+        return view('dashboard.admin.pekerjaan_data', [
             'sub_title' => 'Data Pekerjaan',
             'sidebar_data' => $sidebar_data,
             'title' => 'Data',
@@ -213,7 +213,7 @@ class AdminController extends Controller
                 $data = PencariKerja::join('users','users.email','=','pencari_kerjas.email_pk')->where('email_pk', $id)->first();
             }
 
-            return view('Dashboard.admin.profil_tenaga_kerja', [
+            return view('dashboard.admin.profil_tenaga_kerja', [
                 'sub_title' => 'Profile',
                 'title' => 'Profile',
                 'data' => $data
@@ -262,7 +262,7 @@ class AdminController extends Controller
             $data = PencariKerja::join('users','users.email','=','pencari_kerjas.email_pk')->where('email_pk', $id)->first();
         }
 
-        return view('Dashboard.admin.profil_tenaga_kerja', [
+        return view('dashboard.admin.profil_tenaga_kerja', [
             'sub_title' => 'Profile',
             'title' => 'Profile',
             'data' => $data
@@ -271,7 +271,7 @@ class AdminController extends Controller
 
     public function editTenagaKerja($id){
         $data = PencariKerja::where('id_pencari_kerja', $id)->first();
-        return view('Dashboard.admin.tenaga_kerja_data', [
+        return view('dashboard.admin.tenaga_kerja_data', [
             'sub_title' => 'Data Tenaga Kerja',
             'title' => 'Data',
             'data' => $data
@@ -282,7 +282,7 @@ class AdminController extends Controller
     public function edit_deskripsi_lowongan($id)
     {
         $data = InformasiLowongan::where('id_informasi_lowongan', $id)->first();
-        return view('Dashboard.admin.edit-deskripsi-lowongan', [
+        return view('dashboard.admin.edit-deskripsi-lowongan', [
             'sub_title' => 'Edit Deskripsi Lowongan',
             'title' => 'Data',
             'data' => $data
@@ -806,7 +806,7 @@ class AdminController extends Controller
 
         $jumlahInformasi = $jumlahInformasiMale + $jumlahInformasiFemale + $jumlahInformasiMaleFemale;
 
-        return view('Dashboard.admin.laporan', [
+        return view('dashboard.admin.laporan', [
             'genderAgeCounts' => $genderAgeCounts,
             'jmlPSebelumnya' => $jmlPSebelumnya,
             'jmlLSebelumnya' => $jmlLSebelumnya,
@@ -1198,7 +1198,7 @@ class AdminController extends Controller
 
         $jumlahInformasi = $jumlahInformasiMale + $jumlahInformasiFemale + $jumlahInformasiMaleFemale;
 
-        return view('Dashboard.admin.laporan-semester', [
+        return view('dashboard.admin.laporan-semester', [
             'genderAgeCounts' => $genderAgeCounts,
             'jmlPSebelumnya' => $jmlPSebelumnya,
             'jmlLSebelumnya' => $jmlLSebelumnya,

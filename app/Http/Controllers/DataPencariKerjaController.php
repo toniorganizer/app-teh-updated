@@ -104,7 +104,7 @@ class DataPencariKerjaController extends Controller
 
         // sidebar data
         $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
-        return view('Dashboard.admin.data_laporan_I', [
+        return view('dashboard.admin.data_laporan_I', [
             'sub_title' => 'Laporan IPK-III-1',
             'title' => 'DataIPK',
             'datalaporan' => $datalaporan,
@@ -211,13 +211,13 @@ class DataPencariKerjaController extends Controller
          }
 
         if($request->type == 'Lampiran'){
-            return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_a', [
+            return view('dashboard.pemangku-kepentingan.edit_data_laporan_iii_a', [
                 'sub_title' => 'Lampiran',
                 'title' => 'DataIPK',
                 'data' => $data
             ]);
         }else{
-            return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_a', [
+            return view('dashboard.pemangku-kepentingan.edit_data_laporan_iii_a', [
                 'sub_title' => 'Laporan IPK-III-1',
                 'title' => 'DataIPK',
                 'data' => $data
@@ -303,7 +303,7 @@ class DataPencariKerjaController extends Controller
         $nama = PemangkuKepentingan::where('email_lembaga', $id)->first();
         $excludedNumbers = ['A.', 'B.', 5];
         $datalaporan = DataPencariKerja::where('id_disnaker', $id)->whereNotIn('nmr', $excludedNumbers)->where('type','Laporan')->get();
-        return view('Dashboard.pemangku-kepentingan.detail_laporan_kab_a', [
+        return view('dashboard.pemangku-kepentingan.detail_laporan_kab_a', [
             'sub_title' => 'Laporan IPK-III-1',
             'title' => 'DataIPK',
             'datalaporan' => $datalaporan,

@@ -235,7 +235,7 @@ class CetakLaporanIVG implements WithDrawings, WithStyles, WithTitle, FromView, 
         ->oldest('id')
         ->get();
 
-        return view('Dashboard.admin.cetak-laporan-iii-iv')->with([
+        return view('dashboard.admin.cetak-laporan-iii-iv')->with([
             'data' => $data,
             'title' => $title,
             'semester' => $semester,

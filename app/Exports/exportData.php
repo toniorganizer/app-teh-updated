@@ -29,7 +29,7 @@ class exportData implements WithHeadings, FromView
     public function view(): View
     {
         $data = InformasiLowongan::get();
-        return view('Dashboard.admin.uji-cetak-laporan')->with([
+        return view('dashboard.admin.uji-cetak-laporan')->with([
             'data' => $data
         ]);
     }

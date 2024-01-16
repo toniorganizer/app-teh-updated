@@ -233,7 +233,7 @@ class LampiranLaporanController extends Controller
                 
         $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
 
-        return view('Dashboard.admin.data_lampiran', [
+        return view('dashboard.admin.data_lampiran', [
             'sub_title' => 'Lampiran',
             'title' => 'DataIPK',
             'sidebar_data' => $sidebar_data,
@@ -380,7 +380,7 @@ class LampiranLaporanController extends Controller
         }
 
 
-        return view('Dashboard.pemangku-kepentingan.edit_lampiran_kab_kota', [
+        return view('dashboard.pemangku-kepentingan.edit_lampiran_kab_kota', [
             'sub_title' => 'Lampiran',
             'title' => 'DataIPK',
             'data' => $data
@@ -453,7 +453,7 @@ class LampiranLaporanController extends Controller
 
         // dd($datalaporan410);
 
-        return view('Dashboard.pemangku-kepentingan.detail_lampiran_kab', [
+        return view('dashboard.pemangku-kepentingan.detail_lampiran_kab', [
             'sub_title' => 'Lampiran',
             'title' => 'DataIPK',
             'dataLaporanKab414' => $datalaporan414,

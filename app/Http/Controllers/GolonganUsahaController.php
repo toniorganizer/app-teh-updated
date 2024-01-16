@@ -35,7 +35,7 @@ class GolonganUsahaController extends Controller
             ->paginate(20);
 
         $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
-        return view('Dashboard.admin.data_laporan_vi', [
+        return view('dashboard.admin.data_laporan_vi', [
             'data' => $data,
             'kab' => $kab,
             'aturan' => $aturan,
@@ -90,13 +90,13 @@ class GolonganUsahaController extends Controller
         }
 
         if($request->type == "Laporan"){
-        return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_f', [
+        return view('dashboard.pemangku-kepentingan.edit_data_laporan_iii_f', [
             'sub_title' => 'Laporan IPK-III-6',
             'title' => 'DataIPK',
             'data' => $data
         ]);
         }else{
-            return view('Dashboard.pemangku-kepentingan.edit_data_laporan_iii_f', [
+            return view('dashboard.pemangku-kepentingan.edit_data_laporan_iii_f', [
                 'sub_title' => 'Lampiran',
                 'title' => 'DataIPK',
                 'data' => $data
@@ -170,7 +170,7 @@ class GolonganUsahaController extends Controller
         $nama = PemangkuKepentingan::where('email_lembaga', $id)->first();
         $excludedNumbers = ['Sub Total','Total', 'BH & TIDAK TAMAT SD', 'SD', 'SLTP UMUM','SLTP KEJURUAN', 'SETINGKAT SLTP','PENDIDIKAN MENENGAH ATAS','SMK - TEKNOLOGI DAN REKAYASA','SMK - TEKNOLOGI INFORMASI DAN KOMUNIKASI','SMK - KESEHATAN','SMK - SENI, KERAJINAN DAN PARIWISATA','SMK - AGRIBISNIS DAN AGROTEKNOLOGI','SMK - BISNIS DAN MANAJEMEN','SETINGKAT SMU LAINNYA','DIPLOMA I / AKTA I / DIPLOMA II / AKTA II','DIPLOMA III / AKTA III/ AKADEMI/S.MUDA','SARJANA ( S1 )','SARJANA ( S2 )', 'SETINGKAT SLTP', '0'];
         $datalaporan = DataGolonganUsaha::where('id_disnaker', $id)->where('type','Laporan')->whereNotIn('judul_gu', $excludedNumbers)->paginate(20);
-        return view('Dashboard.pemangku-kepentingan.detail_laporan_kab_f', [
+        return view('dashboard.pemangku-kepentingan.detail_laporan_kab_f', [
             'sub_title' => 'Laporan IPK-III-6',
             'title' => 'DataIPK',
             'dataLaporan' => $datalaporan,
