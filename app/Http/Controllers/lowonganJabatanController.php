@@ -39,7 +39,7 @@ class lowonganJabatanController extends Controller
 
         $sidebar_data = PemangkuKepentingan::where('email_lembaga', Auth::user()->email)->first();
 
-        return view('dashboard.admin.data_laporan_V', [
+        return view('dashboard.admin.data_laporan_v', [
             'data' => $data,
             'kab' => $kab,
             'aturan' => $aturan,

@@ -40,7 +40,7 @@ class lowonganPendidikanController extends Controller
             ->oldest('id')
             ->paginate(20);
 
-        return view('dashboard.admin.data_laporan_IV', [
+        return view('dashboard.admin.data_laporan_iv', [
             'data' => $data,
             'kab' => $kab,
             'aturan' => $aturan,
