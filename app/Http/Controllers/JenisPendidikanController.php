@@ -66,9 +66,9 @@ class JenisPendidikanController extends Controller
         }else{
             $bulan1 = $request->input('tgl1');
             $bulan2 = $request->input('tgl2');
-            User::where('email', Auth::user()->email)->update([
-                'role_import' => 1
-            ]);
+            // User::where('email', Auth::user()->email)->update([
+            //     'role_import' => 1
+            // ]);
             Excel::import(new JenisPendidikanImport($bulan1, $bulan2), $request->file('file'));
             return redirect('/laporan-ipk-2')->with('success', 'Import data berhasil dilakukan!');
         }
@@ -76,7 +76,8 @@ class JenisPendidikanController extends Controller
      }
 
      public function deleteLaporanII($id){
-        DataJenisPendidikan::where('id_disnaker', $id)->where('type','Laporan')->delete();
+        $data = DataJenisPendidikan::where('id_disnaker', $id)->where('type','Laporan')->delete();
+        // dd($data);
         return redirect('/laporan-ipk-2')->with('success', 'Hapus data berhasil dilakukan');
      } 
 
