@@ -57,7 +57,16 @@ class lowonganPendidikanController extends Controller
         $role_importlampiran = DataLowonganPendidikan::where('id_disnaker', Auth::user()->email)->where('type','Lampiran')->first();
         if($role_importlaporan){
             return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
-        }elseif($role_importlampiran){
+        }else{
+            $bulan1 = $request->input('tgl1');
+            $bulan2 = $request->input('tgl2');   
+    
+            Excel::import(new JenisLowonganImport($bulan1, $bulan2), $request->file('file'));
+            
+            return redirect('/laporan-ipk-4')->with('success', 'Import data berhasil dilakukan!');
+        }
+
+        if($role_importlampiran){
             return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
         }else{
             $bulan1 = $request->input('tgl1');

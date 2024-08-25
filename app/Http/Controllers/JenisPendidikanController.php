@@ -59,10 +59,21 @@ class JenisPendidikanController extends Controller
     public function importDataIPK2(Request $request){
         $role_importlaporan = DataJenisPendidikan::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->first();
         $role_importlampiran = DataJenisPendidikan::where('id_disnaker', Auth::user()->email)->where('type','Lampiran')->first();
+        // dd($role_importlampiran);
         if($role_importlaporan){
-            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
-        }elseif($role_importlampiran){
-            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+            return Redirect::back()->with('success', 'Import data laporan sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+        }else{
+            $bulan1 = $request->input('tgl1');
+            $bulan2 = $request->input('tgl2');
+            // User::where('email', Auth::user()->email)->update([
+            //     'role_import' => 1
+            // ]);
+            Excel::import(new JenisPendidikanImport($bulan1, $bulan2), $request->file('file'));
+            return redirect('/laporan-ipk-2')->with('success', 'Import data berhasil dilakukan!');
+        }
+
+        if($role_importlampiran){
+            return Redirect::back()->with('success', 'Import data lampiran sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
         }else{
             $bulan1 = $request->input('tgl1');
             $bulan2 = $request->input('tgl2');
@@ -76,7 +87,8 @@ class JenisPendidikanController extends Controller
      }
 
      public function deleteLaporanII($id){
-        $data = DataJenisPendidikan::where('id_disnaker', $id)->where('type','Laporan')->delete();
+        // dd($id);
+        DataJenisPendidikan::where('id_disnaker', 'disnaker_dharmas@gmail.com')->where('type','Laporan')->delete();
         // dd($data);
         return redirect('/laporan-ipk-2')->with('success', 'Hapus data berhasil dilakukan');
      } 
