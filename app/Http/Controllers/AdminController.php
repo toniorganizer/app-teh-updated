@@ -407,6 +407,8 @@ class AdminController extends Controller
                 'foto_user' => 'default.jpg',
             ]);
         }elseif($request->level == 3){
+            $data = $request->id_disnaker_kab;
+            dd($data);
             PemangkuKepentingan::create([
                 'nama_lembaga' => $request->nama_user,
                 'bidang_lembaga' => '-',

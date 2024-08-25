@@ -181,7 +181,7 @@ class DataPencariKerjaController extends Controller
         $role_importlaporan = DataPencariKerja::where('id_disnaker', Auth::user()->email)->where('type','Laporan')->first();
         $role_importlampiran = DataPencariKerja::where('id_disnaker', Auth::user()->email)->where('type','Lampiran')->first();
         if($role_importlaporan){
-            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+            return Redirect::back()->with('success', 'Import data laporan sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
         }else{
             $bulan1 = $request->input('tgl1');
             $bulan2 = $request->input('tgl2');      
@@ -192,7 +192,7 @@ class DataPencariKerjaController extends Controller
         }
 
         if($role_importlampiran){
-            return Redirect::back()->with('success', 'Import data sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
+            return Redirect::back()->with('success', 'Import data lampiran sudah dilakukan, silahkan lakukan hapus data terlebih dahulu!');
         }else{
             $bulan1 = $request->input('tgl1');
             $bulan2 = $request->input('tgl2');      

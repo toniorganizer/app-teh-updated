@@ -52,7 +52,7 @@
                     <div class="col-12" id="formLevel3" style="display: none;">
                         <label for="yourEmail" class="form-label">Disnaker Kab/Kota</label>
                         <select name="id_disnaker_kab" class="form-control" id="exampleFormControlSelect1">
-                            <option>--Pilih Disnaker Kab/Kota--</option>
+                            <option value="0">--Pilih Disnaker Kab/Kota--</option>
                             <option value="disnaker_agam@gmail.com">Kab. Agam</option>
                             <option value="disnaker_dharmasraya@gmail.com">Kab. Dharmasraya</option>
                             <option value="disnaker_mentawai@gmail.com">Kab. Kepulauan Mentawai</option>
