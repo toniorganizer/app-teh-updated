@@ -88,7 +88,7 @@ class JenisPendidikanController extends Controller
 
      public function deleteLaporanII($id){
         // dd($id);
-        DataJenisPendidikan::where('id_disnaker', 'disnaker_dharmas@gmail.com')->where('type','Laporan')->delete();
+        DataJenisPendidikan::where('id_disnaker', $id)->where('type','Laporan')->delete();
         // dd($data);
         return redirect('/laporan-ipk-2')->with('success', 'Hapus data berhasil dilakukan');
      } 
