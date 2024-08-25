@@ -184,6 +184,7 @@ class CetakLaporanI implements WithDrawings, WithStyles, WithTitle, FromView, Wi
     {
         $disnaker = PemangkuKepentingan::where('email_lembaga', $this->id)->first();
         $semester = DataPencariKerja::where('id_disnaker', $this->id)->first();
+        // dd($this->id);
         if(is_null($semester)){
             $semester = DataPencariKerja::where('type','Laporan')->first();
         }else{
